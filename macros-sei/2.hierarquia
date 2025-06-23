@@ -1,0 +1,243 @@
+{
+  "Name": "2.hierarquia",
+  "CreationDate": "2025-6-16",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "Macro para posicionar unidades na Hierarquia do SEI",
+      "Value": "PONTO DE PARTIDA: Sistema SIP, menu \"Hierarquias\" > \"Montar\" > Hierarquia \"SEI\" > \"Pesquisar\"",
+      "Description": "Como será criada uma array, os valores de linha e coluna começam em [0] e [0]. Recomendação: no log, exibir a opção \"Echo & Status\"."
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "unidadesSENAPE.csv",
+      "Value": "unidades",
+      "Description": "É a ação por meio da qual a Macro obtém os dados das unidades para cadastramento na hierarquia do SEI."
+    },
+    {
+      "Command": "store",
+      "Target": "1",
+      "Value": "i",
+      "Description": "IMPORTANTE: Este comando indica A PARTIR DE QUAL LINHA do arquivo de referência a macro vai ser executada (e, dela, vai até o final) Se necessário retomar a execução a partir de um erro, altere este valor para a linha da qual pretende retomar."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${unidades}.length;",
+      "Value": "totalLinhas",
+      "Description": "Este comando obtém a quantidade de linhas da lista que foi importada do arquivo CSV."
+    },
+    {
+      "Command": "comment",
+      "Target": "open // https://[URL DO SEI]/sip/controlador.php?acao=rel_hierarquia_unidade_listar&acao_origem=rel_hierarquia_unidade_cadastrar&infra_sistema=100000099&infra_unidade_atual=1",
+      "Value": "",
+      "Description": "Este comando normalmente é deixado \"comentado\" (desativado) porque ao final de cada execução, a macro já volta para seu ponto de início. Logo, não faz sentido recarregar a página."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "ok",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções bem-sucedidas da macro."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "falha",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções mal-sucedidas da macro. (Erros no sistema, não no próprio UI.Vision)"
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${i} < ${totalLinhas}",
+      "Value": "",
+      "Description": "O comando \"while\" indica que a macro deve executar uma determinada ação enquanto uma condição específica não for satisfeita. A ação é retomar o cadastro da próxima linha e a condição, aqui, é que o valor da linha em execução tem que ser inferior ao total de linhas."
+    },
+    {
+      "Command": "echo",
+      "Target": "🔁 Processando linha ${i}: ${unidades[${i}][2]} (${unidades[${i}][1]})",
+      "Value": "blue",
+      "Description": "Exibe no log qual unidade está sendo cadastrada na hierarquia."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnNova",
+      "Value": "",
+      "Description": "É o clique no botão \"Adicionar Unidade\"."
+    },
+    {
+      "Command": "selectAndWait",
+      "Target": "id=selOrgao",
+      "Value": "label=${unidades[${i}][1]}",
+      "Description": "É a seleção do órgão, com base na primeira coluna do arquivo CSV."
+    },
+    {
+      "Command": "selectAndWait",
+      "Target": "id=selUnidade",
+      "Value": "label=${unidades[${i}][2]}",
+      "Targets": [
+        "id=selUnidade",
+        "name=selUnidade",
+        "xpath=//*[@id=\"selUnidade\"]",
+        "xpath=//select[@id='selUnidade']",
+        "xpath=//div[6]/select",
+        "css=#selUnidade"
+      ],
+      "Description": "É a seleção da unidade que será incluída na hierarquia, com base na segunda coluna do CSV."
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${unidades[${i}][4]} == \"\"",
+      "Value": "",
+      "Description": "Validação para identificar que a unidade em questão não tem unidade superior na hierarquia. Logo, se trata de uma unidade \"raiz\"."
+    },
+    {
+      "Command": "echo",
+      "Target": "📌 ${unidades[${i}][3]} (${unidades[${i}][2]}) identificada como unidade raiz.",
+      "Value": "blue",
+      "Description": "Se sim, a Macro informa ao cadastrador que se trata de uma unidade raiz (para validação em tempo real)."
+    },
+    {
+      "Command": "check",
+      "Target": "id=chkRaiz",
+      "Value": "on",
+      "Description": "E, em seguida, marca a chechbox \"Raiz\" no SIP."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Caso contrário,"
+    },
+    {
+      "Command": "uncheck",
+      "Target": "id=chkRaiz",
+      "Value": "off",
+      "Description": "A macro desmarca a checkbox \"raiz\", habilitando o campo para informar a unidade superior na hierarquia."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selUnidadeSuperior",
+      "Value": "label=${unidades[${i}][4]}",
+      "Description": "Aqui é feita a indicação da unidade superior na hierarquia."
+    },
+    {
+      "Command": "echo",
+      "Target": "🔗 ${unidades[${i}][3]} (${unidades[${i}][2]}) identificada como subunidade de ${unidades[${i}][4]}.",
+      "Value": "blue",
+      "Description": "E, então, a Macro retorna para o cadastrador que a unidade foi inserida abaixo desta outra, informada acima."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra a bifurcação.) "
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var d = new Date();var m = ((d.getMonth()+1)<10) ? \"0\" + (d.getMonth()+1):(d.getMonth()+1);var day=d.getDate()<10 ? \"0\" + d.getDate():d.getDate();return day + \"/\" + m + \"/\" + d.getFullYear();",
+      "Value": "datahoje",
+      "Description": "Este script gera a \"data de hoje\" para preenchimento no campo de início da vigência da hierarquia."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtDataInicio",
+      "Value": "${dataHoje}",
+      "Description": "E este comando insere no campo correspondente a data de hoje, gerada no script acima."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=sbmSalvar",
+      "Value": "",
+      "Description": "A macro, então, clica no botão \"Salvar\"."
+    },
+    {
+      "Command": "verifyElementPresent",
+      "Target": "id=btnNova",
+      "Value": "",
+      "Targets": [
+        "id=btnNova",
+        "xpath=//*[@id=\"btnNova\"]",
+        "xpath=//input[@id='btnNova']",
+        "xpath=//input[2]",
+        "css=#btnNova"
+      ],
+      "Description": "É a conferência de que o SIP voltou para a tela anterior."
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${!StatusOK} == true",
+      "Value": "",
+      "Description": "Se o SIP - de fato - voltou para a tela inicial..."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + 1;",
+      "Value": "ok",
+      "Description": "Primeiro, a macro acrescenta + 1 ao valor de \"ok\", ou seja, acrescenta uma execução bem-sucedida à conta."
+    },
+    {
+      "Command": "echo",
+      "Target": "✅ Unidade ${unidades[${i}][3]} (${unidades[${i}][2]}) cadastrada na hierarquia com sucesso.",
+      "Value": "green",
+      "Description": "E por meio desta linha, exibe a mensagem de sucesso no log."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "caso contrário..."
+    },
+    {
+      "Command": "storeText",
+      "Target": "id=divInfraMensagens",
+      "Value": "mensagemErro",
+      "Description": "em seguida, acrescenta + 1 ao valor de \"falha\", ou seja, acrescenta uma execução malsucedida à conta..."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${falha}) + 1;",
+      "Value": "falha",
+      "Description": "em seguida, acrescenta + 1 ao valor de \"falha\", ou seja, acrescenta uma execução malsucedida à conta..."
+    },
+    {
+      "Command": "echo",
+      "Target": "❌ Falha ao cadastrar a unidade ${unidades[${i}][3]} (${unidades[${i}][2]}) na hierarquia. Erro: \"${mensagemErro}\"",
+      "Value": "red",
+      "Description": "E, então, por meio desta linha, exibe a mensagem de falha no log."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnCancelar",
+      "Value": "",
+      "Description": "Este clique no botão \"Cancelar\" permite à macro retornar à tela anterior para retomar o cadastro."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 25 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${i}) + 1;",
+      "Value": "i",
+      "Description": "Esta linha acrescenta + 1 ao valor de \"i\", que corresponde à linha a ser lida pela macro até chegar ao valor máximo. Ou seja, este é o comando que faz as iterações se repetirem enquanto houver dados a cadastrar."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"while\" da linha 8 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + Number(${falha});",
+      "Value": "total",
+      "Description": "Esta linha acrescenta + 1 ao valor de \"i\", que corresponde à linha a ser lida pela macro até chegar ao valor máximo. Ou seja, este é o comando que faz as iterações se repetirem enquanto houver dados a cadastrar."
+    },
+    {
+      "Command": "echo",
+      "Target": "🏁 Carga finalizada: ${total} registros processados, sendo ${ok} com sucesso e ${falha} com erro.",
+      "Value": "",
+      "Description": "E, por fim, esta linha relata - ao final da execução da macro - quantos registros foram processados, quantos com sucesso e quantos com erro."
+    }
+  ]
+}
