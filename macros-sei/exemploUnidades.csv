@@ -1,0 +1,21 @@
+0-Seq.,1-ORGAO,2-SIGLA,3-DESCRICAO,4-PAI,5-EMAIL,6-TELEFONE,7-SITE
+1,ANITEC,PRESI,Presidência,,presidencia@anitec.gov.br,(61)2345-6789,https://anitec.gov.br/
+2,ANITEC,ASCOM,Assessoria de Comunicação,PRESI,ascom@anitec.gov.br,(61)2345-6789,https://anitec.gov.br/
+3,ANITEC,ASJUR,Assessoria Jurídica,PRESI, asjur@anitec.gov.br,(61)2345-6789,https://anitec.gov.br/
+4,ANITEC,ASPLAN,Assessoria de Planejamento Estratégico,,asplan@anitec.gov.br,(61)2345-6789,https://anitec.gov.br/
+5,ANITEC,DTDIN,Departamento de Transformação Digital e Inovação,,dtdin@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/inovacao
+6,ANITEC,CGTEC,Coordenação-Geral de Tecnologia,DTDIN,cgtec@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/inovacao
+7,ANITEC,CGINV,Coordenação-Geral de Inovação,DTDIN,cginv@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/inovacao
+8,ANITEC,CGSIS,Coordenação-Geral de Sistemas,DTDIN,cgsis@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/solucoes
+9,ANITEC,DEPAD,Departamento de Administração,,depad@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/institucional
+10,ANITEC,CGPRI,Coordenação-Geral de Planejamento e Projetos Internos,DEPAD,cgpri@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/
+11,ANITEC,CGSUP,Coordenação-Geral de Suporte Operacional,DEPAD,cgsup@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/
+12,ANITEC,CGDGP,Coordenação-Geral de Desenvolvimento e Gestão de Pessoas,DEPAD,cgdgp@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/quem-somos
+13,ANITEC,COINF,Coordenação de Infraestrutura,CGTEC,coinf@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/
+14,ANITEC,CODES,Coordenação de Desenvolvimento de Sistemas,CGSIS,cgsis@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/solucoes
+15,ANITEC,COLAB,Coordenação de Laboratórios de Inovação,CGINV,colab@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/inovacao
+16,ANITEC,COPRO,Coordenação de Projetos,CGINV,copro@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/inovacao
+17,ANITEC,COCAP,Coordenação de Capacitação,CGDGP,cocap@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/capacita
+18,ANITEC,CGCON,Coordenação-Geral de Contratos,DEPAD,cgcon@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/transparencia
+19,ANITEC,COSEG,Coordenação de Serviços Gerais,CGSUP,coseg@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/
+20,ANITEC,COFIS,Coordenação de Fiscalização Contratual,CGCON,cofis@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/transparencia
