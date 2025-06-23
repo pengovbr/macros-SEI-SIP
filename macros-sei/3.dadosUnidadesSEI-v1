@@ -1,0 +1,292 @@
+{
+  "Name": "3.dadosUnidadesSEI",
+  "CreationDate": "2025-6-16",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "Macro para complementar os dados das unidades no SEI.",
+      "Value": "PONTO DE PARTIDA: Sistema SEI, Menu \"Administração\" > \"Unidades\" > \"Listar\"",
+      "Description": "Como será criada uma array, os valores de linha e coluna começam em [0] e [0]. Recomendação: no log, exibir a opção \"Echo & Status\"."
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "unidadesSENAPE.csv",
+      "Value": "unidades",
+      "Description": "Este primeiro comando lê os dados do arquivo CSV e os salva em uma estrutura interna da macro. Consulte a documentação de referência para instruções quanto à montagem do arquivo CSV."
+    },
+    {
+      "Command": "store",
+      "Target": "27",
+      "Value": "i",
+      "Description": "IMPORTANTE: Este comando indica A PARTIR DE QUAL LINHA do arquivo de referência a macro vai ser executada (e, dela, vai até o final) Se necessário retomar a execução a partir de um erro, altere este valor para a linha da qual pretende retomar."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${unidades}.length;",
+      "Value": "totalLinhas",
+      "Description": "Este comando obtém a quantidade de linhas da lista que foi importada do arquivo CSV."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "ok",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções bem-sucedidas da macro."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "falha",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções mal-sucedidas da macro. (Erros no sistema, não no próprio UI.Vision)"
+    },
+    {
+      "Command": "comment",
+      "Target": "open // https://[URL do SEI]/sei/controlador.php?acao=unidade_listar&infra_item_menu=142",
+      "Value": "",
+      "Description": "Este comando normalmente é deixado \"comentado\" (desativado) porque ao final de cada execução, a macro já volta para seu ponto de início. Logo, não faz sentido recarregar a página."
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${i} < ${totalLinhas}",
+      "Value": "",
+      "Description": "O comando \"while\" indica que a macro deve executar uma determinada ação enquanto uma condição específica não for satisfeita. A ação é retomar o cadastro da próxima linha e a condição, aqui, é que o valor da linha em execução tem que ser inferior ao total de linhas."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtSiglaUnidade",
+      "Value": "${unidades[${i}][2]}",
+      "Targets": [
+        "id=txtSiglaUnidade",
+        "name=txtSiglaUnidade",
+        "xpath=//*[@id=\"txtSiglaUnidade\"]",
+        "xpath=//input[@id='txtSiglaUnidade']",
+        "xpath=//div[2]/input",
+        "css=#txtSiglaUnidade"
+      ],
+      "Description": "Este comando insere a sigla da unidade no campo de busca do SEI."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnPesquisar",
+      "Value": "",
+      "Targets": [
+        "id=btnPesquisar",
+        "xpath=//*[@id=\"btnPesquisar\"]",
+        "xpath=//input[@id='btnPesquisar']",
+        "xpath=//div[2]/form/div/input",
+        "css=#btnPesquisar"
+      ],
+      "Description": "Em, seguida, a Macro pesquisa pela sigla informada."
+    },
+    {
+      "Command": "echo",
+      "Target": "🔁 Processando linha ${i}: ${unidades[${i}][3]} (${unidades[${i}][2]})",
+      "Value": "blue",
+      "Description": "Exibe no log qual unidade está sendo cadastrada."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[6]/a[2]/img[contains(@title, 'Alterar')]",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[6]/a[2]/img",
+        "xpath=//a[2]/img",
+        "css=#divInfraAreaTabela > table > tbody > tr.infraTrSelecionada.infraTrClara > td:nth-child(6) > a:nth-child(2) > img"
+      ],
+      "Description": "Aqui, a Macro clica no botão \"Editar\" referente à Unidade localizada."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtEmail",
+      "Value": "${unidades[${i}][5]}",
+      "Targets": [
+        "id=txtEmail",
+        "name=txtEmail",
+        "xpath=//*[@id=\"txtEmail\"]",
+        "xpath=//input[@id='txtEmail']",
+        "xpath=//div[3]/input",
+        "css=#txtEmail"
+      ],
+      "Description": "Este comando insere o endereço de e-mail da unidade no SEI."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtDescricaoEmail",
+      "Value": "${unidades[${i}][3]} - ${unidades[${i}][1]}",
+      "Targets": [
+        "id=txtDescricaoEmail",
+        "name=txtDescricaoEmail",
+        "xpath=//*[@id=\"txtDescricaoEmail\"]",
+        "xpath=//input[@id='txtDescricaoEmail']",
+        "xpath=//div[3]/input[2]",
+        "css=#txtDescricaoEmail"
+      ],
+      "Description": "E este a descrição, no formato \"Nome da Unidade\" - \"Órgão\"."
+    },
+    {
+      "Command": "click",
+      "Target": "id=sbmGravarEmail",
+      "Value": "",
+      "Targets": [
+        "id=sbmGravarEmail",
+        "name=sbmGravarEmail",
+        "xpath=//*[@id=\"sbmGravarEmail\"]",
+        "xpath=//input[@id='sbmGravarEmail']",
+        "xpath=//div[3]/input[3]",
+        "css=#sbmGravarEmail"
+      ],
+      "Description": "Em seguida, a macro grava o e-mail inserido."
+    },
+    {
+      "Command": "click",
+      "Target": "id=imgAlterarContato",
+      "Value": "",
+      "Description": "Neste comando, a macro abre a modal de edição do contato associado à unidade."
+    },
+    {
+      "Command": "selectFrame",
+      "Target": "index=0",
+      "Value": "",
+      "Description": "Este comando indica que as ações da macro vão incidir sobre a modal, e não sobre a janela abaixo dela."
+    },
+    {
+      "Command": "check",
+      "Target": "id=chkSinEnderecoAssociado",
+      "Value": "on",
+      "Description": "Marca a checkbox \"Usar Endereço Associado\", que importa o endereço da pessoa jurídica (Órgão) à qual a unidade está subordinada."
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=chkSinEnderecoAssociado",
+      "Value": "Usa o endereço associado",
+      "Description": "Comando para confirmar que a checkbox foi assinalada."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtTelefoneComercialPJ",
+      "Value": "${unidades[${i}][6]}",
+      "Description": "Cadastra o telefone comercial associado à unidade no arquivo CSV."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtSitioInternet",
+      "Value": "${unidades[${i}][7]}",
+      "Description": "Cadastra o website associado à unidade no arquivo CSV."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "name=sbmAlterarContato",
+      "Value": "",
+      "Description": "Finaliza o cadastramento dos dados do contato associado com o clique no botão \"Salvar\", fechando a modal."
+    },
+    {
+      "Command": "selectWindow",
+      "Target": "tab=0",
+      "Value": "",
+      "Description": "A macro retorna para a janela original, de edição dos dados da unidade."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "name=sbmAlterarUnidade",
+      "Value": "",
+      "Targets": [
+        "name=sbmAlterarUnidade",
+        "xpath=//*[@id=\"divInfraBarraComandosSuperior\"]/button",
+        "xpath=//button[@name='sbmAlterarUnidade']",
+        "xpath=//div/button",
+        "css=#divInfraBarraComandosSuperior > button:nth-child(2)"
+      ],
+      "Description": "E clica, por fim, em \"Salvar\" novamente. "
+    },
+    {
+      "Command": "verifyElementPresent",
+      "Target": "id=btnPesquisar",
+      "Value": "",
+      "Targets": [
+        "id=btnPesquisar",
+        "xpath=//*[@id=\"btnPesquisar\"]",
+        "xpath=//input[@id='btnPesquisar']",
+        "xpath=//div[2]/form/div/input",
+        "css=#btnPesquisar"
+      ],
+      "Description": "Esta etapa é a conferência de que o SEI voltou à tela anterior após salvar."
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${!StatusOK} == true",
+      "Value": "",
+      "Description": "E aqui, entra uma regra condicional, com base na verificação acima."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + 1;",
+      "Value": "ok",
+      "Description": "Primeiro, a macro acrescenta + 1 ao valor de \"ok\", ou seja, acrescenta uma execução bem-sucedida à conta."
+    },
+    {
+      "Command": "echo",
+      "Target": "✅ Dados da unidade ${unidades[${i}][3]} (${unidades[${i}][2]}) cadastrados com sucesso.",
+      "Value": "green",
+      "Description": "E, por meio desta linha, exibe a mensagem de sucesso no log."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "caso contrário..."
+    },
+    {
+      "Command": "storeText",
+      "Target": "id=divInfraMensagens",
+      "Value": "mensagemErro",
+      "Description": "A macro armazena a mensagem de erro exibida pelo SEI,"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${falha}) + 1;",
+      "Value": "falha",
+      "Description": "em seguida, acrescenta + 1 ao valor de \"falha\", ou seja, acrescenta uma execução malsucedida à conta..."
+    },
+    {
+      "Command": "echo",
+      "Target": "❌ Falha ao cadastrar os dados da ${unidades[${i}][3]} (${unidades[${i}][2]}). Erro: \"${mensagemErro}\"",
+      "Value": "red",
+      "Description": "E, então, por meio desta linha, exibe a mensagem de falha no log."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnCancelar",
+      "Value": "",
+      "Description": "Este clique no botão \"Cancelar\" permite à macro retornar à tela anterior para retomar o cadastro."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 26 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${i}) + 1;",
+      "Value": "i",
+      "Description": "Esta linha acrescenta + 1 ao valor de \"i\", que corresponde à linha a ser lida pela macro até chegar ao valor máximo. Ou seja, este é o comando que faz as iterações se repetirem enquanto houver dados a cadastrar."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"while\" da linha 8 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + Number(${falha});",
+      "Value": "total",
+      "Description": "Esta função compila os resultados das execuções bem-sucedidas e das falhas."
+    },
+    {
+      "Command": "echo",
+      "Target": "🏁 Carga finalizada: ${total} registros processados, sendo ${ok} com sucesso e ${falha} com erro.",
+      "Value": "",
+      "Description": "E, por fim, esta linha relata - ao final da execução da macro - quantos registros foram processados, quantos com sucesso e quantos com erro."
+    }
+  ]
+}
