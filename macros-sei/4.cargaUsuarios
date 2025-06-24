@@ -1,0 +1,317 @@
+{
+  "Name": "4.cargaUsuarios",
+  "CreationDate": "2025-6-24",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "Esta macro cadastra Usuários no SIP a partir de um arquivo CSV. INSTRUÇÕES:",
+      "Value": "Execute a Macro (Play Macro) a partir do sistema SIP > Menu \"Usuários\" > \"Listar\".",
+      "Description": "Como será criada uma array, os valores de linha e coluna começam em [0] e [0]. Recomendação: no log, exibir a opção \"Echo & Status\"."
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "exemploUsuarios.csv",
+      "Value": "usuarios",
+      "Description": "Este primeiro comando lê os dados do arquivo CSV e os salva em uma estrutura interna da macro. Consulte a documentação de referência para instruções quanto à montagem do arquivo CSV."
+    },
+    {
+      "Command": "store",
+      "Target": "1",
+      "Value": "i",
+      "Description": "IMPORTANTE: Este comando indica A PARTIR DE QUAL LINHA do arquivo de referência a macro vai ser executada (e, dela, vai até o final) Se necessário retomar a execução a partir de um erro, altere este valor para a linha da qual pretende retomar."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${usuarios}.length) - 1;",
+      "Value": "totalLinhas",
+      "Description": "Este comando obtém a quantidade de linhas da lista que foi importada do arquivo CSV."
+    },
+    {
+      "Command": "store",
+      "Target": "${i}",
+      "Value": "linhaInicial",
+      "Description": "Salva a linha inicial para calcular o progresso da execução."
+    },
+    {
+      "Command": "echo",
+      "Target": "🧮 Iniciando processamento pela linha ${i}, de um total de ${totalLinhas}.",
+      "Value": "",
+      "Description": "Informa no log o ponto de partida."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var d = new Date(); return d.getTime()",
+      "Value": "tempoInicio",
+      "Description": "Registra o momento inicial da execução."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "ok",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções bem-sucedidas da macro."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "falha",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções mal-sucedidas da macro. (Erros no sistema, não no próprio UI.Vision)"
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${i} <= ${totalLinhas}",
+      "Value": "",
+      "Description": "O comando \"while\" indica que a macro deve executar uma determinada ação enquanto uma condição específica não for satisfeita. A ação é retomar o cadastro da próxima linha e a condição, aqui, é que o valor da linha em execução tem que ser inferior ao total de linhas."
+    },
+    {
+      "Command": "echo",
+      "Target": "🔁 Processando linha ${i}: ${usuarios[${i}][3]} (${usuarios[${i}][2]})",
+      "Value": "blue",
+      "Description": "Exibe no log qual usuário está sendo cadastrado."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var atual = Number(${i}) - Number(${linhaInicial}); var total = Number(${totalLinhas}) - Number(${linhaInicial}) + 1; return Math.floor((atual / total) * 100);",
+      "Value": "progresso",
+      "Description": "Calcula o progresso relativo, de 0 a 100%."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var d = new Date(); return d.getTime()",
+      "Value": "tempoAtual",
+      "Description": "Registra o momento de início de cada iteração da macro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return (${tempoAtual} - ${tempoInicio}) / (Number(${i}) + 1);",
+      "Value": "tempoPorLinha",
+      "Description": "Estima o tempo gasto em cada linha da macro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var tempoEstimado = (Number(${totalLinhas}) - Number(${i})) * Number(${tempoPorLinha}); var min = Math.floor(tempoEstimado / 60000); var seg = Math.round((tempoEstimado % 60000) / 1000); if (min > 0) texto += min + ' minuto' + (min != 1 ? 's' : ''); if (seg > 0 || min == 0) texto += (min > 0 ? ' ' : '') + seg + ' segundo' + (seg != 1 ? 's' : ''); return texto.trim();",
+      "Value": "estimativa",
+      "Description": "Calcula a estimativa de tempo restante em formato humanizado, considerando minutos e segundos com pluralização."
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${i} > 3",
+      "Value": "",
+      "Description": "Cria uma condicionante para exibir o tempo restante estimado apenas a partir da 4ª execução, quando a estimativa estará mais precisa."
+    },
+    {
+      "Command": "echo",
+      "Target": "📈 Progresso: ${progresso}% | ⏳ Tempo restante estimado: ${estimativa}",
+      "Value": "blue",
+      "Description": "Conforme condicional acima, exibe o progresso e o tempo restante estimado."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Caso contrário,"
+    },
+    {
+      "Command": "echo",
+      "Target": "📈 Progresso: ${progresso}%",
+      "Value": "blue",
+      "Description": "exibe (nas primeiras 3 linhas), apenas o progresso."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "encerra essa condicionante \"if\" (linha 16)."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnNovo",
+      "Value": "",
+      "Targets": [
+        "id=btnNovo",
+        "xpath=//*[@id=\"btnNovo\"]",
+        "xpath=//button[@id='btnNovo']",
+        "xpath=//div/button",
+        "css=#btnNovo"
+      ],
+      "Description": "É o primeiro passo do cadastramento, o clique em \"Novo Usuário\"."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selOrgao",
+      "Value": "label=${usuarios[${i}][1]}",
+      "Description": "É a seleção do órgão, com base na primeira coluna do arquivo CSV."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtSigla",
+      "Value": "${usuarios[${i}][2]}",
+      "Description": "É a indicação da sigla do órgão (segunda coluna do CSV)."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtNome",
+      "Value": "${usuarios[${i}][3]}",
+      "Targets": [
+        "id=txtNome",
+        "name=txtNome",
+        "xpath=//*[@id=\"txtNome\"]",
+        "xpath=//input[@id='txtNome']",
+        "xpath=//input[2]",
+        "css=#txtNome"
+      ],
+      "Description": "É o nome do usuário, conforme a terceira coluna do CSV."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtNomeSocial",
+      "Value": "${usuarios[${i}][4]}",
+      "Targets": [
+        "id=txtNomeSocial",
+        "name=txtNomeSocial",
+        "xpath=//*[@id=\"txtNomeSocial\"]",
+        "xpath=//input[@id='txtNomeSocial']",
+        "xpath=//input[3]",
+        "css=#txtNomeSocial"
+      ],
+      "Description": "É o nome social do usuário, caso haja, nos termos da legislação vigente, com base na quarta coluna do CSV. (Atenção: não se trata de nome comercial ou nome artístico. Nome social é o nome pelo qual uma pessoa transgênero ou não-binária prefere ser chamada, independentemente de seu nome registrado em documentos de identificação. É um direito reconhecido em diversas normas brasileiras, como o Decreto nº 8.727/2016)."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtCpf",
+      "Value": "${usuarios[${i}][5]}",
+      "Targets": [
+        "id=txtCpf",
+        "name=txtCpf",
+        "xpath=//*[@id=\"txtCpf\"]",
+        "xpath=//input[@id='txtCpf']",
+        "xpath=//input[5]",
+        "css=#txtCpf"
+      ],
+      "Description": "É o CPF do usuário, conforme dado na quinta coluna do CSV."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtEmail",
+      "Value": "${usuarios[${i}][6]}",
+      "Targets": [
+        "id=txtEmail",
+        "name=txtEmail",
+        "xpath=//*[@id=\"txtEmail\"]",
+        "xpath=//input[@id='txtEmail']",
+        "xpath=//input[6]",
+        "css=#txtEmail"
+      ],
+      "Description": "É o e-mail do usuário, conforme a sexta coluna do CSV."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "name=sbmCadastrarUsuario",
+      "Value": "",
+      "Targets": [
+        "name=sbmCadastrarUsuario",
+        "xpath=//*[@id=\"divInfraBarraComandosSuperior\"]/button",
+        "xpath=//button[@name='sbmCadastrarUsuario']",
+        "xpath=//div/button",
+        "css=#divInfraBarraComandosSuperior > button:nth-child(1)"
+      ],
+      "Description": "É o último passo do cadastramento, em que a macro simula o clique no botão \"Salvar\"."
+    },
+    {
+      "Command": "store",
+      "Target": "true",
+      "Value": "!statusOK",
+      "Description": "Este comando é necessário para a validação do if posterior (linha 20)."
+    },
+    {
+      "Command": "verifyElementPresent",
+      "Target": "id=btnImprimir",
+      "Value": "",
+      "Targets": [
+        "id=btnImprimir",
+        "xpath=//*[@id=\"btnImprimir\"]",
+        "xpath=//button[@id='btnImprimir']",
+        "xpath=//button[2]",
+        "css=#btnImprimir"
+      ],
+      "Description": "Esta etapa é a conferência de que o SIP voltou à tela anterior após salvar."
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${!statusOK} == true",
+      "Value": "",
+      "Description": "Este comando valida se a verificação anterior manteve o status da execução como bem sucedida. Se sim, mensagem de sucesso. Se não, mensagem de erro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + 1;",
+      "Value": "ok",
+      "Description": "Primeiro, a macro acrescenta + 1 ao valor de \"ok\", ou seja, acrescenta uma execução bem-sucedida à conta."
+    },
+    {
+      "Command": "echo",
+      "Target": "✅ Usuário ${usuarios[${i}][3]} (${usuarios[${i}][2]}) cadastrado com sucesso.",
+      "Value": "green",
+      "Description": "E por meio desta linha, exibe a mensagem de sucesso no log."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "caso contrário..."
+    },
+    {
+      "Command": "storeText",
+      "Target": "id=divInfraMensagens",
+      "Value": "mensagemErro",
+      "Description": "a macro armazena a mensagem de erro exibida pelo SIP,"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${falha}) + 1;",
+      "Value": "falha",
+      "Description": "em seguida, acrescenta + 1 ao valor de \"falha\", ou seja, acrescenta uma execução malsucedida à conta..."
+    },
+    {
+      "Command": "echo",
+      "Target": "❌ Falha ao cadastrar ${usuarios[${i}][3]} (${usuarios[${i}][2]}). Erro: \"${mensagemErro}\"",
+      "Value": "red",
+      "Description": "E, então, por meio desta linha, exibe a mensagem de falha no log."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnCancelar",
+      "Value": "",
+      "Description": "Este clique no botão \"Cancelar\" permite à macro retornar à tela anterior para retomar o cadastro."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 15 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${i}) + 1;",
+      "Value": "i",
+      "Description": "Esta linha acrescenta + 1 ao valor de \"i\", que corresponde à linha a ser lida pela macro até chegar ao valor máximo. Ou seja, este é o comando que faz as iterações se repetirem enquanto houver dados a cadastrar."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"while\" da linha 7 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + Number(${falha});",
+      "Value": "total",
+      "Description": "Esta função compila os resultados das execuções bem-sucedidas e das falhas."
+    },
+    {
+      "Command": "echo",
+      "Target": "🏁 Carga finalizada: ${total} registros processados, sendo ${ok} com sucesso e ${falha} com erro.",
+      "Value": "",
+      "Description": "E, por fim, esta linha relata - ao final da execução da macro - quantos registros foram processados, quantos com sucesso e quantos com erro."
+    }
+  ]
+}
