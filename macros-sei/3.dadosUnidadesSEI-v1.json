@@ -6,7 +6,7 @@
       "Command": "comment",
       "Target": "Macro para complementar os dados das unidades no SEI.",
       "Value": "PONTO DE PARTIDA: Sistema SEI, Menu \"Administração\" > \"Unidades\" > \"Listar\"",
-      "Description": "Como será criada uma array, os valores de linha e coluna começam em [0] e [0]. Recomendação: no log, exibir a opção \"Echo & Status\". Não deixe de conferir a documentação de referência."
+      "Description": "Recomendação: no log, exibir a opção \"Echo & Status\". Não deixe de conferir a documentação de referência."
     },
     {
       "Command": "csvReadArray",
