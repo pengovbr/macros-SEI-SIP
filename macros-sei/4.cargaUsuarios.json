@@ -88,7 +88,7 @@
     },
     {
       "Command": "executeScript_Sandbox",
-      "Target": "var tempoEstimado = (Number(${totalLinhas}) - Number(${i})) * Number(${tempoPorLinha}); var min = Math.floor(tempoEstimado / 60000); var seg = Math.round((tempoEstimado % 60000) / 1000); if (min > 0) texto += min + ' minuto' + (min != 1 ? 's' : ''); if (seg > 0 || min == 0) texto += (min > 0 ? ' ' : '') + seg + ' segundo' + (seg != 1 ? 's' : ''); return texto.trim();",
+      "Target": "var tempoEstimado = (Number(${totalLinhas}) - Number(${i})) * Number(${tempoPorLinha}); var min = Math.floor(tempoEstimado / 60000); var seg = Math.round((tempoEstimado % 60000) / 1000); var texto = '~ '; if (min > 0) texto += min + ' minuto' + (min != 1 ? 's' : ''); if (seg > 0 || min == 0) texto += (min > 0 ? ' ' : '') + seg + ' segundo' + (seg != 1 ? 's' : ''); return texto.trim();",
       "Value": "estimativa",
       "Description": "Calcula a estimativa de tempo restante em formato humanizado, considerando minutos e segundos com pluralização."
     },
