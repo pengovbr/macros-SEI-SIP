@@ -10,7 +10,7 @@
     },
     {
       "Command": "csvReadArray",
-      "Target": "unidadesSENAPE.csv",
+      "Target": "exemploUnidades.csv",
       "Value": "unidades",
       "Description": "É a ação por meio da qual a Macro obtém os dados das unidades para cadastramento na hierarquia do SEI."
     },
