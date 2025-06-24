@@ -6,11 +6,11 @@
       "Command": "comment",
       "Target": "Esta macro cadastra Unidades no SIP a partir de um arquivo CSV. INSTRUÇÕES:",
       "Value": "Execute a Macro (Play Macro) a partir do sistema SIP > Menu \"Unidades\" > \"Listar\".",
-      "Description": "Como será criada uma array, os valores de linha e coluna começam em [0] e [0]. Recomendação: no log, exibir a opção \"Echo & Status\"."
+      "Description": "Recomendação: no log, exibir a opção \"Echo & Status\". Não deixe de conferir a documentação de referência."
     },
     {
       "Command": "csvReadArray",
-      "Target": "exemploUnidades.csv",
+      "Target": "unidadesSENAPE.csv",
       "Value": "unidades",
       "Description": "Este primeiro comando lê os dados do arquivo CSV e os salva em uma estrutura interna da macro. Consulte a documentação de referência para instruções quanto à montagem do arquivo CSV."
     },
