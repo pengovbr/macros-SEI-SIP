@@ -10,7 +10,7 @@
     },
     {
       "Command": "csvReadArray",
-      "Target": "unidadesSENAPE.csv",
+      "Target": "exemploUnidades.csv",
       "Value": "unidades",
       "Description": "Este primeiro comando lê os dados do arquivo CSV e os salva em uma estrutura interna da macro. Consulte a documentação de referência para instruções quanto à montagem do arquivo CSV."
     },
@@ -222,7 +222,7 @@
       "Command": "end",
       "Target": "",
       "Value": "",
-      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"while\" da linha 7 da macro.)"
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"while\" da linha 10 da macro.)"
     },
     {
       "Command": "executeScript_Sandbox",
