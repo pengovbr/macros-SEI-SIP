@@ -1,0 +1,328 @@
+{
+  "Name": "5.permissoes",
+  "CreationDate": "2025-6-24",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "Macro para cadastrar as permissões de usuários no SEI.",
+      "Value": "PONTO DE PARTIDA: Sistema SIP, Menu \"Permissões \" > \"Atribuição em Bloco\"",
+      "Description": "Como será criada uma array, os valores de linha e coluna começam em [0] e [0]. Recomendação: no log, exibir a opção \"Echo & Status\"."
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "exemploUsuarios.csv",
+      "Value": "permissoes",
+      "Description": "Este primeiro comando lê os dados do arquivo CSV e os salva em uma estrutura interna da macro. Consulte a documentação de referência para instruções quanto à montagem do arquivo CSV."
+    },
+    {
+      "Command": "store",
+      "Target": "1",
+      "Value": "i",
+      "Description": "IMPORTANTE: Este comando indica A PARTIR DE QUAL LINHA do arquivo de referência a macro vai ser executada (e, dela, vai até o final) Se necessário retomar a execução a partir de um erro, altere este valor para a linha da qual vai retomar."
+    },
+    {
+      "Command": "store",
+      "Target": "${i}",
+      "Value": "linhaInicial",
+      "Description": "Salva a linha inicial para calcular o progresso da execução."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${permissoes}.length) - 1;",
+      "Value": "totalLinhas",
+      "Description": "Este comando obtém a quantidade de linhas da lista que foi importada do arquivo CSV."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var d = new Date(); return d.getTime()",
+      "Value": "tempoInicio",
+      "Description": "Registra o momento inicial da execução."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "ok",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções bem-sucedidas da macro."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "falha",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções mal-sucedidas da macro. (Erros no sistema, não no próprio UI.Vision)"
+    },
+    {
+      "Command": "echo",
+      "Target": "🧮 Iniciando processamento pela linha ${i}, de um total de ${totalLinhas}.",
+      "Value": "",
+      "Description": "Informa no log o ponto de partida."
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${i} <= ${totalLinhas}",
+      "Value": "",
+      "Description": "O comando \"while\" indica que a macro deve executar uma determinada ação enquanto uma condição específica não for satisfeita. A ação é retomar o cadastro da próxima linha e a condição, aqui, é que o valor da linha em execução tem que ser inferior ao total de linhas."
+    },
+    {
+      "Command": "echo",
+      "Target": "🔁 Processando linha ${i}: usuário ${permissoes[${i}][3]} (${permissoes[${i}][2]}), com perfil ${permissoes[${i}][8]} na unidade ${permissoes[${i}][7]}.",
+      "Value": "blue",
+      "Description": "Exibe no log qual usuário está tendo permissão cadastrada."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var atual = Number(${i}) - Number(${linhaInicial}); var total = Number(${totalLinhas}) - Number(${linhaInicial}) + 1; return Math.floor((atual / total) * 100);",
+      "Value": "progresso",
+      "Description": "Calcula o progresso relativo, de 0 a 100%."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var d = new Date(); return d.getTime()",
+      "Value": "tempoAtual",
+      "Description": "Registra o momento de início de cada iteração da macro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return (${tempoAtual} - ${tempoInicio}) / (Number(${i}) + 1);",
+      "Value": "tempoPorLinha",
+      "Description": "Estima o tempo gasto em cada linha da macro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var tempoEstimado = (Number(${totalLinhas}) - Number(${i})) * Number(${tempoPorLinha}); var min = Math.floor(tempoEstimado / 60000); var seg = Math.round((tempoEstimado % 60000) / 1000); var texto = '~ '; if (min > 0) texto += min + ' minuto' + (min != 1 ? 's' : ''); if (seg > 0 || min == 0) texto += (min > 0 ? ' ' : '') + seg + ' segundo' + (seg != 1 ? 's' : ''); return texto.trim();",
+      "Value": "estimativa",
+      "Description": "Calcula a estimativa de tempo restante em formato humanizado, considerando minutos e segundos com pluralização."
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${i} > 3",
+      "Value": "",
+      "Description": "Cria uma condicionante para exibir o tempo restante estimado apenas a partir da 4ª execução, quando a estimativa estará mais precisa."
+    },
+    {
+      "Command": "echo",
+      "Target": "📈 Progresso: ${progresso}% | ⏳ Tempo restante estimado: ${estimativa}",
+      "Value": "blue",
+      "Description": "Conforme condicional acima, exibe o progresso e o tempo restante estimado."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Caso contrário,"
+    },
+    {
+      "Command": "echo",
+      "Target": "📈 Progresso: ${progresso}%",
+      "Value": "blue",
+      "Description": "exibe (nas primeiras 3 linhas) apenas o progresso."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "encerra essa condicionante \"if\" (linha 16)."
+    },
+    {
+      "Command": "store",
+      "Target": "${permissoes[${i}][7]}",
+      "Value": "unidadeAtual",
+      "Description": "Registra qual a permissão constante do CSV para tratamento posterior."
+    },
+    {
+      "Command": "if",
+      "Target": "${unidadeAtual} === '*' ",
+      "Value": "",
+      "Description": "Cria uma condição para tratar casos de perfil na unidade global (*)."
+    },
+    {
+      "Command": "store",
+      "Target": "index=1",
+      "Value": "unidadeSelecionada",
+      "Description": "Troca o * (asterisco) da unidade global pelo index correspondente, para evitar falha na execução. "
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Caso contrário,"
+    },
+    {
+      "Command": "store",
+      "Target": "label=${unidadeAtual}",
+      "Value": "unidadeSelecionada",
+      "Description": "armazena a unidade indicada com a sintaxe correta para identificação pelo SIP."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 22 da macro.)"
+    },
+    {
+      "Command": "select",
+      "Target": "id=selOrgaoSistema",
+      "Value": "label=${permissoes[${i}][1]}",
+      "Description": "Seleciona o órgão no qual está o sistema SEI. Caso NÃO SEJA o mesmo órgão das unidades e dos usuários, altere este valor manualmente. Utilize \"label=[sigla do órgão]\"."
+    },
+    {
+      "Command": "pause",
+      "Target": "200",
+      "Value": "",
+      "Description": "Pausa a execução por 200 ms para permitir o SIP carregar o valor do próximo select."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selSistema",
+      "Value": "label=SEI",
+      "Description": "Aqui, por padrão, foi deixado selecionado o sistema SEI. Caso use sigla diferente para o sistema (NÃO RECOMENDADO), altere manualmente este valor."
+    },
+    {
+      "Command": "pause",
+      "Target": "200",
+      "Value": "",
+      "Description": "Pausa a execução por 200 ms para permitir o SIP carregar o valor do próximo select."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selOrgaoUnidade",
+      "Value": "label=${permissoes[${i}][1]}",
+      "Description": "Seleção do órgão onde está a unidade na qual será concedida a permissão."
+    },
+    {
+      "Command": "comment",
+      "Target": "pause // 200",
+      "Value": "",
+      "Description": "Pausa a execução por 200 ms para permitir o SIP carregar o valor do próximo select."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selUnidade",
+      "Value": "${unidadeSelecionada}",
+      "Description": "Seleção da unidade na qual será concedida a permissão."
+    },
+    {
+      "Command": "pause",
+      "Target": "300",
+      "Value": "",
+      "Description": "Pausa a execução por 300 ms para permitir o SIP carregar o valor do próximo select."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selPerfil",
+      "Value": "label=${permissoes[${i}][8]}",
+      "Targets": [
+        "id=selPerfil",
+        "name=selPerfil",
+        "xpath=//*[@id=\"selPerfil\"]",
+        "xpath=//select[@id='selPerfil']",
+        "xpath=//select[5]",
+        "css=#selPerfil"
+      ],
+      "Description": "Seleção do perfil a ser atribuído para o usuário na unidade."
+    },
+    {
+      "Command": "pause",
+      "Target": "300",
+      "Value": "",
+      "Description": "Pausa a execução por 300 ms para permitir o SIP carregar o valor do próximo select."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txaUsuarios",
+      "Value": "${permissoes[${i}][2]}/${permissoes[${i}][1]}",
+      "Targets": [
+        "id=txaUsuarios",
+        "name=txaUsuarios",
+        "xpath=//*[@id=\"txaUsuarios\"]",
+        "xpath=//textarea[@id='txaUsuarios']",
+        "xpath=//textarea",
+        "css=#txaUsuarios"
+      ],
+      "Description": "Informa o usuário a receber a permissão no sistema. o padrão de inserção é [sigla do usuário]/[SIGLA DO ÓRGÃO]. Este campo pode receber mais de uma linha, se preenchido manualmente."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "name=sbmAtribuir",
+      "Value": "",
+      "Description": "Clica no botão \"Atribuir permissão\"."
+    },
+    {
+      "Command": "store",
+      "Target": "true",
+      "Value": "!statusOK",
+      "Description": "Este comando é necessário para a validação do if posterior (linha 20)."
+    },
+    {
+      "Command": "storeText",
+      "Target": "id=divInfraMsg0",
+      "Value": "mensagemResultado",
+      "Description": "Registra internamente o resultado da execução desta linha. "
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${mensagemResultado}.lastIndexOf(\"Número de permissões\") > -1;",
+      "Value": "",
+      "Description": "Esta condicionante procura por um valor textual que confirma a inclusão de uma permissão."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + 1;",
+      "Value": "ok",
+      "Description": "Se satisfeita a condição acima, a macro acrescenta uma unidade ao valor de \"OK\" (execuções bem sucedidas)."
+    },
+    {
+      "Command": "echo",
+      "Target": "✅ Permissão cadastrada com sucesso.",
+      "Value": "green",
+      "Description": "E informa na tela do UI Vision que a permissão foi cadastrada. "
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Caso contrário,"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${falha}) + 1;",
+      "Value": "falha",
+      "Description": "a macro registra que houve uma falha"
+    },
+    {
+      "Command": "echo",
+      "Target": "❌ Erro ao cadastrar permissões: ${mensagemResultado}",
+      "Value": "red",
+      "Description": "E informa na tela que houve um  erro e qual foi a mensagem que o SIP retornou."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 41 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${i}) + 1;",
+      "Value": "i",
+      "Description": "Esta linha acrescenta + 1 ao valor de \"i\", que corresponde à linha a ser lida pela macro até chegar ao valor máximo. Ou seja, este é o comando que faz as iterações se repetirem enquanto houver dados a cadastrar."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"while\" da linha 10 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + Number(${falha});",
+      "Value": "total",
+      "Description": "Esta função compila os resultados das execuções bem-sucedidas e das falhas."
+    },
+    {
+      "Command": "echo",
+      "Target": "🏁 Carga finalizada: ${total} registros processados, sendo ${ok} com sucesso e ${falha} com erro.",
+      "Value": "",
+      "Description": "E, por fim, esta linha relata - ao final da execução da macro - quantos registros foram processados, quantos com sucesso e quantos com erro."
+    }
+  ]
+}
