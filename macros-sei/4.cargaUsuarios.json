@@ -33,12 +33,6 @@
       "Description": "Este comando obtém a quantidade de linhas da lista que foi importada do arquivo CSV."
     },
     {
-      "Command": "echo",
-      "Target": "🧮 Iniciando processamento pela linha ${i}, de um total de ${totalLinhas}.",
-      "Value": "",
-      "Description": "Informa no log o ponto de partida."
-    },
-    {
       "Command": "executeScript_Sandbox",
       "Target": "var d = new Date(); return d.getTime()",
       "Value": "tempoInicio",
@@ -55,6 +49,12 @@
       "Target": "0",
       "Value": "falha",
       "Description": "Este comando gera a variável que armazenará a quantidade de execuções mal-sucedidas da macro. (Erros no sistema, não no próprio UI.Vision)"
+    },
+    {
+      "Command": "echo",
+      "Target": "🧮 Iniciando processamento pela linha ${i}, de um total de ${totalLinhas}.",
+      "Value": "",
+      "Description": "Informa no log o ponto de partida."
     },
     {
       "Command": "while_v2",
@@ -299,7 +299,7 @@
       "Command": "end",
       "Target": "",
       "Value": "",
-      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"while\" da linha 7 da macro.)"
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"while\" da linha 10 da macro.)"
     },
     {
       "Command": "executeScript_Sandbox",
