@@ -28,7 +28,7 @@
     },
     {
       "Command": "executeScript_Sandbox",
-      "Target": "return Number(${usuarios}.length) - 1;",
+      "Target": "return Number(${unidades}.length) - 1;",
       "Value": "totalLinhas",
       "Description": "Este comando obtém a quantidade de linhas da lista que foi importada do arquivo CSV."
     },
