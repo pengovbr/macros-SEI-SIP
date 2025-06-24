@@ -1,12 +1,12 @@
 {
   "Name": "2.hierarquia",
-  "CreationDate": "2025-6-16",
+  "CreationDate": "2025-6-24",
   "Commands": [
     {
       "Command": "comment",
       "Target": "Macro para posicionar unidades na Hierarquia do SEI",
       "Value": "PONTO DE PARTIDA: Sistema SIP, menu \"Hierarquias\" > \"Montar\" > Hierarquia \"SEI\" > \"Pesquisar\"",
-      "Description": "Como será criada uma array, os valores de linha e coluna começam em [0] e [0]. Recomendação: no log, exibir a opção \"Echo & Status\"."
+      "Description": "Recomendação: no log, exibir a opção \"Echo & Status\" Não deixe de conferir a documentação de referência."
     },
     {
       "Command": "csvReadArray",
@@ -22,7 +22,7 @@
     },
     {
       "Command": "executeScript_Sandbox",
-      "Target": "return ${unidades}.length;",
+      "Target": "return Number(${unidades}.length) - 1;",
       "Value": "totalLinhas",
       "Description": "Este comando obtém a quantidade de linhas da lista que foi importada do arquivo CSV."
     },
@@ -46,7 +46,7 @@
     },
     {
       "Command": "while_v2",
-      "Target": "${i} < ${totalLinhas}",
+      "Target": "${i} <= ${totalLinhas}",
       "Value": "",
       "Description": "O comando \"while\" indica que a macro deve executar uma determinada ação enquanto uma condição específica não for satisfeita. A ação é retomar o cadastro da próxima linha e a condição, aqui, é que o valor da linha em execução tem que ser inferior ao total de linhas."
     },
