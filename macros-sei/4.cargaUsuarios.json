@@ -6,7 +6,7 @@
       "Command": "comment",
       "Target": "Esta macro cadastra Usuários no SIP a partir de um arquivo CSV. INSTRUÇÕES:",
       "Value": "Execute a Macro (Play Macro) a partir do sistema SIP > Menu \"Usuários\" > \"Listar\".",
-      "Description": "Como será criada uma array, os valores de linha e coluna começam em [0] e [0]. Recomendação: no log, exibir a opção \"Echo & Status\"."
+      "Description": "Recomendação: no log, exibir a opção \"Echo & Status\". Não deixe de conferir a documentação de referência."
     },
     {
       "Command": "csvReadArray",
@@ -21,16 +21,16 @@
       "Description": "IMPORTANTE: Este comando indica A PARTIR DE QUAL LINHA do arquivo de referência a macro vai ser executada (e, dela, vai até o final) Se necessário retomar a execução a partir de um erro, altere este valor para a linha da qual pretende retomar."
     },
     {
-      "Command": "executeScript_Sandbox",
-      "Target": "return Number(${usuarios}.length) - 1;",
-      "Value": "totalLinhas",
-      "Description": "Este comando obtém a quantidade de linhas da lista que foi importada do arquivo CSV."
-    },
-    {
       "Command": "store",
       "Target": "${i}",
       "Value": "linhaInicial",
       "Description": "Salva a linha inicial para calcular o progresso da execução."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${usuarios}.length) - 1;",
+      "Value": "totalLinhas",
+      "Description": "Este comando obtém a quantidade de linhas da lista que foi importada do arquivo CSV."
     },
     {
       "Command": "echo",
