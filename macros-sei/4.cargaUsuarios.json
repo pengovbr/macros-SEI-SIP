@@ -114,7 +114,7 @@
       "Command": "echo",
       "Target": "📈 Progresso: ${progresso}%",
       "Value": "blue",
-      "Description": "exibe (nas primeiras 3 linhas), apenas o progresso."
+      "Description": "exibe (nas primeiras 3 linhas) apenas o progresso."
     },
     {
       "Command": "end",
