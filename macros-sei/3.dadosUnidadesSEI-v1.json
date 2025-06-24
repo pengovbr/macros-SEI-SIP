@@ -1,28 +1,28 @@
 {
   "Name": "3.dadosUnidadesSEI",
-  "CreationDate": "2025-6-16",
+  "CreationDate": "2025-6-24",
   "Commands": [
     {
       "Command": "comment",
       "Target": "Macro para complementar os dados das unidades no SEI.",
       "Value": "PONTO DE PARTIDA: Sistema SEI, Menu \"Administração\" > \"Unidades\" > \"Listar\"",
-      "Description": "Como será criada uma array, os valores de linha e coluna começam em [0] e [0]. Para tornar seu uso mais amigável, foram incluídas linha de cabeçalho (linha 0) e coluna index (coluna 0). Recomendação: no log, exibir a opção \"Echo & Status\"."
+      "Description": "Como será criada uma array, os valores de linha e coluna começam em [0] e [0]. Recomendação: no log, exibir a opção \"Echo & Status\". Não deixe de conferir a documentação de referência."
     },
     {
       "Command": "csvReadArray",
-      "Target": "unidadesSENAPE.csv",
+      "Target": "exemploUnidades.csv",
       "Value": "unidades",
       "Description": "Este primeiro comando lê os dados do arquivo CSV e os salva em uma estrutura interna da macro. Consulte a documentação de referência para instruções quanto à montagem do arquivo CSV."
     },
     {
       "Command": "store",
-      "Target": "27",
+      "Target": "1",
       "Value": "i",
       "Description": "IMPORTANTE: Este comando indica A PARTIR DE QUAL LINHA do arquivo de referência a macro vai ser executada (e, dela, vai até o final) Se necessário retomar a execução a partir de um erro, altere este valor para a linha da qual pretende retomar."
     },
     {
       "Command": "executeScript_Sandbox",
-      "Target": "return ${unidades}.length;",
+      "Target": "return Number(${unidades}.length) - 1;",
       "Value": "totalLinhas",
       "Description": "Este comando obtém a quantidade de linhas da lista que foi importada do arquivo CSV."
     },
@@ -46,7 +46,7 @@
     },
     {
       "Command": "while_v2",
-      "Target": "${i} < ${totalLinhas}",
+      "Target": "${i} <= ${totalLinhas}",
       "Value": "",
       "Description": "O comando \"while\" indica que a macro deve executar uma determinada ação enquanto uma condição específica não for satisfeita. A ação é retomar o cadastro da próxima linha e a condição, aqui, é que o valor da linha em execução tem que ser inferior ao total de linhas."
     },
