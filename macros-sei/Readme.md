@@ -59,7 +59,7 @@ Automatizar processos administrativos repetitivos no SEI/SIP com segurança e ef
 
 ## 📄 Licença
 
-Este repositório é disponibilizado sob a [Licença MIT](LICENSE).
+Este repositório é disponibilizado sob a [Licença Creative Commons (CC BY-NC-SA 4.0)](LICENSE).
 
 ## 📫 Contato
 
