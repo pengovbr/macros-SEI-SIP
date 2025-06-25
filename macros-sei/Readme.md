@@ -57,6 +57,9 @@ Automatizar processos administrativos repetitivos no SEI/SIP com segurança e ef
 - Certifique-se de que os dados de entrada (nomes, e-mails, CPF etc.) estejam validados antes da execução, para evitar retrabalho posterior.
 - Embora bastante incomum, alterações na interface do SEI ou SIP podem impactar os seletores usados (IDs, nomes, posições). Verifique e atualize conforme necessário.
 
+### 💾 Sobre o armazenamento das macros
+No canto inferior esquerdo de sua interface, o UI.Vision permite que você defina se irá salvar as macros no armazenamento da própria extensão `Local Storage (In Browser)` ou em uma pasta de seu computador `Fyle system (on hard drive)`. Se você utilizar a opção `Local Storage (In Browser)`, você precisará sempre importar novamente o CSV a cada nova alteração ou correção. Se salvas no computador, basta atualizar os arquivos normalmente e clicar em 🗘 _(Reload all resources on hard drive)_ para que as alterações se reflitam na execução das macros.
+
 ## 📄 Licença
 
 Este repositório é disponibilizado sob a [Licença Creative Commons (CC BY-NC-SA 4.0)](LICENSE).
