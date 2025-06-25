@@ -1,3 +1,30 @@
+# 📋 Macros UiVision para Cadastramento no SEI/SIP
+
+Este repositório contém um conjunto de macros desenvolvidas para automatizar tarefas recorrentes no Sistema de Informações do Processo Eletrônico Nacional (SEI/SIP), como o cadastramento de usuários, perfis e unidades, utilizando a ferramenta UiVision RPA.
+
+## 🚀 Objetivo
+
+Automatizar processos administrativos repetitivos no SEI/SIP com segurança e eficiência, reduzindo o esforço manual de operadores e padronizando o carregamento de dados a partir de arquivos CSV.
+
+## 🛠️ Pré-requisitos
+
+- Navegador com extensão UiVision RPA instalada ([Chrome](https://chrome.google.com/webstore/detail/uivision-rpa/ljdobmomdgdljniojadhoplhkpialdid) ou [Firefox](https://addons.mozilla.org/en-US/firefox/addon/uivision-rpa/))
+- Arquivo(s) CSV de entrada estruturados conforme instruções específicas de cada macro
+- Acesso ao ambiente do SEI/SIP com permissões compatíveis com a operação automatizada
+
+## 📂 Estrutura do Repositório
+
+📁 macros/  
+├─ 1.cargaUnidades.json  
+├─ 2.hierarquia.json  
+├─ 3.dadosUnidadesSEI.json  
+├─ 4.cargaUsuarios.json  
+├─ 5.permissoes.json  
+├─ 6.cargaAssuntos.json  
+└📁 csv/  
+&nbsp;&nbsp; ├─ exemploUnidades.csv  
+&nbsp;&nbsp; ├─ exemploUnidades.csv  
+&nbsp;&nbsp; └─ exemploAssuntos.csv  
 
 ## ▶️ Como usar
 
