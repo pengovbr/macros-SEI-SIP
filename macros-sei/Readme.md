@@ -47,18 +47,36 @@ Automatizar processos administrativos repetitivos no SEI/SIP com segurança e ef
 4. Caso tenha renomeado o arquivo, altere também o valor do campo `Target` da linha onde consta o comando `csvReadArray` na macro, para que corresponda ao arquivo que irá utilizar.
 6. Abra o SEI ou SIP no navegador e acesse o menu correspondente à macro (Por exemplo: a macro `4.cargaUsuarios` se inicia no sistema `SIP`, menu `Usuários` > `Listar`). Estes caminhos estão indicados sempre na primeira linha de cada macro.
 7. A página  em que a macro será executada deve estar aberta na tela para iniciar sua execução.
-8. Execute a macro desejada, clicando em `Play Macro`
-9. Acompanhe o log da execução e valide o resultado no sistema. Recomenda-se configurar o painel de logs do UI.Vision para exibir apenas `Echo & Status` 
+8. Execute a macro desejada, clicando em `Play Macro`.
+9. Acompanhe o log da execução e valide o resultado no sistema. As macros apresentam quantas linhas foram cadastradas com sucesso ou com falha. Valide a execução por meio de batimento as quantidades de valores cadastrados diante da quantidade de valores existentes no arquivo de referência.
 
-## 📝 Observações
+## 📝 Outras orientações e observações
 
 - Os arquivos CSV devem estar no formato esperado por cada macro. Consulte os comentários internos de cada script para detalhes.
 - Caso algum termo utilizado no arquivo `.csv` contenha vírgulas, coloque o valor inteiro entre aspas (por exemplo: A `Divisão de Obras, Contratos e Serviços Gerais` deve ser grafada no arquivo `.csv` como `"Divisão de Obras, Contratos e Serviços Gerais"` (com aspas). 
 - Certifique-se de que os dados de entrada (nomes, e-mails, CPF etc.) estejam validados antes da execução, para evitar retrabalho posterior.
 - Embora bastante incomum, alterações na interface do SEI ou SIP podem impactar os seletores usados (IDs, nomes, posições). Verifique e atualize conforme necessário.
 
-### 💾 Sobre o armazenamento das macros
+### ⏯️ Linha de Início (Retomada após erro ou pausa)
+Todas as macros permitem retomar a execução a partir de uma linha específica do CSV, bastando ajustar a variável de início `i`, logo no início de cada macro no comando `store | 1 | i`. Este valor `1` indica que a macro deve iniciar sua execução pela 1ª linha do CSV. Basta alterar para a linha da qual se deseja retomar, em caso de necessidade. Isso é útil para continuidade após interrupções.
+
+### 💾 Armazenamento das macros
 No canto inferior esquerdo de sua interface, o UI.Vision permite que você defina se irá salvar as macros no armazenamento da própria extensão `Local Storage (In Browser)` ou em uma pasta de seu computador `Fyle system (on hard drive)`. Se você utilizar a opção `Local Storage (In Browser)`, você precisará sempre importar novamente o CSV a cada nova alteração ou correção. Se salvas no computador, basta atualizar os arquivos normalmente e clicar em 🗘 _(Reload all resources on hard drive)_ para que as alterações se reflitam na execução das macros.
+
+### 🧾 Visualizando os logs
+Recomenda-se que a visualização dos logs (no canto inferior direito da tela, ao lado do botão `Clear`) seja definida com a opção `Echo & Status`, para que as mensagens exibidas sejam apenas aquelas configuradas na criação das macros. As macros foram desenvolvidas para exibir informações de progresso e estimativa de tempo restante, conforme são executadas. A exibição completa (`All`) traz a execução linha a linha de cada macro e pode gerar confusão para usuários não familizarizados com o tema. Neste sentido, sua utilização é recomendada apenas em caso de necessidade de depuração de erros, por usuários experientes.  
+
+> [!TIP]
+> **A execução exibe mensagens claras de progresso no log, como, por exemplo:**
+> - 📈 Progresso e ⏳ Tempo restante estimado
+> - 🔁 Processando item
+> - ✅ Sucesso no cadastro
+> - ❌ Falha, com a mensagem de erro capturada
+> - 🏁 Resumo final com total de registros e número de erros
+
+
+### 🪪 Macro 5.permissões
+A macro de permissões trata o uso de * para unidade global e faz uma conversão interna para evitar falhas, trocando o asterisco, que gera erro de comportamento da macro pelo termo index=1. Foi uma solução adotada para evitar erros de permissionamento no caso de acesso à unidade global.
 
 ## 📄 Licença
 
