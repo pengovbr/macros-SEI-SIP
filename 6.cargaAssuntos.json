@@ -1,0 +1,470 @@
+{
+  "Name": "6.cargaAssuntos",
+  "CreationDate": "2025-6-26",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "Esta macro cadastra Assuntos na tabela do SEI a partir de um arquivo CSV. INSTRUÇÕES:",
+      "Value": "Execute a Macro (Play Macro) a partir do sistema SEI > Menu \"Administração\" > \"Tabela de Assuntos\" > Ação \"Assuntos da Tabela\"",
+      "Description": "Recomendação: no log, exibir a opção \"Echo & Status\". Não deixe de conferir a documentação de referência."
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "exemploAssuntos.csv",
+      "Value": "assuntos",
+      "Description": "Este primeiro comando lê os dados do arquivo CSV e os salva em uma estrutura interna da macro. Consulte a documentação de referência para instruções quanto à montagem do arquivo CSV."
+    },
+    {
+      "Command": "store",
+      "Target": "1",
+      "Value": "i",
+      "Description": "IMPORTANTE: Este comando indica A PARTIR DE QUAL LINHA do arquivo de referência a macro vai ser executada (e, dela, vai até o final) Se necessário retomar a execução a partir de um erro, altere este valor para a linha da qual pretende retomar."
+    },
+    {
+      "Command": "store",
+      "Target": "${i}",
+      "Value": "linhaInicial",
+      "Description": "Salva a linha inicial para calcular o progresso da execução."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${assuntos}.length) - 1;",
+      "Value": "totalLinhas",
+      "Description": "Este comando obtém a quantidade de linhas da lista que foi importada do arquivo CSV."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var d = new Date(); return d.getTime()",
+      "Value": "tempoInicio",
+      "Description": "Registra o momento inicial da execução."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "ok",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções bem-sucedidas da macro."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "falha",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções mal-sucedidas da macro. (Erros no sistema, não no próprio UI.Vision)"
+    },
+    {
+      "Command": "echo",
+      "Target": "🧮 Iniciando processamento pela linha ${i}, de um total de ${totalLinhas}.",
+      "Value": "",
+      "Description": "Informa no log o ponto de partida."
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${i} <= ${totalLinhas}",
+      "Value": "",
+      "Description": "O comando \"while\" indica que a macro deve executar uma determinada ação enquanto uma condição específica não for satisfeita. A ação é retomar o cadastro da próxima linha e a condição, aqui, é que o valor da linha em execução tem que ser inferior ao total de linhas."
+    },
+    {
+      "Command": "echo",
+      "Target": "🔁 Processando linha ${i}: ${assuntos[${i}][1]} - ${assuntos[${i}][2]}.",
+      "Value": "blue",
+      "Description": "Exibe no log qual unidade está sendo cadastrada."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var atual = Number(${i}) - Number(${linhaInicial}); var total = Number(${totalLinhas}) - Number(${linhaInicial}) + 1; return Math.floor((atual / total) * 100);",
+      "Value": "progresso",
+      "Description": "Calcula o progresso relativo, de 0 a 100%."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var d = new Date(); return d.getTime()",
+      "Value": "tempoAtual",
+      "Description": "Registra o momento de início de cada iteração da macro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return (${tempoAtual} - ${tempoInicio}) / (Number(${i}) + 1);",
+      "Value": "tempoPorLinha",
+      "Description": "Estima o tempo gasto em cada linha da macro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var tempoEstimado = (Number(${totalLinhas}) - Number(${i})) * Number(${tempoPorLinha}); var min = Math.floor(tempoEstimado / 60000); var seg = Math.round((tempoEstimado % 60000) / 1000); var texto = '~ '; if (min > 0) texto += min + ' minuto' + (min != 1 ? 's' : ''); if (seg > 0 || min == 0) texto += (min > 0 ? ' ' : '') + seg + ' segundo' + (seg != 1 ? 's' : ''); return texto.trim();",
+      "Value": "estimativa",
+      "Description": "Calcula a estimativa de tempo restante em formato humanizado, considerando minutos e segundos com pluralização."
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${i} > 3",
+      "Value": "",
+      "Description": "Cria uma condicionante para exibir o tempo restante estimado apenas a partir da 4ª execução, quando a estimativa estará mais precisa."
+    },
+    {
+      "Command": "echo",
+      "Target": "📈 Progresso: ${progresso}% | ⏳ Tempo restante estimado: ${estimativa}",
+      "Value": "blue",
+      "Description": "Conforme condicional acima, exibe o progresso e o tempo restante estimado."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Caso contrário,"
+    },
+    {
+      "Command": "echo",
+      "Target": "📈 Progresso: ${progresso}%",
+      "Value": "blue",
+      "Description": "exibe (nas primeiras 3 linhas) apenas o progresso."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "encerra essa condicionante \"if\" (linha 16)."
+    },
+    {
+      "Command": "click",
+      "Target": "id=btnNovo",
+      "Value": "",
+      "Targets": [
+        "id=btnNovo",
+        "xpath=//*[@id=\"btnNovo\"]",
+        "xpath=//button[@id='btnNovo']",
+        "xpath=//button[2]",
+        "css=#btnNovo"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtCodigoEstruturado",
+      "Value": "${assuntos[${i}][1]}",
+      "Targets": [
+        "id=txtCodigoEstruturado",
+        "name=txtCodigoEstruturado",
+        "xpath=//*[@id=\"txtCodigoEstruturado\"]",
+        "xpath=//input[@id='txtCodigoEstruturado']",
+        "xpath=//input[2]",
+        "css=#txtCodigoEstruturado"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtDescricao",
+      "Value": "${assuntos[${i}][2]}",
+      "Targets": [
+        "id=txtDescricao",
+        "name=txtDescricao",
+        "xpath=//*[@id=\"txtDescricao\"]",
+        "xpath=//input[@id='txtDescricao']",
+        "xpath=//input[3]",
+        "css=#txtDescricao"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "if",
+      "Target": "${assuntos[${i}][3]} === 'S' ",
+      "Value": "",
+      "Description": "Cria uma condição para tratar casos de perfil na unidade global (*)."
+    },
+    {
+      "Command": "check",
+      "Target": "id=chkSinEstrutural",
+      "Value": "",
+      "Targets": [
+        "id=chkSinEstrutural",
+        "name=chkSinEstrutural",
+        "xpath=//*[@id=\"chkSinEstrutural\"]",
+        "xpath=//input[@id='chkSinEstrutural']",
+        "xpath=//div[2]/div/div/input",
+        "css=#chkSinEstrutural"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=chkSinEstrutural",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txaObservacao",
+      "Value": "${assuntos[${i}][7]}",
+      "Targets": [
+        "id=txaObservacao",
+        "name=txaObservacao",
+        "xpath=//*[@id=\"txaObservacao\"]",
+        "xpath=//textarea[@id='txaObservacao']",
+        "xpath=//textarea",
+        "css=#txaObservacao"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "🗄️ Assunto ${assuntos[${i}][1]} - ${assuntos[${i}][2]} é apenas estrutural.",
+      "Value": "purple",
+      "Description": ""
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "uncheck",
+      "Target": "id=chkSinEstrutural",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "assertNotChecked",
+      "Target": "id=chkSinEstrutural",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtPrazoCorrente",
+      "Value": "${assuntos[${i}][4]}",
+      "Targets": [
+        "id=txtPrazoCorrente",
+        "name=txtPrazoCorrente",
+        "xpath=//*[@id=\"txtPrazoCorrente\"]",
+        "xpath=//input[@id='txtPrazoCorrente']",
+        "xpath=//fieldset/input",
+        "css=#txtPrazoCorrente"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtPrazoIntermediario",
+      "Value": "${assuntos[${i}][5]}",
+      "Targets": [
+        "id=txtPrazoIntermediario",
+        "name=txtPrazoIntermediario",
+        "xpath=//*[@id=\"txtPrazoIntermediario\"]",
+        "xpath=//input[@id='txtPrazoIntermediario']",
+        "xpath=//fieldset/input[2]",
+        "css=#txtPrazoIntermediario"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "if",
+      "Target": "${assuntos[${i}][6]} === 'Guarda' ",
+      "Value": "",
+      "Description": "Cria uma condição para tratar casos de perfil na unidade global (*)."
+    },
+    {
+      "Command": "check",
+      "Target": "id=optGuardaPermanente",
+      "Value": "G",
+      "Targets": [
+        "id=optGuardaPermanente",
+        "name=rdoDestinacao",
+        "xpath=//*[@id=\"optGuardaPermanente\"]",
+        "xpath=//input[@id='optGuardaPermanente']",
+        "xpath=//fieldset[2]/div/div/input",
+        "css=#optGuardaPermanente"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=optGuardaPermanente",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txaObservacao",
+      "Value": "${assuntos[${i}][7]}",
+      "Targets": [
+        "id=txaObservacao",
+        "name=txaObservacao",
+        "xpath=//*[@id=\"txaObservacao\"]",
+        "xpath=//textarea[@id='txaObservacao']",
+        "xpath=//textarea",
+        "css=#txaObservacao"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "🗃️ Assunto ${assuntos[${i}][1]} - ${assuntos[${i}][2]} cadastrado com os prazos de guarda ${assuntos[${i}][4]} anos para corrente e ${assuntos[${i}][4]} anos para intermediária, e posterior encaminhamento para Guarda Permanente.",
+      "Value": "purple",
+      "Description": ""
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "check",
+      "Target": "id=optDestinacao",
+      "Value": "E",
+      "Targets": [
+        "xpath=//*[@id=\"divOptDestinacao\"]/div/label",
+        "xpath=//fieldset[2]/div[2]/div/label",
+        "css=#divOptDestinacao > div > label"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=optDestinacao",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txaObservacao",
+      "Value": "${assuntos[${i}][7]}",
+      "Targets": [
+        "id=txaObservacao",
+        "name=txaObservacao",
+        "xpath=//*[@id=\"txaObservacao\"]",
+        "xpath=//textarea[@id='txaObservacao']",
+        "xpath=//textarea",
+        "css=#txaObservacao"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "echo",
+      "Target": "🗃️ Assunto ${assuntos[${i}][1]} - ${assuntos[${i}][2]} cadastrado com os prazos de guarda ${assuntos[${i}][4]} anos para corrente e ${assuntos[${i}][4]} anos para intermediária, e posterior encaminhamento para Eliminação.",
+      "Value": "purple",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "click",
+      "Target": "name=sbmCadastrarAssunto",
+      "Value": "",
+      "Targets": [
+        "name=sbmCadastrarAssunto",
+        "xpath=//*[@id=\"divInfraBarraComandosSuperior\"]/button",
+        "xpath=//button[@name='sbmCadastrarAssunto']",
+        "xpath=//div/button",
+        "css=#divInfraBarraComandosSuperior > button:nth-child(2)"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "true",
+      "Value": "!statusOK",
+      "Description": "Este comando é necessário para a validação do if posterior (linha 20)."
+    },
+    {
+      "Command": "verifyElementPresent",
+      "Target": "id=btnImprimir",
+      "Value": "",
+      "Targets": [
+        "id=btnImprimir",
+        "xpath=//*[@id=\"btnImprimir\"]",
+        "xpath=//button[@id='btnImprimir']",
+        "xpath=//button[2]",
+        "css=#btnImprimir"
+      ],
+      "Description": "Esta etapa é a conferência de que o SIP voltou à tela anterior após salvar."
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${!statusOK} == true",
+      "Value": "",
+      "Description": "Este comando valida se a verificação anterior manteve o status da execução como bem sucedida. Se sim, mensagem de sucesso. Se não, mensagem de erro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + 1;",
+      "Value": "ok",
+      "Description": "Primeiro, a macro acrescenta + 1 ao valor de \"ok\", ou seja, acrescenta uma execução bem-sucedida à conta."
+    },
+    {
+      "Command": "echo",
+      "Target": "✅ Assunto ${assuntos[${i}][1]} - ${assuntos[${i}][2]} cadastrado com sucesso.",
+      "Value": "green",
+      "Description": "E por meio desta linha, exibe a mensagem de sucesso no log."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "caso contrário..."
+    },
+    {
+      "Command": "storeText",
+      "Target": "id=divInfraMensagens",
+      "Value": "mensagemErro",
+      "Description": "a macro armazena a mensagem de erro exibida pelo SIP,"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${falha}) + 1;",
+      "Value": "falha",
+      "Description": "em seguida, acrescenta + 1 ao valor de \"falha\", ou seja, acrescenta uma execução malsucedida à conta..."
+    },
+    {
+      "Command": "echo",
+      "Target": "❌ Falha ao cadastrar o assunto ${assunto[${i}][1]} - ${assuntos[${i}][2]}. Erro: \"${mensagemErro}\"",
+      "Value": "red",
+      "Description": "E, então, por meio desta linha, exibe a mensagem de falha no log."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnCancelar",
+      "Value": "",
+      "Description": "Este clique no botão \"Cancelar\" permite à macro retornar à tela anterior para retomar o cadastro."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 15 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${i}) + 1;",
+      "Value": "i",
+      "Description": "Esta linha acrescenta + 1 ao valor de \"i\", que corresponde à linha a ser lida pela macro até chegar ao valor máximo. Ou seja, este é o comando que faz as iterações se repetirem enquanto houver dados a cadastrar."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"while\" da linha 10 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + Number(${falha});",
+      "Value": "total",
+      "Description": "Esta função compila os resultados das execuções bem-sucedidas e das falhas."
+    },
+    {
+      "Command": "echo",
+      "Target": "🏁 Carga finalizada: ${total} registros processados, sendo ${ok} com sucesso e ${falha} com erro.",
+      "Value": "",
+      "Description": "E, por fim, esta linha relata - ao final da execução da macro - quantos registros foram processados, quantos com sucesso e quantos com erro."
+    }
+  ]
+}
