@@ -75,6 +75,9 @@ Alternativamente, você pode baixar cada arquivo individualmente na listagem aba
 - Certifique-se de que os dados de entrada (nomes, e-mails, CPF etc.) estejam devidamente validados antes da execução, para evitar retrabalho por inconsistência.
 - Embora bastante incomuns, alterações na interface do SEI ou SIP podem impactar os seletores usados (IDs, nomes, posições). Verifique e atualize conforme necessário.
 
+### 𝄜 Como gerar o arquivo `.csv`?
+Elaborar um arquivo `.csv` manualmente pode ser **muito** complicado. Se você tiver muitas linhas ou muitas colunas, os valores ficam muito próximos e o risco de você se confundir aumenta muito. Assim, a maneira mais fácil de gerar um `.csv` é a partir de uma planilha. Recomendamos, neste caso, utilizar o [editor de planilhas da Google](https://docs.google.com/spreadsheets), porque ele oferece a opção de gerar um arquivo `.csv` com muita facilidade. Basta clicar em `Arquivo` > `Baixar` > `Valores separados por vírgulas (.csv)` e fazer o download do arquivo para a pasta que você escolher.
+
 ### ⏯️ Linha de Início (Retomada após erro ou pausa)
 - Todas as macros permitem retomar a execução a partir de uma linha específica do `.csv`, bastando ajustar a variável de início `i`, logo no início de cada macro no comando `store | 1 | i`. Este valor `1` indica que a macro deve iniciar sua execução pela 1ª linha do `.csv`. Basta alterar para a linha da qual se deseja retomar, em caso de necessidade. Isso é útil para continuidade após interrupções.
 
@@ -94,6 +97,44 @@ Alternativamente, você pode baixar cada arquivo individualmente na listagem aba
 
 
 ## 🤖 Instruções macro a macro
+Abaixo estão apresentadas algumas orientações a respeito de cada macro, para facilitar sua compreensão e utilização:
+
+### 🏢 Macro `1.cargaUnidades`
+- O ponto de partida dessa macro é o sistema SIP, menu `Unidades` > `Listar`;
+- O arquivo de referência é o exemploUnidades.csv, cuja estrutura está indicada abaixo:
+
+| 0-Seq. | 1-ORGAO | 2-SIGLA | 3-DESCRICAO | 4-PAI | 5-EMAIL | 6-TELEFONE | 7-SITE
+|---|---|---|---|---|---|---|---|
+| 1 | ORGAO1 | UNI1 | Nome da Unidade 1 | | uni1@orgao1.gov | (99) 2233-4455 | gov.br/orgao1
+| 2 | ORGAO1 | SUBUNI1.1 | Nome da Subunidade 1.1 | UNI1 | subuni1.1@orgao1.gov | (99) 2233-5566 | gov.br/orgao1
+| 3 | ORGAO1 | SUBUNI1.2 | Nome da Subunidade 1.2 | UNI1 | subuni1.2@orgao1.gov | (99) 2233-5566 | gov.br/orgao1/tema-xpto
+| 4 | ORGAO1 | SUBUNI1.2.1 | Nome da Subunidade 1.2.1, antiga 1.3  | SUBUNI1.2 | subuni1.2.1@orgao1.gov | (99) 2233-6677 | gov.br/orgao1/tema-xpto
+| 5 | ORGAO1 | UNI2 | Nome da Unidade 2 | | uni2@orgao1.gov | (99) 2233-3344 | gov.br/orgao1/tema-xyz
+| ... | | | | | | | |
+
+Em formato CSV, a estrutura ficará visível desta forma:
+> 0-Seq.,1-ORGAO,2-SIGLA,3-DESCRICAO,4-PAI,5-EMAIL,6-TELEFONE,7-SITE  
+> 1,ORGAO1,UNI1,Nome da Unidade 1,,uni1@orgao1.gov,(99) 2233-4455,gov.br/orgao1  
+> 2,ORGAO1,SUBUNI1.1,Nome da Subunidade 1.1,UNI1,subuni1.1@orgao1.gov,(99) 2233-5566,gov.br/orgao1  
+> 3,ORGAO1,SUBUNI1.2,Nome da Subunidade 1.2,UNI1,subuni1.2@orgao1.gov,(99) 2233-5566,gov.br/orgao1/tema-xpto  
+> 4,ORGAO1,SUBUNI1.2.1,"Nome da Subunidade 1.2.1, antiga 1.3",SUBUNI1.2,subuni1.2.1@orgao1.gov,(99) 2233-6677,gov.br/orgao1/xpto  
+> 5,ORGAO1,UNI2,Nome da Unidade 2,,uni2@orgao1.gov,(99) 2233-3344,gov.br/orgao1/tema-xyz  
+
+> [!NOTE]
+> Repare o uso das aspas para isolar conteúdo que tenha vírgulas originalmente.
+
+- As colunas `1-ORGÃO`,`2-SIGLA` e `3-DESCRICAO` são utilizadas por esta macro. As demais são usadas pelas macros posteriores. 
+- Na linha 3 da macro, onde consta `store | 1 | i`, o valor `1` indica que a macro será executada a partir da 1ª linha. Caso deseje executar a partir de outro ponto, altere este valor para a linha que desejar.
+
+### 🪜 Macro 2.hierarquia
+- O ponto de partida dessa macro é o sistema SIP, menu `Unidades` > `Listar`;
+- O arquivo de referência é o exemploUnidades.csv, cuja estrutura está detalhada acima, nas informações sobre a macro `1.cargaUnidades`.
+- As colunas `1-ORGÃO`,`2-SIGLA` e `4-PAI` são utilizadas por esta macro. As demais são usadas pelas macros posteriores.
+- As linhas que trazem a coluna `4-PAI` em branco indicam que se trata de uma unidade _"Raiz"_, ou seja, que não possui nenhuma unidade acima de si na hierarquia. As demais linhas devem trazer a unidade imediatamente superior a elas para cadastramento na hierarquia.
+> [!IMPORTANT]
+> - Por isso, é importante ter em mente que a hierarquia deve ser cadastrada <ins>**de cima para baixo**</ins>. Ou seja, primeiro devem ser inseridos na planilha os níveis mais altos da estrutura organizacional e depois os que vierem abaixo destes. Isso evita que o SIP retorne mensagem de erro informando que a unidade superior não foi encontrada ou travamento da macro.
+
+
 
 ### 🪪 Macro 5.permissões
 - A macro de permissões trata o uso de * para unidade global e faz uma conversão interna para evitar falhas, trocando o asterisco, que gera erro de comportamento da macro pelo termo index=1. Foi uma solução adotada para evitar erros de permissionamento no caso de acesso à unidade global.
