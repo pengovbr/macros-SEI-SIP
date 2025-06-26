@@ -21,7 +21,7 @@ Automatizar processos administrativos repetitivos no SEI/SIP com segurança e ef
 ## 📂 Estrutura do Repositório
 
 📁 macros/  
-├─ [1.cargaUnidades.json]([url](https://github.com/pengovbr/macros-SEI-SIP/raw/main/1.cargaUnidades.json))  
+├─ [1.cargaUnidades.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/1.cargaUnidades.json)  
 ├─ 2.hierarquia.json  
 ├─ 3.dadosUnidadesSEI.json  
 ├─ 4.cargaUsuarios.json  
