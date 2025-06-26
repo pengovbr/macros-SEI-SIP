@@ -1,0 +1,6 @@
+0.Index,1.CodigoEstruturado,2.NomeAssunto,3.chkEstrutural,4.PrazoCorrente,5.PrazoIntermed,6.Destinacao,7.Obs
+1,999,Financiamento,S,,,,
+2,999.1,Financiamento Estatal,N,5,10,Guarda,
+3,999.11,Financiamento de iniciativas estaduais,N,5,10,Guarda,Sujeito a aprovação de contas para encaminhamento a guarda permanente.
+4,999.12,Financiamento de iniciativas municipais,N,5,10,Guarda,Sujeito a aprovação de contas para encaminhamento a guarda permanente.
+5,654.321,Aquisição de material de escritório,N,2,5,Eliminacao,teste
