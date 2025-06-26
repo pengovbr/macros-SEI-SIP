@@ -20,17 +20,25 @@ Automatizar processos administrativos repetitivos no SEI/SIP com segurança e ef
 
 ## 📂 Estrutura do Repositório
 
-📁 macros/  
+Você pode baixar todo o conjunto de macros e arquivos `.csv` em um único arquivo `.zip`, no link abaixo: 
+
+(macros-SEI-SIP.zip)(https://github.com/pengovbr/macros-SEI-SIP/blob/main/macros-SEI-SIP.zip)
+
+Alternativamente, você pode baixar cada arquivo individualmente na listagem abaixo.
+
+> Clique com o botão direito e escolha “Salvar link como...”
+
+📁 macros-SEI-SIP/  
 ├─ [1.cargaUnidades.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/1.cargaUnidades.json)  
-├─ 2.hierarquia.json  
-├─ 3.dadosUnidadesSEI.json  
-├─ 4.cargaUsuarios.json  
-├─ 5.permissoes.json  
-├─ 6.cargaAssuntos.json  
+├─ [2.hierarquia.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/2.hierarquia.json)  
+├─ [3.dadosUnidadesSEI.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/3.dadosUnidadesSEI.json)  
+├─ [4.cargaUsuarios.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/4.cargaUsuarios.json)  
+├─ [5.permissoes.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/5.permissoes.json)  
+├─ [6.cargaAssuntos.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/6.cargaAssuntos.json)  
 └📁 csv/  
-&nbsp;&nbsp; ├─ exemploUnidades.csv  
-&nbsp;&nbsp; ├─ exemploUsuarios.csv  
-&nbsp;&nbsp; └─ exemploAssuntos.csv  
+&nbsp;&nbsp; ├─ [exemploAssuntos.csv](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploAssuntos.csv)  
+&nbsp;&nbsp; ├─ [exemploUnidades.csv](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUnidades.csv)  
+&nbsp;&nbsp; └─ [exemploUsuarios.csv](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUsuarios.csv)  
 
 ### Sobre as macros incluídas:
 
@@ -61,6 +69,7 @@ Automatizar processos administrativos repetitivos no SEI/SIP com segurança e ef
 
 ## 📝 Orientações gerais e observações
 
+- Há dois tipos de erros possíveis na reprodução das macros: os erros que ocorrem no SEI ou SIP, que são exibidos pelas macros no `echo`, como parte do resultado da execução (erros previstos), e os erros que ocorrem por falha de execução da própria macro, que são exibidos como **"Error"** e interrompem a execução das macros. Nestes casos, é importante investigar para ver o que causou o erro e o que pode ser feito para sanar o reportado. Alguns erros, como o **"Lost connection to site"** (conexão perdida com o site), por exemplo, podem ser resolvidos com uma reexecução da macro. Outros podem exigir uma revisão do arquivo `.csv` ou revisão das configurações de execução do UI.Vision (botão ⚙️ - Settings).
 - Os arquivos `.csv` devem estar no formato esperado por cada macro. A primeira linha de cada arquivo exemplo traz um cabeçalho indicando a estrutura de cada `.csv`.
 - Caso algum termo utilizado no arquivo `.csv` contenha vírgulas, coloque o valor inteiro entre aspas (por exemplo: A `Divisão de Obras, Contratos e Serviços Gerais` deve ser grafada no arquivo `.csv` como `"Divisão de Obras, Contratos e Serviços Gerais"` (com aspas). 
 - Certifique-se de que os dados de entrada (nomes, e-mails, CPF etc.) estejam devidamente validados antes da execução, para evitar retrabalho por inconsistência.
@@ -70,7 +79,7 @@ Automatizar processos administrativos repetitivos no SEI/SIP com segurança e ef
 - Todas as macros permitem retomar a execução a partir de uma linha específica do `.csv`, bastando ajustar a variável de início `i`, logo no início de cada macro no comando `store | 1 | i`. Este valor `1` indica que a macro deve iniciar sua execução pela 1ª linha do `.csv`. Basta alterar para a linha da qual se deseja retomar, em caso de necessidade. Isso é útil para continuidade após interrupções.
 
 ### 💾 Armazenamento das macros
-- No canto inferior esquerdo de sua interface, o UI.Vision permite que você defina se irá salvar as macros no armazenamento da própria extensão `Local Storage (In Browser)` ou em uma pasta de seu computador `Fyle system (on hard drive)`. Se você utilizar a opção `Local Storage (In Browser)`, você precisará sempre importar novamente o `.csv` a cada nova alteração ou correção. Se salvas no computador, basta atualizar os arquivos normalmente e clicar em 🗘 _(Reload all resources on hard drive)_ para que as alterações se reflitam na execução das macros.
+- No canto inferior esquerdo de sua interface, o UI.Vision permite que você defina se irá salvar as macros no armazenamento da própria extensão `Local Storage (In Browser)` ou em uma pasta de seu computador `Fyle system (on hard drive)`. Se você utilizar a opção `Local Storage (In Browser)`, você precisará sempre importar novamente o `.csv` a cada nova alteração ou correção. Se salvas no computador, basta atualizar os arquivos normalmente e clicar em 🔄 _(Reload all resources on hard drive)_ para que as alterações se reflitam na execução das macros. Neste caso (`Local Storage (In Browser)`), as macros devem ser salvas dentro da pasta do UI.Vision, subpasta `macros` e os arquivos `.csv` devem ser salvos na subpasta `datasources`.
 
 ### 🧾 Visualizando os logs
 - Recomenda-se que a visualização dos logs (no canto inferior direito da tela, ao lado do botão `Clear`) seja definida com a opção `Echo & Status`, para que as mensagens exibidas sejam apenas aquelas configuradas na criação das macros. As macros foram desenvolvidas para exibir informações de progresso e estimativa de tempo restante, conforme são executadas. A exibição completa (`All`) traz a execução linha a linha de cada macro e pode gerar confusão para usuários não familizarizados com o tema. Neste sentido, sua utilização é recomendada apenas em caso de necessidade de depuração de erros, por usuários experientes.  
