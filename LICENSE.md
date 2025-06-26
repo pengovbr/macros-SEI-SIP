@@ -1,6 +1,4 @@
-**Licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional** 
-
-`license:CC BY-NC-SA-4.0`
+# **Licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional** 
 
 Este trabalho está licenciado sob os termos da Licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional.
 
