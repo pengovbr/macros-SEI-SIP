@@ -1,18 +1,21 @@
-# 📋 Automação de Cadastros no SEI e SIP com UI.Vision RPA
+# 📋 Automação de Cadastros no SEI e SIP com macros do UI.Vision RPA
 
-Este repositório contém um conjunto de macros desenvolvido com a ferramenta UI.Vision RPA para automatizar tarefas recorrentes e manuais relacionadas à configuração e gestão de usuários e unidades organizacionais no Sistema Eletrônico de Informações - SEI. As automações foram desenhadas para facilitar cargas iniciais em massa, bem como agilizar manutenções periódicas.
+Este repositório contém diversas macros desenvolvidas com a ferramenta UI.Vision RPA para automatizar tarefas manuais e recorrentes relacionadas ao cadastro e configuração de usuários, unidades, assuntos e diversos outros itens de parametrização no Sistema Eletrônico de Informações - SEI (e no Sistema de Permissões - SIP). As automações foram desenhadas para facilitar cargas iniciais em massa de novos ambientes e agilizar manutenções periódicas.
 
-As macros utilizam arquivos `.csv` como fonte de dados estruturada e realizam, de forma automatizada, a navegação e o preenchimento de campos nos sistemas, interagindo diretamente com a interface. Cada macro trata um tipo específico de informação e segue uma lógica de repetição com mensagens de status e progresso, facilitando o acompanhamento em tempo real da execução.
+As macros utilizam arquivos `.csv` como fonte de dados estruturada e realizam, de forma automatizada, a navegação e o preenchimento de campos nos sistemas SEI e SIP, interagindo diretamente com a interface de usuário (UI), sem qualquer manipulação de banco de dados, o que torna o processo extremamente seguro em termos de integridade do sistema. Cada macro trata um tipo específico de informação e obedece um padrão de repetição que apresenta mensagens de status e progresso, facilitando o acompanhamento em tempo real da execução.
 
+## 👨‍🔧 A quem se destinam estas ferramentas?
+
+Usuários com perfil de Administração do SEI, que tenham acesso ao SIP para cadastro de unidades, hierarquia, usuários, permissões e que tenham permissão para acessar e modificar configurações no menu `Administração` do SEI.
 
 ## 🚀 Objetivo
 
-Automatizar processos administrativos repetitivos no SEI/SIP com segurança e eficiência, reduzindo o esforço manual de operadores e padronizando o carregamento de dados a partir de arquivos CSV.
+Automatizar processos administrativos repetitivos no SEI/SIP com segurança e eficiência, reduzindo o esforço manual de operadores e padronizando o carregamento de dados a partir de arquivos `.csv`.
 
 ## 🛠️ Pré-requisitos
 
 - Navegador com extensão UiVision RPA instalada ([Google Chrome](https://chrome.google.com/webstore/detail/uivision-rpa/ljdobmomdgdljniojadhoplhkpialdid) ou [Mozilla Firefox](https://addons.mozilla.org/en-US/firefox/addon/uivision-rpa/)). As macros foram criadas no Google Chrome, mas não deve haver conflito.
-- Arquivo(s) CSV de entrada preenchidos conforme estrutura apresentada nos arquivos exemplo.
+- Arquivo(s) `.csv` de entrada preenchidos conforme estrutura apresentada nos arquivos exemplo.
 - Acesso de Administrador aos ambientes do SEI e SIP.
 
 ## 📂 Estrutura do Repositório
@@ -26,17 +29,23 @@ Automatizar processos administrativos repetitivos no SEI/SIP com segurança e ef
 ├─ 6.cargaAssuntos.json  
 └📁 csv/  
 &nbsp;&nbsp; ├─ exemploUnidades.csv  
-&nbsp;&nbsp; ├─ exemploUnidades.csv  
+&nbsp;&nbsp; ├─ exemploUsuarios.csv  
 &nbsp;&nbsp; └─ exemploAssuntos.csv  
 
 ### Sobre as macros incluídas:
 
-1.	Cadastro de Unidades: Automatiza o registro de unidades administrativas no sistema, com base em sua sigla, descrição e órgão vinculado.
-2.	Cadastro das Unidades na Hierarquia: Realiza o vínculo entre as unidades cadastradas, definindo sua posição na estrutura hierárquica.
-3.	Cadastro de Dados Complementares das Unidades: Preenche informações adicionais relacionadas às unidades, como tipo, endereço ou outros campos auxiliares.
-4.	Cadastro de Usuários: Cria contas de usuários no sistema, utilizando dados como CPF, nome, login e e-mail institucional
-5.	Cadastro de Permissões: Atribui as permissões adequadas aos usuários conforme o perfil a ser concedido e a unidade de atuação no sistema.
-6.	Cadastro de Assuntos: Preenche as informações referentes aos assuntos que constam das Tabelas de Assunto do SEI, para fins de classificação de processos e documentos e controle da temporalidade.
+1.	**Cadastro de Unidades no SIP**: Automatiza o registro de unidades administrativas no sistema, com base em sua sigla, descrição e órgão vinculado;
+2.	**Cadastro das Unidades na Hierarquia no SIP**: Realiza o vínculo entre as unidades cadastradas, definindo sua posição na estrutura hierárquica;
+3.	**Cadastro de Dados Complementares das Unidades no SEI**: Preenche informações adicionais relacionadas às unidades, como tipo, endereço ou outros campos auxiliares;
+4.	**Cadastro de Usuários no SIP**: Cria contas de usuários no sistema, utilizando dados como CPF, nome, login e e-mail institucional etc.;
+5.	**Cadastro de Permissões no SIP**: Atribui as permissões adequadas aos usuários conforme o perfil a ser concedido e a unidade de atuação no sistema; e
+6.	**Cadastro de Assuntos no SEI**: Preenche as informações referentes aos assuntos que constam das Tabelas de Assunto do SEI, para fins de classificação de processos e documentos e controle da temporalidade.
+
+> [!IMPORTANT]
+> Além destas, estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo para preenchimento pelo administrador: 
+> 1. **exemploUnidades**: que traz a estrutura de dados referentes a unidades, para execução das macros `1.cargaUnidades.json`, `2.hierarquia.json ` e `3.dadosUnidadesSEI.json`;
+> 2. **exemploUsuarios**: que traz a estrutura de dados referentes a usuários,  para execução das macros `4.cargaUsuarios.json` e `5.permissoes.json `; e
+> 3. **exemploAssuntos**: que traz a estrutura de dados referentes aos assuntos da tabela, para servir de modelo para preenchimento pelo administrador, para execução da macro `6.cargaAssuntos.json `;
 
 
 ## ▶️ Como usar
@@ -50,30 +59,32 @@ Automatizar processos administrativos repetitivos no SEI/SIP com segurança e ef
 8. Execute a macro desejada, clicando em `Play Macro`.
 9. Acompanhe o log da execução e valide o resultado no sistema. As macros apresentam quantas linhas foram cadastradas com sucesso ou com falha. Valide a execução por meio de batimento as quantidades de valores cadastrados diante da quantidade de valores existentes no arquivo de referência.
 
-## 📝 Outras orientações e observações
+## 📝 Orientações gerais e observações
 
-- Os arquivos CSV devem estar no formato esperado por cada macro. Consulte os comentários internos de cada script para detalhes.
+- Os arquivos `.csv` devem estar no formato esperado por cada macro. A primeira linha de cada arquivo exemplo traz um cabeçalho indicando a estrutura de cada CSV.
 - Caso algum termo utilizado no arquivo `.csv` contenha vírgulas, coloque o valor inteiro entre aspas (por exemplo: A `Divisão de Obras, Contratos e Serviços Gerais` deve ser grafada no arquivo `.csv` como `"Divisão de Obras, Contratos e Serviços Gerais"` (com aspas). 
 - Certifique-se de que os dados de entrada (nomes, e-mails, CPF etc.) estejam validados antes da execução, para evitar retrabalho posterior.
 - Embora bastante incomum, alterações na interface do SEI ou SIP podem impactar os seletores usados (IDs, nomes, posições). Verifique e atualize conforme necessário.
 
 ### ⏯️ Linha de Início (Retomada após erro ou pausa)
-Todas as macros permitem retomar a execução a partir de uma linha específica do CSV, bastando ajustar a variável de início `i`, logo no início de cada macro no comando `store | 1 | i`. Este valor `1` indica que a macro deve iniciar sua execução pela 1ª linha do CSV. Basta alterar para a linha da qual se deseja retomar, em caso de necessidade. Isso é útil para continuidade após interrupções.
+Todas as macros permitem retomar a execução a partir de uma linha específica do `.csv`, bastando ajustar a variável de início `i`, logo no início de cada macro no comando `store | 1 | i`. Este valor `1` indica que a macro deve iniciar sua execução pela 1ª linha do `.csv`. Basta alterar para a linha da qual se deseja retomar, em caso de necessidade. Isso é útil para continuidade após interrupções.
 
 ### 💾 Armazenamento das macros
-No canto inferior esquerdo de sua interface, o UI.Vision permite que você defina se irá salvar as macros no armazenamento da própria extensão `Local Storage (In Browser)` ou em uma pasta de seu computador `Fyle system (on hard drive)`. Se você utilizar a opção `Local Storage (In Browser)`, você precisará sempre importar novamente o CSV a cada nova alteração ou correção. Se salvas no computador, basta atualizar os arquivos normalmente e clicar em 🗘 _(Reload all resources on hard drive)_ para que as alterações se reflitam na execução das macros.
+No canto inferior esquerdo de sua interface, o UI.Vision permite que você defina se irá salvar as macros no armazenamento da própria extensão `Local Storage (In Browser)` ou em uma pasta de seu computador `Fyle system (on hard drive)`. Se você utilizar a opção `Local Storage (In Browser)`, você precisará sempre importar novamente o `.csv` a cada nova alteração ou correção. Se salvas no computador, basta atualizar os arquivos normalmente e clicar em 🗘 _(Reload all resources on hard drive)_ para que as alterações se reflitam na execução das macros.
 
 ### 🧾 Visualizando os logs
 Recomenda-se que a visualização dos logs (no canto inferior direito da tela, ao lado do botão `Clear`) seja definida com a opção `Echo & Status`, para que as mensagens exibidas sejam apenas aquelas configuradas na criação das macros. As macros foram desenvolvidas para exibir informações de progresso e estimativa de tempo restante, conforme são executadas. A exibição completa (`All`) traz a execução linha a linha de cada macro e pode gerar confusão para usuários não familizarizados com o tema. Neste sentido, sua utilização é recomendada apenas em caso de necessidade de depuração de erros, por usuários experientes.  
 
 > [!TIP]
 > **A execução exibe mensagens claras de progresso no log, como, por exemplo:**
-> - 📈 Progresso e ⏳ Tempo restante estimado
+> - 📈 Progresso e ⏳ Tempo restante estimado ( visível a partir da 4ª execução, para evitar grandes distorções na estimativa)
 > - 🔁 Processando item
 > - ✅ Sucesso no cadastro
 > - ❌ Falha, com a mensagem de erro capturada
 > - 🏁 Resumo final com total de registros e número de erros
 
+
+## 🤖 Instruções macro a macro
 
 ### 🪪 Macro 5.permissões
 A macro de permissões trata o uso de * para unidade global e faz uma conversão interna para evitar falhas, trocando o asterisco, que gera erro de comportamento da macro pelo termo index=1. Foi uma solução adotada para evitar erros de permissionamento no caso de acesso à unidade global.
