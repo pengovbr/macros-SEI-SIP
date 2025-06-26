@@ -1,4 +1,6 @@
-Licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional (CC BY-NC-SA 4.0)
+**Licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional** 
+
+`license:CC BY-NC-SA-4.0`
 
 Este trabalho está licenciado sob os termos da Licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional.
 
@@ -16,3 +18,5 @@ Sob as seguintes condições:
 🔁 CompartilhaIgual — Se você remixar, transformar ou criar a partir do material, deverá distribuir suas contribuições sob a mesma licença que o original.
 
 🔗 Licença completa: [https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt-br](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt-br)
+
+`license:CC-BY-NC-SA-4.0`
