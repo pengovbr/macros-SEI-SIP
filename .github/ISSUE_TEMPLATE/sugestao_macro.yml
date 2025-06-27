@@ -1,0 +1,36 @@
+name: Sugerir Melhoria em Macro
+description: Proponha ajustes ou novas funcionalidades para as macros existentes.
+title: "[MELHORIA] Nome da macro (ou nova macro) - sugestão"
+labels: [enhancement]
+body:
+  - type: input
+    id: macro
+    attributes:
+      label: Nome da macro (se aplicável)
+      placeholder: "Ex: 2.cargaUsuarios ou nova macro"
+    validations:
+      required: false
+
+  - type: textarea
+    id: proposta
+    attributes:
+      label: Qual a melhoria ou nova macro sugerida?
+      placeholder: "Ex: Incluir validação de CPF antes de cadastro..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: beneficio
+    attributes:
+      label: Qual o benefício dessa sugestão?
+      placeholder: "Ex: Reduz erros manuais, melhora eficiência..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: observacoes
+    attributes:
+      label: Observações adicionais (contexto de uso, prints, etc.)
+      placeholder: "Detalhes que ajudam a entender o uso prático ou a motivação"
+    validations:
+      required: false
