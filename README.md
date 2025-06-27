@@ -96,7 +96,7 @@ Elaborar um arquivo `.csv` manualmente pode ser **muito** complicado. Se você t
 > - 🏁 Resumo final com total de registros e número de erros
 
 
-## 🏢 Grupo de macros sobre unidades.
+## 🏢 Macros sobre unidades
 As macros que tratam de informações sobre unidades (`1.cargaUnidades`, `2.hierarquia` e `3.dadosUnidadesSEI`) usam como referência o arquivo `exemploUnidades.csv`, cuja estrutura está indicada abaixo:
 
 As colunas são:  
@@ -152,6 +152,8 @@ Em formato `.csv`, esta lista ficará visível desta forma:
 ### 🎛️ Macro `3.dadosUnidadesSEI`
 - O ponto de partida dessa macro é o sistema SEI, menu `Administração` > `Unidades` > `Listar`;
 - O arquivo de referência é o `exemploUnidades.csv`, cuja estrutura está detalhada acima.
+
+## 🙋🏻‍♀️ Macros sobre usuários
 
 ### 👩🏻‍💻 4.cargaUsuarios
 - O ponto de partida dessa macro é o sistema SIP, menu `Usuários` > `Listar`;
