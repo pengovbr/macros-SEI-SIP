@@ -69,10 +69,10 @@ Alternativamente, você pode baixar cada arquivo individualmente na listagem aba
 
 ## 📝 Orientações gerais e observações
 
-- Há dois tipos de erros possíveis na reprodução das macros: os erros que ocorrem no SEI ou SIP, que são exibidos pelas macros no `echo`, como parte do resultado da execução (erros previstos), e os erros que ocorrem por falha de execução da própria macro, que são exibidos como **"Error"** e interrompem a execução das macros. Nestes casos, é importante investigar para ver o que causou o erro e o que pode ser feito para sanar o reportado. Alguns erros, como o **"Lost connection to site"** (conexão perdida com o site), por exemplo, podem ser resolvidos com uma reexecução da macro. Outros podem exigir uma revisão do arquivo `.csv` ou revisão das configurações de execução do UI.Vision (botão ⚙️ - Settings).
+- Há dois tipos de erros possíveis na reprodução das macros: os erros que ocorrem no SEI ou SIP, que são exibidos pelas macros no `echo`, como parte do resultado da execução (erros previstos), e os erros que ocorrem por falha de execução da própria macro, que são exibidos como **"Error"** e interrompem a execução das macros. Nestes casos, é importante investigar para ver o que causou o erro e o que pode ser feito para sanar o reportado. Alguns erros, como o **"Lost connection to site"** (conexão perdida com o site), por exemplo, podem ser resolvidos com uma reexecução da macro. Outros podem exigir uma revisão do arquivo `.csv` ou revisão das configurações de execução do UI.Vision (botão ⚙️ _Settings_).
 - Os arquivos `.csv` devem estar no formato esperado por cada macro. A primeira linha de cada arquivo exemplo traz um cabeçalho indicando a estrutura de cada `.csv`.
 - Caso algum termo utilizado no arquivo `.csv` contenha vírgulas, coloque o valor inteiro entre aspas (por exemplo: A `Divisão de Obras, Contratos e Serviços Gerais` deve ser grafada no arquivo `.csv` como `"Divisão de Obras, Contratos e Serviços Gerais"` (com aspas). 
-- Certifique-se de que os dados de entrada (nomes, e-mails, CPF etc.) estejam devidamente validados antes da execução, para evitar retrabalho por inconsistência.
+- Certifique-se de que os dados de entrada (nomes, siglas, e-mails, CPF etc.) estejam devidamente validados antes da execução, para evitar retrabalho por inconsistência.
 - Embora bastante incomuns, alterações na interface do SEI ou SIP podem impactar os seletores usados (IDs, nomes, posições). Verifique e atualize conforme necessário.
 
 ### 𝄜 Como gerar o arquivo `.csv`?
@@ -83,12 +83,18 @@ Elaborar um arquivo `.csv` manualmente pode ser **muito** complicado. Se você t
 
 ### 💾 Armazenamento das macros
 - No canto inferior esquerdo de sua interface, o UI.Vision permite que você defina se irá salvar as macros no armazenamento da própria extensão `Local Storage (In Browser)` ou em uma pasta de seu computador `Fyle system (on hard drive)`. Se você utilizar a opção `Local Storage (In Browser)`, você precisará sempre importar novamente o `.csv` a cada nova alteração ou correção. Se salvas no computador, basta atualizar os arquivos normalmente e clicar em 🔄 _(Reload all resources on hard drive)_ para que as alterações se reflitam na execução das macros. Neste caso (`Local Storage (In Browser)`), as macros devem ser salvas dentro da pasta do UI.Vision, subpasta `macros` e os arquivos `.csv` devem ser salvos na subpasta `datasources`.
+  
+### ⬇️ ID Origem 
+- Estas macros não incluem as informações de ID Origem para cadastro de unidades ou de usuários. **Caso faça uso de informações de ID Origem** (como em casos de importação de sistemas legados ou importação usuários de sistema de RH), acrescente uma coluna adicional aos arquivos da seguinte maneira:
+  - Para unidades, acrescente a coluna `8.idOrigemUnidade` ao arquivo que você criar com base no `exemploUnidades.csv` e, na macro `1.cargaUnidades`, inclua uma linha abaixo da linha 24 com as seguintes especificações: `Command: type | Target :id=txtIdOrigem |Value: ${unidades[${i}][8]}`
+  - Para usuários, acrescente a coluna `9.idOrigemUsuario` ao arquivo que você criar com base no `exemploUsuarios.csv` e, na macro `4.cargaUsuarios` inclua uma linha abaixo da linha 25 com as seguintes especificações: `Command: type | Target :id=txtIdOrigem |Value: ${usuarios[${i}][9]}`
+  
 
 ### 🧾 Visualizando os logs
 - Recomenda-se que a visualização dos logs (no canto inferior direito da tela, ao lado do botão `Clear`) seja definida com a opção `Echo & Status`, para que as mensagens exibidas sejam apenas aquelas configuradas na criação das macros. As macros foram desenvolvidas para exibir informações de progresso e estimativa de tempo restante, conforme são executadas. A exibição completa (`All`) traz a execução linha a linha de cada macro e pode gerar confusão para usuários não familizarizados com o tema. Neste sentido, sua utilização é recomendada apenas em caso de necessidade de depuração de erros, por usuários experientes.  
 
 > [!TIP]
-> **A execução exibe mensagens claras de progresso no log, como, por exemplo:**
+> **O log exibe mensagens claras de progresso, como, por exemplo:**
 > - 📈 Progresso e ⏳ Tempo restante estimado ( visível a partir da 4ª execução, para evitar grandes distorções na estimativa)
 > - 🔁 Processando item
 > - ✅ Sucesso no cadastro
@@ -144,7 +150,7 @@ Em formato `.csv`, esta lista ficará visível desta forma:
 - O ponto de partida dessa macro é o sistema SIP, menu `Hierarquias` > `Montar` > Hierarquia `SEI` > `Pesquisar`;
 - O arquivo de referência é o `exemploUnidades.csv`, cuja estrutura está detalhada acima.
 - As colunas `1-ORGÃO`,`2-SIGLA` e `4-PAI` são utilizadas por esta macro. As demais são usadas pelas macros posteriores.
-&nbsp;&nbsp;  
+
 > [!IMPORTANT]
 > - As linhas que trazem a coluna `4-PAI` em branco indicam que se trata de uma unidade _"Raiz"_, ou seja, que não possui nenhuma unidade acima de si na hierarquia. As demais linhas devem trazer a unidade imediatamente superior a elas para cadastramento na hierarquia.
 > - Por isso, é importante ter em mente que a hierarquia deve ser cadastrada <ins>**de cima para baixo**</ins>. Ou seja, primeiro devem ser inseridos na planilha os níveis mais altos da estrutura organizacional e depois os que vierem abaixo destes. Isso evita que o SIP retorne mensagem de erro informando que a unidade superior não foi encontrada ou travamento da macro.
@@ -153,6 +159,7 @@ Em formato `.csv`, esta lista ficará visível desta forma:
 ### 🎛️ Macro `3.dadosUnidadesSEI`
 - O ponto de partida dessa macro é o sistema SEI, menu `Administração` > `Unidades` > `Listar`;
 - O arquivo de referência é o `exemploUnidades.csv`, cuja estrutura está detalhada acima.
+- Esta macro utiliza a funcionalidade `Usar endereço associado` da Administração do SEI, que faz com que o  endereço do órgão seja adotado para suas unidades. Caso tenha necessidade de cadastrar dados individualizados por unidade, [registre uma issue](https://github.com/pengovbr/macros-SEI-SIP/issues/new/choose) sugerindo esta melhoria.
 
 ## 🙋🏻‍♀️ Macros sobre usuários
 As macros que cadastram informações sobre usuários (`4.cargaUsuarios` e `5.primeirasPermissoes`) usam como referência o arquivo `exemploUsuarios.csv`, cuja estrutura está indicada abaixo:
