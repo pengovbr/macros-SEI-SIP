@@ -1,0 +1,21 @@
+blank_issues_enabled: false
+contact_links:
+
+  - name: Central de Atendimento
+    url: https://portaldeservicos.gestao.gov.br
+    about: Registre um chamado em nossa Central de Atendimento, para casos fora do escopo deste repositório.
+
+  - name: Mande um e-mail pra gente (isso ainda existe? 🤭)
+    url: mailto:processo.eletronico@gestao.gov.br
+    about: Envie um e-mail para nossa equipe.
+
+issue_templates:
+  - name: Reportar Bug em Macro
+    description: Informe um erro encontrado ao executar alguma macro do repositório.
+    file: bug_macro.yml
+  - name: Sugerir Melhoria em Macro
+    description: Proponha ajustes ou novas funcionalidades para as macros existentes.
+    file: sugestao_macro.yml
+  - name: Solicitação Geral
+    description: Use este template para registrar qualquer solicitação que não se encaixe em bugs ou sugestões.
+    file: solicitacao_geral.yml
