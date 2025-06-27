@@ -96,12 +96,20 @@ Elaborar um arquivo `.csv` manualmente pode ser **muito** complicado. Se você t
 > - 🏁 Resumo final com total de registros e número de erros
 
 
-## 🤖 Instruções macro a macro
-Abaixo estão apresentadas algumas orientações a respeito de cada macro, para facilitar sua compreensão e utilização:
+## 🏢 Grupo de macros sobre unidades.
+As macros que tratam de informações sobre unidades (`1.cargaUnidades`, `2.hierarquia` e `3.dadosUnidadesSEI`) usam como referência o arquivo `exemploUnidades.csv`, cuja estrutura está indicada abaixo:
 
-### 🏢 Macro `1.cargaUnidades`
-- O ponto de partida dessa macro é o sistema SIP, menu `Unidades` > `Listar`;
-- O arquivo de referência é o exemploUnidades.csv, cuja estrutura está indicada abaixo:
+As colunas são:  
+**0-Seq.**: Número sequencial (ajuda na orientação linha a linha);  
+**1-ORGAO**: Sigla do órgão em que a unidade será cadastrada (deve estar idêntica à sigla do órgão no SIP) - **Campo obrigatório**;  
+**2-SIGLA**: Sigla da Unidade a ser cadastrada - **Campo obrigatório**;  
+**3-DESCRICAO**: Nome da Unidade a ser cadastrada - **Campo obrigatório**;  
+**4-PAI**: Unidade imediatamente superior na hierarquia - **Campo obrigatório** (no caso de unidade "raiz", que não possui unidade acima, deve ser deixado em branco);  
+**5-EMAIL**: Endereço de e-mail corporativo da unidade;  
+**6-TELEFONE**: Telefone da unidade; e  
+**7-SITE**: sítio web da unidade.  
+
+Confira abaixo um exemplo de montagem da lista de unidades:
 
 | 0-Seq. | 1-ORGAO | 2-SIGLA | 3-DESCRICAO | 4-PAI | 5-EMAIL | 6-TELEFONE | 7-SITE
 |---|---|---|---|---|---|---|---|
@@ -112,7 +120,7 @@ Abaixo estão apresentadas algumas orientações a respeito de cada macro, para 
 | 5 | ORGAO1 | UNI2 | Nome da Unidade 2 | | uni2@orgao1.gov | (99) 2233-3344 | gov.br/orgao1/tema-xyz
 | ... | | | | | | | |
 
-Em formato CSV, a estrutura ficará visível desta forma:
+Em formato `.csv`, esta lista ficará visível desta forma:
 > 0-Seq.,1-ORGAO,2-SIGLA,3-DESCRICAO,4-PAI,5-EMAIL,6-TELEFONE,7-SITE  
 > 1,ORGAO1,UNI1,Nome da Unidade 1,,uni1@orgao1.gov,(99) 2233-4455,gov.br/orgao1  
 > 2,ORGAO1,SUBUNI1.1,Nome da Subunidade 1.1,UNI1,subuni1.1@orgao1.gov,(99) 2233-5566,gov.br/orgao1  
@@ -121,19 +129,33 @@ Em formato CSV, a estrutura ficará visível desta forma:
 > 5,ORGAO1,UNI2,Nome da Unidade 2,,uni2@orgao1.gov,(99) 2233-3344,gov.br/orgao1/tema-xyz  
 
 > [!NOTE]
-> Repare o uso das aspas para isolar conteúdo que tenha vírgulas originalmente.
+> Repare o uso das aspas para isolar conteúdo que tenha vírgulas originalmente.  
+> Repare também que as unidades `UNI1` e `UNI2` são unidades "raiz", e portanto nada foi inserido na coluna `Pai`. O arquivo `.csv` traz duas vírgulas seguidas para mostrar que o campo foi deixado em branco.
 
-- As colunas `1-ORGÃO`,`2-SIGLA` e `3-DESCRICAO` são utilizadas por esta macro. As demais são usadas pelas macros posteriores. 
+### Vamos falar destas três macros abaixo: 
+
+### 🏤 Macro `1.cargaUnidades`
+- O ponto de partida dessa macro é o sistema SIP, menu `Unidades` > `Listar`;
+- O arquivo de referência é o `exemploUnidades.csv`, acima;
+- As colunas `1-ORGÃO`,`2-SIGLA` e `3-DESCRICAO` são utilizadas por esta macro. As demais são usadas pelas macros posteriores; e 
 - Na linha 3 da macro, onde consta `store | 1 | i`, o valor `1` indica que a macro será executada a partir da 1ª linha. Caso deseje executar a partir de outro ponto, altere este valor para a linha que desejar.
 
-### 🪜 Macro 2.hierarquia
+### 🖧 Macro `2.hierarquia`
 - O ponto de partida dessa macro é o sistema SIP, menu `Unidades` > `Listar`;
-- O arquivo de referência é o exemploUnidades.csv, cuja estrutura está detalhada acima, nas informações sobre a macro `1.cargaUnidades`.
+- O arquivo de referência é o `exemploUnidades.csv`, cuja estrutura está detalhada acima.
 - As colunas `1-ORGÃO`,`2-SIGLA` e `4-PAI` são utilizadas por esta macro. As demais são usadas pelas macros posteriores.
-- As linhas que trazem a coluna `4-PAI` em branco indicam que se trata de uma unidade _"Raiz"_, ou seja, que não possui nenhuma unidade acima de si na hierarquia. As demais linhas devem trazer a unidade imediatamente superior a elas para cadastramento na hierarquia.
 > [!IMPORTANT]
+> - As linhas que trazem a coluna `4-PAI` em branco indicam que se trata de uma unidade _"Raiz"_, ou seja, que não possui nenhuma unidade acima de si na hierarquia. As demais linhas devem trazer a unidade imediatamente superior a elas para cadastramento na hierarquia.
 > - Por isso, é importante ter em mente que a hierarquia deve ser cadastrada <ins>**de cima para baixo**</ins>. Ou seja, primeiro devem ser inseridos na planilha os níveis mais altos da estrutura organizacional e depois os que vierem abaixo destes. Isso evita que o SIP retorne mensagem de erro informando que a unidade superior não foi encontrada ou travamento da macro.
+- Esta macro executa um script para atribuir ao campo "Data de Início" da unidade na hierarquia com a data atual (dia em que a macro está sendo executada). Caso opte por utilizar outra data, "comente" a linha 32 da macro (clicando em `//`) e altere o teor do campo `value` da linha 33, em que consta `${dataHoje}` para a data que deseja fazer constar.
 
+### 🎛️ Macro `3.dadosUnidadesSEI`
+- O ponto de partida dessa macro é o sistema SEI, menu `Administração` > `Unidades` > `Listar`;
+- O arquivo de referência é o `exemploUnidades.csv`, cuja estrutura está detalhada acima.
+
+### 👩🏻‍💻 4.cargaUsuarios
+- O ponto de partida dessa macro é o sistema SIP, menu `Usuários` > `Listar`;
+- O arquivo de referência é o `exemploUsuários.csv`, cuja estrutura está detalhada acima, nas informações sobre a macro `1.cargaUnidades`.
 
 
 ### 🪪 Macro 5.permissões
