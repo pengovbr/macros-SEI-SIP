@@ -1,0 +1,50 @@
+name: Reportar Bug em Macro
+description: Informe um erro encontrado ao executar alguma macro do repositório.
+title: "[BUG] Nome da macro - descrição breve do problema"
+labels: [bug]
+body:
+  - type: input
+    id: macro
+    attributes:
+      label: Nome da macro
+      placeholder: "Ex: 1.cargaUnidades"
+    validations:
+      required: true
+
+  - type: textarea
+    id: descricao
+    attributes:
+      label: Descrição do problema
+      description: O que deu errado? Qual o comportamento esperado?
+      placeholder: "Ex: A macro não preenche corretamente os campos do SIP..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: passos
+    attributes:
+      label: Passos para reproduzir
+      description: Como você executou a macro até encontrar o erro?
+      placeholder: "1. Abrir SIP\n2. Executar macro X...\n3. Erro aparece na linha Y..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidencias
+    attributes:
+      label: Evidências (prints, logs, mensagens do console)
+      placeholder: "Cole aqui mensagens de erro, prints ou capturas da interface"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: navegador
+    attributes:
+      label: Navegador utilizado
+      options:
+        - Chrome
+        - Firefox
+        - Edge
+        - Outro
+    validations:
+      required: true
