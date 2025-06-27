@@ -1,0 +1,30 @@
+name: Solicitação Geral
+description: Use este template para registrar qualquer solicitação que não se encaixe em bugs ou sugestões.
+title: "[SOLICITAÇÃO] "
+labels: [triagem]
+assignees: []
+body:
+  - type: textarea
+    id: descricao
+    attributes:
+      label: Descreva sua solicitação
+      description: Forneça o máximo de contexto possível.
+      placeholder: "Ex: Preciso de uma nova macro para automatizar o cadastro de usuários externos..."
+    validations:
+      required: true
+
+  - type: input
+    id: urgencia
+    attributes:
+      label: Existe alguma urgência ou prazo?
+      placeholder: "Ex: Até 01/07/2025 ou não urgente"
+    validations:
+      required: false
+
+  - type: textarea
+    id: observacoes
+    attributes:
+      label: Observações adicionais
+      placeholder: "Links úteis, contexto organizacional, ou anexos relevantes."
+    validations:
+      required: false
