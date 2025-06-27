@@ -8,7 +8,7 @@ As macros utilizam arquivos `.csv` como fonte de dados estruturada e realizam, d
 
 Usuários com perfil de Administração do SEI, que tenham acesso ao SIP para cadastro de unidades, hierarquia, usuários, permissões e que tenham permissão para acessar e modificar configurações no menu `Administração` do SEI.
 
-## 🚀 Objetivo
+## 🎯 Objetivo
 
 Automatizar processos administrativos repetitivos no SEI/SIP com segurança e eficiência, reduzindo o esforço manual de operadores e padronizando o carregamento de dados a partir de arquivos `.csv`.
 
@@ -33,7 +33,7 @@ Alternativamente, você pode baixar cada arquivo individualmente na listagem aba
 ├─ [2.hierarquia.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/2.hierarquia.json)  
 ├─ [3.dadosUnidadesSEI.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/3.dadosUnidadesSEI.json)  
 ├─ [4.cargaUsuarios.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/4.cargaUsuarios.json)  
-├─ [5.permissoes.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/5.permissoes.json)  
+├─ [5.primeirasPermissoes.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/5.permissoes.json)  
 ├─ [6.cargaAssuntos.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/6.cargaAssuntos.json)  
 └📁 csv/  
 &nbsp;&nbsp; ├─ [exemploAssuntos.csv](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploAssuntos.csv)  
@@ -46,13 +46,13 @@ Alternativamente, você pode baixar cada arquivo individualmente na listagem aba
 2.	**Cadastro das Unidades na Hierarquia no SIP**: Realiza o vínculo entre as unidades cadastradas, definindo sua posição na estrutura hierárquica;
 3.	**Cadastro de Dados Complementares das Unidades no SEI**: Preenche informações adicionais relacionadas às unidades, como tipo, endereço ou outros campos auxiliares;
 4.	**Cadastro de Usuários no SIP**: Cria contas de usuários no sistema, utilizando dados como CPF, nome, login e e-mail institucional etc.;
-5.	**Cadastro de Permissões no SIP**: Atribui as permissões adequadas aos usuários conforme o perfil a ser concedido e a unidade de atuação no sistema; e
+5.	**Cadastro das Primeiras Permissões no SIP**: Atribui as primeiras permissões dos usuários, conforme o perfil a ser concedido e a unidade de atuação no sistema; e
 6.	**Cadastro de Assuntos no SEI**: Preenche as informações referentes aos assuntos que constam das Tabelas de Assunto do SEI, para fins de classificação de processos e documentos e controle da temporalidade.
 
 > [!IMPORTANT]
 > Além destas, estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo para preenchimento pelo administrador: 
 > 1. **exemploUnidades**: que traz a estrutura de dados referentes a unidades, para execução das macros `1.cargaUnidades.json`, `2.hierarquia.json ` e `3.dadosUnidadesSEI.json`;
-> 2. **exemploUsuarios**: que traz a estrutura de dados referentes a usuários,  para execução das macros `4.cargaUsuarios.json` e `5.permissoes.json `; e
+> 2. **exemploUsuarios**: que traz a estrutura de dados referentes a usuários,  para execução das macros `4.cargaUsuarios.json` e `5.primeirasPermissoes.json `; e
 > 3. **exemploAssuntos**: que traz a estrutura de dados referentes aos assuntos da tabela, para servir de modelo para preenchimento pelo administrador, para execução da macro `6.cargaAssuntos.json `;
 
 
@@ -97,9 +97,10 @@ Elaborar um arquivo `.csv` manualmente pode ser **muito** complicado. Se você t
 
 
 ## 🏢 Macros sobre unidades
-As macros que tratam de informações sobre unidades (`1.cargaUnidades`, `2.hierarquia` e `3.dadosUnidadesSEI`) usam como referência o arquivo `exemploUnidades.csv`, cuja estrutura está indicada abaixo:
 
-As colunas são:  
+As macros que cadastram informações sobre unidades (`1.cargaUnidades`, `2.permissoes` e `3.primeirasPermissoes`) usam como referência o arquivo `exemploUnidades.csv`, cuja estrutura está indicada abaixo:
+
+**As colunas são**:  
 **0-Seq.**: Número sequencial (ajuda na orientação linha a linha);  
 **1-ORGAO**: Sigla do órgão em que a unidade será cadastrada (deve estar idêntica à sigla do órgão no SIP) - **Campo obrigatório**;  
 **2-SIGLA**: Sigla da Unidade a ser cadastrada - **Campo obrigatório**;  
@@ -118,7 +119,7 @@ Confira abaixo um exemplo de montagem da lista de unidades:
 | 3 | ORGAO1 | SUBUNI1.2 | Nome da Subunidade 1.2 | UNI1 | subuni1.2@orgao1.gov | (99) 2233-5566 | gov.br/orgao1/tema-xpto
 | 4 | ORGAO1 | SUBUNI1.2.1 | Nome da Subunidade 1.2.1, antiga 1.3  | SUBUNI1.2 | subuni1.2.1@orgao1.gov | (99) 2233-6677 | gov.br/orgao1/tema-xpto
 | 5 | ORGAO1 | UNI2 | Nome da Unidade 2 | | uni2@orgao1.gov | (99) 2233-3344 | gov.br/orgao1/tema-xyz
-| ... | | | | | | | |
+| ... | | | | | | | |  
 
 Em formato `.csv`, esta lista ficará visível desta forma:
 > 0-Seq.,1-ORGAO,2-SIGLA,3-DESCRICAO,4-PAI,5-EMAIL,6-TELEFONE,7-SITE  
@@ -129,21 +130,21 @@ Em formato `.csv`, esta lista ficará visível desta forma:
 > 5,ORGAO1,UNI2,Nome da Unidade 2,,uni2@orgao1.gov,(99) 2233-3344,gov.br/orgao1/tema-xyz  
 
 > [!NOTE]
-> Repare o uso das aspas para isolar conteúdo que tenha vírgulas originalmente.  
+> Veja como são usadas aspas para isolar conteúdo que tenha vírgulas originalmente.  
 > Repare também que as unidades `UNI1` e `UNI2` são unidades "raiz", e portanto nada foi inserido na coluna `Pai`. O arquivo `.csv` traz duas vírgulas seguidas para mostrar que o campo foi deixado em branco.
 
-### Vamos falar destas três macros abaixo: 
+### Mais sobre cada uma das 3 macros referentes a unidades: 
 
 ### 🏤 Macro `1.cargaUnidades`
 - O ponto de partida dessa macro é o sistema SIP, menu `Unidades` > `Listar`;
 - O arquivo de referência é o `exemploUnidades.csv`, acima;
 - As colunas `1-ORGÃO`,`2-SIGLA` e `3-DESCRICAO` são utilizadas por esta macro. As demais são usadas pelas macros posteriores; e 
-- Na linha 3 da macro, onde consta `store | 1 | i`, o valor `1` indica que a macro será executada a partir da 1ª linha. Caso deseje executar a partir de outro ponto, altere este valor para a linha que desejar.
 
 ### 🖧 Macro `2.hierarquia`
-- O ponto de partida dessa macro é o sistema SIP, menu `Unidades` > `Listar`;
+- O ponto de partida dessa macro é o sistema SIP, menu `Hierarquias` > `Montar` > Hierarquia `SEI` > `Pesquisar`;
 - O arquivo de referência é o `exemploUnidades.csv`, cuja estrutura está detalhada acima.
 - As colunas `1-ORGÃO`,`2-SIGLA` e `4-PAI` são utilizadas por esta macro. As demais são usadas pelas macros posteriores.
+&nbsp;&nbsp;  
 > [!IMPORTANT]
 > - As linhas que trazem a coluna `4-PAI` em branco indicam que se trata de uma unidade _"Raiz"_, ou seja, que não possui nenhuma unidade acima de si na hierarquia. As demais linhas devem trazer a unidade imediatamente superior a elas para cadastramento na hierarquia.
 > - Por isso, é importante ter em mente que a hierarquia deve ser cadastrada <ins>**de cima para baixo**</ins>. Ou seja, primeiro devem ser inseridos na planilha os níveis mais altos da estrutura organizacional e depois os que vierem abaixo destes. Isso evita que o SIP retorne mensagem de erro informando que a unidade superior não foi encontrada ou travamento da macro.
@@ -154,14 +155,59 @@ Em formato `.csv`, esta lista ficará visível desta forma:
 - O arquivo de referência é o `exemploUnidades.csv`, cuja estrutura está detalhada acima.
 
 ## 🙋🏻‍♀️ Macros sobre usuários
+As macros que cadastram informações sobre usuários (`4.cargaUsuarios` e `5.primeirasPermissoes`) usam como referência o arquivo `exemploUsuarios.csv`, cuja estrutura está indicada abaixo:
+
+As colunas são:
+**0-Index**: Número sequencial (ajuda na orientação linha a linha);  
+**1-Orgao**: Sigla do órgão em que o usuário será cadastrado (deve estar idêntica à sigla do órgão no SIP) - Campo obrigatório;  
+**2-Sigla**: Sigla do Usuário a ser cadastrado - Campo obrigatório;  
+**3-Nome**: Nome do Usuário a ser cadastrado - Campo obrigatório;  
+**4-Nome Social**: Nome pelo qual a pessoa transgênero ou não-binária deseja ser reconhecida e tratada;  
+**5-CPF**: Cadastro de Pessoa Física do Usuário - embora _não obrigatório_, pode ser usado para autenticação GOV.BR;
+**6-E-mail Institucional**: E-mail institucional do usuário - embora _não obrigatório_, pode ser usado para autenticação via SSO;
+**7-unidadePrimeiraPermissao**: Unidade na qual o usuário deve receber a primeira permissão, viabilizando seu acesso ao SEI; e
+**8.perfilPrimeiraPermissao**: perfil a ser dado ao usuário na unidade da primeira permissão.
+
+Confira abaixo um exemplo de montagem da lista de usuários:
+
+|0.Index|1.Orgao | 2.Sigla                | 3.Nome                      | 4.Nome Social              | 5.CPF          | 6.E-mail institucional                | 7.unidadePrimeiraPermissao| 8.perfilPrimeiraPermissao               |
+|-------|--------|------------------------|-----------------------------|----------------------------|----------------|---------------------------------------|---------------------------|-----------------------------------------|
+| 1     | ORGAO1 | leocadio.macambira     | Leocádio Macambira          |                            | 118.229.998-98 | leocadio.macambira@orgao1.gov         | UNI1                      | Básico                                  |
+| 2     | ORGAO1 | tertuliano.gongora     | "Tertuliano Gongora, Msc."  |                            | 124.039.082-31 | tertuliano.gongora@orgao1.gov         | UNI1.1                    | Básico                                  |
+| 3     | ORGAO1 | belarmina.batatinha    | Belarmina Batatinha         |                            | 147.551.240-69 | belarmina.batatinha@orgao1.gov        | UNI2                      | Colaborador (Básico sem Assinatura)     |
+| 4     | ORGAO1 | zildette.brazil        | Raimundo Nonato da Silva    |   Zildette Brazil          | 836.508.748-06 | zildette.brazil@orgao1.gov            | UNI1.2                    | Colaborador (Básico sem Assinatura)     |
+| 5     | ORGAO1 | ursula.trigueirinho    | Úrsula Trigueirinho         |                            | 065.697.139-81 | ursula.trigueirinho@orgao1.govr       | UNI1.2.1                  | Básico                                  |
+| ...   |||||||  
+
+Em formato `.csv`, esta lista ficará visível desta forma:
+> 0Index,1Orgao,2Sigla,3Nome,4Nome Social,5CPF,6E-mail institucional,7unidadePrimeiraPermissao,8perfilPrimeiraPermissao  
+> 1,ORGAO1,leocadio.macambira,Leocádio Macambira,,118.229.998-98,leocadio.macambira@orgao1.gov,UNI1,Básico  
+> 2,ORGAO1,tertuliano.gongora,"Tertuliano Gongora, Msc.",,124.039.082-31,tertuliano.gongora@orgao1.gov,UNI1.1,Básico  
+> 3,ORGAO1,belarmina.batatinha,Belarmina Batatinha,,147.551.240-69,belarmina.batatinha@orgao1.gov,UNI21,Colaborador (Básico sem Assinatura)  
+> 4,ORGAO1,zildette.brazil,Raimundo Nonato da Silva,Zildette Brazil,836.508.748-06,zildette.brazil@orgao1.gov,UNI1.2,Colaborador (Básico sem Assinatura)  
+> 5,ORGAO1,ursula.trigueirinho,Úrsula Trigueirinho,,065.697.139-81,ursula.trigueirinho@orgao1.gov,UNI1.2.1,Básico  
+
+> [!NOTE]
+> Veja como são usadas aspas para isolar conteúdo que tenha vírgulas originalmente.
+> A coluna `Nome Social` diz respeito ao nome pelo qual a pessoa transgênero ou não-binária deseja ser reconhecida e tratada, em vez do nome registrado oficialmente, com base no Decreto nº 8.727/2016 ou legislação correlata. **Não deve** ser utilizada para cadastro de nome artístico, pseudônimo, nome político ou nome de fantasia de empresa representada.
+> A ideia das colunas 7 e 8 é viabilizar o acesso dos usuários ao SEI, cadastrando as **primeiras** permissões. Outras permissões devem ser cadastradas posteriormente pelo administrador. Recomenda-se, a título de agilidade, utilizar a funcionalidade `Atribuição em Bloco` no menu `Permissões` do SIP.
+
+### Mais sobre as 2 macros referentes a usuários: 
 
 ### 👩🏻‍💻 4.cargaUsuarios
 - O ponto de partida dessa macro é o sistema SIP, menu `Usuários` > `Listar`;
-- O arquivo de referência é o `exemploUsuários.csv`, cuja estrutura está detalhada acima, nas informações sobre a macro `1.cargaUnidades`.
+- O arquivo de referência é o `exemploUsuários.csv`, cuja estrutura está detalhada acima.
 
 
 ### 🪪 Macro 5.permissões
 - A macro de permissões trata o uso de * para unidade global e faz uma conversão interna para evitar falhas, trocando o asterisco, que gera erro de comportamento da macro pelo termo index=1. Foi uma solução adotada para evitar erros de permissionamento no caso de acesso à unidade global.
+
+## 🗄️ Macro "Assuntos"
+A macro que cadastra  informações referentes aos assuntos da Tabela de Assuntos do SEI (`6.assuntos`) usa como referência o arquivo `exemploAssuntos.csv`, cuja estrutura está indicada abaixo:
+
+### Macro 🗃️ 6.assuntos
+- O ponto de partida dessa macro é o sistema SEI, menu `Administração` > `Tabelas de Assunto` > [Escolher a tabela desejada] >`Assuntos da Tabela`;
+- O arquivo de referência é o `exemploAssuntos.csv`, cuja estrutura está detalhada acima.
 
 ## 📄 Licença
 
