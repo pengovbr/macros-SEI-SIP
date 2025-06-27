@@ -1,6 +1,6 @@
 {
   "Name": "6.cargaAssuntos",
-  "CreationDate": "2025-6-26",
+  "CreationDate": "2025-6-27",
   "Commands": [
     {
       "Command": "comment",
@@ -181,13 +181,13 @@
         "xpath=//div[2]/div/div/input",
         "css=#chkSinEstrutural"
       ],
-      "Description": ""
+      "Description": "Assinala a checkbox \"Item apenas estrutural\", que desabilita os demais campos e informa que o assunto cadastrado é apenas para organizar a tabela."
     },
     {
       "Command": "assertChecked",
       "Target": "id=chkSinEstrutural",
       "Value": "",
-      "Description": ""
+      "Description": "Se assegura que a checkbox foi, de fato, assinalada."
     },
     {
       "Command": "type",
@@ -201,31 +201,31 @@
         "xpath=//textarea",
         "css=#txaObservacao"
       ],
-      "Description": ""
+      "Description": "Insere o texto, caso haja, na observação do assunto cadastrado."
     },
     {
       "Command": "echo",
       "Target": "🗄️ Assunto ${assuntos[${i}][1]} - ${assuntos[${i}][2]} é apenas estrutural.",
       "Value": "purple",
-      "Description": ""
+      "Description": "Informa, no log do UI.Vision, se tratar de item apenas estrutural."
     },
     {
       "Command": "else",
       "Target": "",
       "Value": "",
-      "Description": ""
+      "Description": "Caso contrário,"
     },
     {
       "Command": "uncheck",
       "Target": "id=chkSinEstrutural",
       "Value": "",
-      "Description": ""
+      "Description": "Desmarca a checkbox \"Item apenas estrutural\" para habilitar os demais campos para preenchimento."
     },
     {
       "Command": "assertNotChecked",
       "Target": "id=chkSinEstrutural",
       "Value": "",
-      "Description": ""
+      "Description": "Se assegura que a checkbox, de fato, não foi assinalada."
     },
     {
       "Command": "type",
@@ -239,7 +239,7 @@
         "xpath=//fieldset/input",
         "css=#txtPrazoCorrente"
       ],
-      "Description": ""
+      "Description": "Insere o prazo de guarda corrente, em anos."
     },
     {
       "Command": "type",
@@ -253,13 +253,13 @@
         "xpath=//fieldset/input[2]",
         "css=#txtPrazoIntermediario"
       ],
-      "Description": ""
+      "Description": "Insere o prazo de guarda intermediária, em anos."
     },
     {
       "Command": "if",
       "Target": "${assuntos[${i}][6]} === 'Guarda' ",
       "Value": "",
-      "Description": "Cria uma condição para tratar casos de perfil na unidade global (*)."
+      "Description": "Esta condicional avalia se o assunto registrado no arquivo .csv deve ser registrado com a Destinação Final \"Guarda Permanente\"."
     },
     {
       "Command": "check",
@@ -273,13 +273,13 @@
         "xpath=//fieldset[2]/div/div/input",
         "css=#optGuardaPermanente"
       ],
-      "Description": ""
+      "Description": "E assinala o radio button correspondente."
     },
     {
       "Command": "assertChecked",
       "Target": "id=optGuardaPermanente",
       "Value": "",
-      "Description": ""
+      "Description": "E, então, se assegura que o radio button correto foi assinalado."
     },
     {
       "Command": "type",
@@ -293,19 +293,19 @@
         "xpath=//textarea",
         "css=#txaObservacao"
       ],
-      "Description": ""
+      "Description": "Insere o texto, caso haja, na observação do assunto cadastrado."
     },
     {
       "Command": "echo",
       "Target": "🗃️ Assunto ${assuntos[${i}][1]} - ${assuntos[${i}][2]} cadastrado com os prazos de guarda ${assuntos[${i}][4]} anos para corrente e ${assuntos[${i}][4]} anos para intermediária, e posterior encaminhamento para Guarda Permanente.",
       "Value": "purple",
-      "Description": ""
+      "Description": "Informa, no log do UI.Vision, que o item foi cadastrado, com seus prazos e destinação \"Guarda permanente\"."
     },
     {
       "Command": "else",
       "Target": "",
       "Value": "",
-      "Description": ""
+      "Description": "Caso contrário,"
     },
     {
       "Command": "check",
@@ -316,13 +316,13 @@
         "xpath=//fieldset[2]/div[2]/div/label",
         "css=#divOptDestinacao > div > label"
       ],
-      "Description": ""
+      "Description": "Assinala o radio button correspondente ao encaminhamento para eliminação."
     },
     {
       "Command": "assertChecked",
       "Target": "id=optDestinacao",
       "Value": "",
-      "Description": ""
+      "Description": "E, então, se assegura que o radio button correto foi assinalado."
     },
     {
       "Command": "type",
@@ -336,25 +336,25 @@
         "xpath=//textarea",
         "css=#txaObservacao"
       ],
-      "Description": ""
+      "Description": "Insere o texto, caso haja, na observação do assunto cadastrado."
     },
     {
       "Command": "echo",
       "Target": "🗃️ Assunto ${assuntos[${i}][1]} - ${assuntos[${i}][2]} cadastrado com os prazos de guarda ${assuntos[${i}][4]} anos para corrente e ${assuntos[${i}][4]} anos para intermediária, e posterior encaminhamento para Eliminação.",
       "Value": "purple",
-      "Description": ""
+      "Description": "Informa, no log do UI.Vision, que o item foi cadastrado, com seus prazos e destinação \"eliminação\"."
     },
     {
       "Command": "end",
       "Target": "",
       "Value": "",
-      "Description": ""
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 34 da macro.)"
     },
     {
       "Command": "end",
       "Target": "",
       "Value": "",
-      "Description": ""
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 24 da macro.)"
     },
     {
       "Command": "click",
@@ -367,7 +367,7 @@
         "xpath=//div/button",
         "css=#divInfraBarraComandosSuperior > button:nth-child(2)"
       ],
-      "Description": ""
+      "Description": "Executa o clique no botão \"Salvar\"."
     },
     {
       "Command": "store",
