@@ -1,10 +1,27 @@
 # 📋 Automação de Cadastros no SEI e SIP com macros do UI.Vision RPA
 
+## 📚 Sumário
+
+- [A quem são destinadas estas macros?](#-a-quem-são-destinadas-estas-macros)
+- [Objetivo](#-objetivo)
+- [Pré-requisitos](#️-pré-requisitos)
+- [Estrutura do Repositório](#-estrutura-do-repositório)
+- [Como usar](#-como-usar)
+- [Orientações gerais e observações](#-orientações-gerais-e-observações)
+- [Macros sobre unidades](#-macros-sobre-unidades)
+- [Macros sobre usuários](#-macros-sobre-usuários)
+- [Macro sobre assuntos](#-Macro-sobre-Assuntos)
+- [Licença](#-licença)
+- [Contato](#-contato)
+
+---
+## ℹ️ Introdução
+
 Este repositório contém diversas macros desenvolvidas com a ferramenta UI.Vision RPA para automatizar tarefas manuais e recorrentes relacionadas ao cadastro e configuração de usuários, unidades, assuntos e diversos outros itens de parametrização no Sistema Eletrônico de Informações - SEI (e no Sistema de Permissões - SIP). As automações foram desenhadas para facilitar cargas iniciais em massa de novos ambientes e agilizar manutenções periódicas.
 
 As macros utilizam arquivos `.csv` como fonte de dados estruturada e realizam, de forma automatizada, a navegação e o preenchimento de campos nos sistemas SEI e SIP, interagindo diretamente com a interface de usuário (UI), sem qualquer manipulação de banco de dados, o que torna o processo extremamente seguro em termos de integridade do sistema. Cada macro trata um tipo específico de informação e obedece um padrão de repetição que apresenta mensagens de status e progresso, facilitando o acompanhamento em tempo real da execução.
 
-## 👨‍🔧 A quem são destinadas estas macros?
+## 👨‍🔧 A quem são destinadas estas macros? 
 
 Usuários com perfil de Administração do SEI, que tenham acesso ao SIP para cadastro de unidades, hierarquia, usuários, permissões e que tenham permissão para acessar e modificar configurações no menu `Administração` do SEI.
 
@@ -12,21 +29,34 @@ Usuários com perfil de Administração do SEI, que tenham acesso ao SIP para ca
 
 Automatizar processos administrativos repetitivos no SEI/SIP com segurança e eficiência, reduzindo o esforço manual de operadores e padronizando o carregamento de dados a partir de arquivos `.csv`.
 
+> [!WARNING]
+> **IMPORTANTE:** As macros disponibilizadas neste repositório foram desenvolvidas para facilitar atividades administrativas repetitivas nos sistemas SEI e SIP, mas devem ser utilizadas com cautela e sob responsabilidade do usuário.
+>
+> Antes de executar qualquer macro:
+> - Verifique cuidadosamente os dados inseridos nos arquivos `.csv`;
+> - Teste a automação em ambiente de homologação sempre que possível;
+> - Certifique-se de que possui perfil adequado e permissões suficientes nos sistemas;
+> - Avalie se o comportamento da macro está compatível com a versão do sistema utilizada.
+>
+> _Os mantenedores deste repositório não se responsabilizam por perdas, inconsistências, danos ou qualquer consequência decorrente do uso incorreto ou não supervisionado destas automações. Ao utilizar os arquivos aqui disponibilizados, você declara estar ciente desses riscos e de que é integralmente responsável pelos dados inseridos e pelas ações executadas._
+
 ## 🛠️ Pré-requisitos
 
 - Navegador com extensão UiVision RPA instalada ([Google Chrome](https://chrome.google.com/webstore/detail/uivision-rpa/ljdobmomdgdljniojadhoplhkpialdid) ou [Mozilla Firefox](https://addons.mozilla.org/en-US/firefox/addon/uivision-rpa/)). As macros foram criadas no Google Chrome, mas não deve haver conflito.
 - Arquivo(s) `.csv` de entrada preenchidos conforme estrutura apresentada nos arquivos exemplo.
 - Acesso de Administrador aos ambientes do SEI e SIP.
 
-## 📂 Estrutura do Repositório
+## 📥 Download dos arquivos
 
-Você pode baixar todo o conjunto de macros e arquivos `.csv` em um único arquivo `.zip`, no link abaixo: 
+Aqui, você pode baixar todos os arquivos: 
 
-(macros-SEI-SIP.zip)(https://github.com/pengovbr/macros-SEI-SIP/blob/main/macros-SEI-SIP.zip)
+[📦 Arquivo ZIP com todas as macros e exemplos CSV](https://github.com/pengovbr/macros-SEI-SIP/blob/main/macros-SEI-SIP.zip)  
 
-Alternativamente, você pode baixar cada arquivo individualmente na listagem abaixo.
+Ou baixar cada arquivo, individualmente:
 
 > Clique com o botão direito e escolha “Salvar link como...”
+
+### 🔧 Macros UI.Vision
 
 📁 macros-SEI-SIP/  
 ├─ [1.cargaUnidades.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/1.cargaUnidades.json)  
@@ -35,13 +65,15 @@ Alternativamente, você pode baixar cada arquivo individualmente na listagem aba
 ├─ [4.cargaUsuarios.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/4.cargaUsuarios.json)  
 ├─ [5.primeirasPermissoes.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/5.permissoes.json)  
 ├─ [6.cargaAssuntos.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/6.cargaAssuntos.json)  
+
+### 📑 Arquivos de exemplo (.csv)
 └📁 csv/  
 &nbsp;&nbsp; ├─ [exemploAssuntos.csv](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploAssuntos.csv)  
 &nbsp;&nbsp; ├─ [exemploUnidades.csv](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUnidades.csv)  
 &nbsp;&nbsp; └─ [exemploUsuarios.csv](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUsuarios.csv)  
 
-### Sobre as macros incluídas:
-
+### 🔧 Sobre as macros incluídas:
+São 06 (seis) macros, diferentes operações nos sistemas SEI e SIP.
 1.	**Cadastro de Unidades no SIP**: Automatiza o registro de unidades administrativas no sistema, com base em sua sigla, descrição e órgão vinculado;
 2.	**Cadastro das Unidades na Hierarquia no SIP**: Realiza o vínculo entre as unidades cadastradas, definindo sua posição na estrutura hierárquica;
 3.	**Cadastro de Dados Complementares das Unidades no SEI**: Preenche informações adicionais relacionadas às unidades, como tipo, endereço ou outros campos auxiliares;
@@ -49,11 +81,11 @@ Alternativamente, você pode baixar cada arquivo individualmente na listagem aba
 5.	**Cadastro das Primeiras Permissões no SIP**: Atribui as primeiras permissões dos usuários, conforme o perfil a ser concedido e a unidade de atuação no sistema; e
 6.	**Cadastro de Assuntos no SEI**: Preenche as informações referentes aos assuntos que constam das Tabelas de Assunto do SEI, para fins de classificação de processos e documentos e controle da temporalidade.
 
-> [!IMPORTANT]
-> Além destas, estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo para preenchimento pelo administrador: 
-> 1. **exemploUnidades**: que traz a estrutura de dados referentes a unidades, para execução das macros `1.cargaUnidades.json`, `2.hierarquia.json ` e `3.dadosUnidadesSEI.json`;
-> 2. **exemploUsuarios**: que traz a estrutura de dados referentes a usuários,  para execução das macros `4.cargaUsuarios.json` e `5.primeirasPermissoes.json `; e
-> 3. **exemploAssuntos**: que traz a estrutura de dados referentes aos assuntos da tabela, para servir de modelo para preenchimento pelo administrador, para execução da macro `6.cargaAssuntos.json `;
+### 📑 Sobre os arquivos de exemplo em `.csv`:
+Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo para preenchimento pelo administrador: 
+1. **exemploUnidades**: que traz a estrutura de dados referentes a unidades, para execução das macros `1.cargaUnidades.json`, `2.hierarquia.json ` e `3.dadosUnidadesSEI.json`;
+2. **exemploUsuarios**: que traz a estrutura de dados referentes a usuários,  para execução das macros `4.cargaUsuarios.json` e `5.primeirasPermissoes.json `; e
+3. **exemploAssuntos**: que traz a estrutura de dados referentes aos assuntos da tabela, para servir de modelo para preenchimento pelo administrador, para execução da macro `6.cargaAssuntos.json `;
 
 
 ## ▶️ Como usar
@@ -116,7 +148,7 @@ As macros que cadastram informações sobre unidades (`1.cargaUnidades`, `2.perm
 **6-TELEFONE**: Telefone da unidade; e  
 **7-SITE**: sítio web da unidade.  
 
-Confira abaixo um exemplo de montagem da lista de unidades:
+#### Exemplo de arquivo `exemploUnidades.csv` em formato de tabela:
 
 | 0-Seq. | 1-ORGAO | 2-SIGLA | 3-DESCRICAO | 4-PAI | 5-EMAIL | 6-TELEFONE | 7-SITE
 |---|---|---|---|---|---|---|---|
@@ -127,7 +159,7 @@ Confira abaixo um exemplo de montagem da lista de unidades:
 | 5 | ORGAO1 | UNI2 | Nome da Unidade 2 | | uni2@orgao1.gov | (99) 2233-3344 | gov.br/orgao1/tema-xyz
 | ... | | | | | | | |  
 
-Em formato `.csv`, esta lista ficará visível desta forma:
+#### Formato `.csv`correspondente:
 > 0-Seq.,1-ORGAO,2-SIGLA,3-DESCRICAO,4-PAI,5-EMAIL,6-TELEFONE,7-SITE  
 > 1,ORGAO1,UNI1,Nome da Unidade 1,,uni1@orgao1.gov,(99) 2233-4455,gov.br/orgao1  
 > 2,ORGAO1,SUBUNI1.1,Nome da Subunidade 1.1,UNI1,subuni1.1@orgao1.gov,(99) 2233-5566,gov.br/orgao1  
@@ -195,13 +227,12 @@ Em formato `.csv`, esta lista ficará visível desta forma:
 > 5,ORGAO1,ursula.trigueirinho,Úrsula Trigueirinho,,065.697.139-81,ursula.trigueirinho@orgao1.gov,UNI1.2.1,Básico  
 
 > [!NOTE]
-> Veja como são usadas aspas para isolar conteúdo que tenha vírgulas originalmente.
-> A coluna `Nome Social` diz respeito ao nome pelo qual a pessoa transgênero ou não-binária deseja ser reconhecida e tratada, em vez do nome registrado oficialmente, com base no Decreto nº 8.727/2016 ou legislação correlata. **Não deve** ser utilizada para cadastro de nome artístico, pseudônimo, nome político ou nome de fantasia de empresa representada.
-> A ideia das colunas 7 e 8 é viabilizar o acesso dos usuários ao SEI, cadastrando as **primeiras** permissões. Outras permissões devem ser cadastradas posteriormente pelo administrador. Recomenda-se, a título de agilidade, utilizar a funcionalidade `Atribuição em Bloco` no menu `Permissões` do SIP.
+> - A coluna `Nome Social` diz respeito ao nome pelo qual a pessoa transgênero ou não-binária deseja ser reconhecida e tratada, em vez do nome registrado oficialmente, com base no Decreto nº 8.727/2016 ou legislação correlata. **Não deve** ser utilizada para cadastro de nome artístico, pseudônimo, nome político ou nome de fantasia de empresa representada.  
+> - A ideia das colunas 7 e 8 é viabilizar o acesso dos usuários ao SEI, cadastrando as **primeiras** permissões. Outras permissões devem ser cadastradas posteriormente pelo administrador. Recomenda-se, a título de agilidade, utilizar a funcionalidade `Atribuição em Bloco` no menu `Permissões` do SIP.
 
 ### Mais sobre as 2 macros referentes a usuários: 
 
-### 👩🏻‍💻 4.cargaUsuarios
+### 👩🏻‍💻 4.Macro cargaUsuarios
 - O ponto de partida dessa macro é o sistema SIP, menu `Usuários` > `Listar`;
 - O arquivo de referência é o `exemploUsuários.csv`, cuja estrutura está detalhada acima.
 
@@ -209,8 +240,8 @@ Em formato `.csv`, esta lista ficará visível desta forma:
 ### 🪪 Macro 5.permissões
 - A macro de permissões trata o uso de * para unidade global e faz uma conversão interna para evitar falhas, trocando o asterisco, que gera erro de comportamento da macro pelo termo index=1. Foi uma solução adotada para evitar erros de permissionamento no caso de acesso à unidade global.
 
-## 🗄️ Macro "Assuntos"
-A macro que cadastra  informações referentes aos assuntos da Tabela de Assuntos do SEI (`6.assuntos`) usa como referência o arquivo `exemploAssuntos.csv`, cuja estrutura está indicada abaixo:
+## 🗄️ Macro sobre Assuntos
+A macro que cadastra informações referentes aos assuntos da Tabela de Assuntos do SEI (`6.assuntos`) usa como referência o arquivo `exemploAssuntos.csv`, cuja estrutura está indicada abaixo:
 
 ### Macro 🗃️ 6.assuntos
 - O ponto de partida dessa macro é o sistema SEI, menu `Administração` > `Tabelas de Assunto` > [Escolher a tabela desejada] >`Assuntos da Tabela`;
