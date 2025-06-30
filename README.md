@@ -16,6 +16,8 @@
 - [Contato](#-contato)
 
 ---
+<br/>
+
 <a name="introducao"></a>
 ## ℹ️ Introdução
 
@@ -26,6 +28,8 @@ As macros utilizam arquivos `.csv` como fonte de dados estruturada e realizam, d
 ## 👨‍🔧 A quem são destinadas estas macros? 
 
 Usuários com perfil de Administração do SEI, que tenham acesso ao SIP para cadastro de unidades, hierarquia, usuários, permissões e que tenham permissão para acessar e modificar configurações no menu `Administração` do SEI.
+
+<br/>
 
 ## 🎯 Objetivo
 
@@ -45,11 +49,15 @@ Automatizar processos administrativos repetitivos no SEI/SIP com segurança e ef
 >
 > _Os mantenedores deste repositório não se responsabilizam por perdas, inconsistências, danos ou qualquer consequência decorrente do uso incorreto ou não supervisionado destas automações. Ao utilizar os arquivos aqui disponibilizados, você declara estar ciente desses riscos e de que é integralmente responsável pelos dados inseridos e pelas ações executadas._
 
+<br/>
+
 ## 🛠️ Pré-requisitos
 
 - Navegador com extensão UiVision RPA instalada ([Google Chrome](https://chrome.google.com/webstore/detail/uivision-rpa/ljdobmomdgdljniojadhoplhkpialdid) ou [Mozilla Firefox](https://addons.mozilla.org/en-US/firefox/addon/uivision-rpa/)). As macros foram criadas no Google Chrome, mas não deve haver conflito.
 - Arquivo(s) `.csv` de entrada preenchidos conforme estrutura apresentada nos arquivos exemplo.
 - Acesso de Administrador aos ambientes do SEI e SIP.
+
+<br/>
 
 ## 📥 Download dos arquivos
 
@@ -92,6 +100,9 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 2. **exemploUsuarios**: que traz a estrutura de dados referentes a usuários,  para execução das macros `4.cargaUsuarios.json` e `5.primeirasPermissoes.json `; e
 3. **exemploAssuntos**: que traz a estrutura de dados referentes aos assuntos da tabela, para servir de modelo para preenchimento pelo administrador, para execução da macro `6.cargaAssuntos.json `;
 
+<br/>
+
+
 <a name="como-usar"></a>
 ## ▶️ Como usar
 
@@ -103,6 +114,8 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 7. A página  em que a macro será executada deve estar aberta na tela para iniciar sua execução.
 8. Execute a macro desejada, clicando no botão `Play Macro`.
 9. Acompanhe o log da execução e valide o resultado no sistema. As macros apresentam quantas linhas foram cadastradas com sucesso ou com falha. Valide a execução por meio de batimento entre as quantidades de valores cadastrados e a quantidade de valores existentes no arquivo de referência.
+
+<br/>
 
 ## 📝 Orientações gerais e observações
 
@@ -138,9 +151,11 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 > - ❌ Falha, com a mensagem de erro capturada
 > - 🏁 Resumo final com total de registros e número de erros
 
+<br/>
+
 
 #### Em seguida, serão abordados os três grandes temas tratados por estas ferramentas: Unidades, usuários e assuntos.  
-
+<br/>
 
 <a name="unidades"></a>
 ## 🏢 CADASTRAMENTO DE UNIDADES
@@ -148,14 +163,14 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 O arquivo exemploUnidades.csv é utilizado para alimentar as macros `1.cargaUnidades`, `2.hierarquia` e `3.dadosUnidadesSEI`, responsáveis pelo cadastro da estrutura organizacional no SIP/SEI. Ele contém os dados básicos de cada unidade administrativa, sua posição na hierarquia e informações complementares opcionais.
 
 #### Suas colunas são:
-**0-Seq.**: Número sequencial (ajuda na orientação linha a linha);  
-**1-ORGAO**: Sigla do órgão em que a unidade será cadastrada (deve estar idêntica à sigla do órgão no SIP) - **Campo obrigatório**;  
-**2-SIGLA**: Sigla da Unidade a ser cadastrada - **Campo obrigatório**;  
-**3-DESCRICAO**: Nome da Unidade a ser cadastrada - **Campo obrigatório**;  
-**4-PAI**: Unidade imediatamente superior na hierarquia - **Campo obrigatório** (no caso de unidade "raiz", que não possui unidade acima, deve ser deixado em branco);  
-**5-EMAIL**: Endereço de e-mail corporativo da unidade;  
-**6-TELEFONE**: Telefone da unidade; e  
-**7-SITE**: sítio web da unidade.  
+0. **Seq.**: Número sequencial (ajuda na orientação linha a linha);  
+1. **ORGAO**: Sigla do órgão em que a unidade será cadastrada (deve estar idêntica à sigla do órgão no SIP) - **Campo obrigatório**;  
+2. **SIGLA**: Sigla da Unidade a ser cadastrada - **Campo obrigatório**;  
+3. **DESCRICAO**: Nome da Unidade a ser cadastrada - **Campo obrigatório**;  
+4. **PAI**: Unidade imediatamente superior na hierarquia - **Campo obrigatório** (no caso de unidade "raiz", que não possui unidade acima, deve ser deixado em branco);  
+5. **EMAIL**: Endereço de e-mail corporativo da unidade;  
+6. **TELEFONE**: Telefone da unidade; e  
+7. **SITE**: sítio web da unidade.  
 
 #### Exemplo de arquivo `exemploUnidades.csv` em formato de tabela:
 
@@ -203,21 +218,23 @@ O arquivo exemploUnidades.csv é utilizado para alimentar as macros `1.cargaUnid
 - O arquivo de referência é o `exemploUnidades.csv`, cuja estrutura está detalhada acima.
 - Esta macro utiliza a funcionalidade `Usar endereço associado` da Administração do SEI, que faz com que o  endereço do órgão seja adotado para suas unidades. Caso tenha necessidade de cadastrar dados individualizados por unidade, [registre uma issue](https://github.com/pengovbr/macros-SEI-SIP/issues/new/choose) sugerindo esta melhoria.
 
+<br/>
+
 
 <a name="usuarios"></a>
 ## 🙋🏻‍♀️ CADASTRAMENTO DE USUÁRIOS
 O arquivo `exemploUsuarios.csv` é utilizado para alimentar as macros `4.cargaUsuarios` e `5.primeirasPermissoes`, responsáveis pelo cadastro de usuários e concessão de suas permissões iniciais no SIP/SEI. Ele contempla dados de identificação, CPF, e-mail e dados das primeiras permissões para viabilizar acesso ao SEI para os usuários.
 
 #### Suas colunas são:
-**0-Index**: Número sequencial (ajuda na orientação linha a linha);  
-**1-Orgao**: Sigla do órgão em que o usuário será cadastrado (deve estar idêntica à sigla do órgão no SIP) - Campo obrigatório;  
-**2-Sigla**: Sigla do Usuário a ser cadastrado - Campo obrigatório;  
-**3-Nome**: Nome do Usuário a ser cadastrado - Campo obrigatório;  
-**4-Nome Social**: Nome pelo qual a pessoa transgênero ou não-binária deseja ser reconhecida e tratada;  
-**5-CPF**: Cadastro de Pessoa Física do Usuário - embora _não obrigatório_, pode ser usado para autenticação GOV.BR;
-**6-E-mail Institucional**: E-mail institucional do usuário - embora _não obrigatório_, pode ser usado para autenticação via SSO;
-**7-unidadePrimeiraPermissao**: Unidade na qual o usuário deve receber a primeira permissão, viabilizando seu acesso ao SEI; e
-**8.perfilPrimeiraPermissao**: perfil a ser dado ao usuário na unidade da primeira permissão.
+0. **Index**: Número sequencial (ajuda na orientação linha a linha);  
+1. **Orgao**: Sigla do órgão em que o usuário será cadastrado (deve estar idêntica à sigla do órgão no SIP) - Campo obrigatório;  
+2. **Sigla**: Sigla do Usuário a ser cadastrado - Campo obrigatório;  
+3. **Nome**: Nome do Usuário a ser cadastrado - Campo obrigatório;  
+4. **Nome Social**: Nome pelo qual a pessoa transgênero ou não-binária deseja ser reconhecida e tratada;  
+5. **CPF**: Cadastro de Pessoa Física do Usuário - embora _não obrigatório_, pode ser usado para autenticação GOV.BR;
+6. **E-mail Institucional**: E-mail institucional do usuário - embora _não obrigatório_, pode ser usado para autenticação via SSO;
+7. **unidadePrimeiraPermissao**: Unidade na qual o usuário deve receber a primeira permissão, viabilizando seu acesso ao SEI; e
+8. **perfilPrimeiraPermissao**: perfil a ser dado ao usuário na unidade da primeira permissão.
 
 #### Exemplo de arquivo `exemploUsuarios.csv` em formato de tabela:
 
@@ -250,23 +267,26 @@ O arquivo `exemploUsuarios.csv` é utilizado para alimentar as macros `4.cargaUs
 
 
 ### 🪪 Macro 5.permissões
-- A macro de permissões trata o uso de * para unidade global e faz uma conversão interna para evitar falhas, trocando o asterisco, que gera erro de comportamento da macro pelo termo index=1. Foi uma solução adotada para evitar erros de permissionamento no caso de acesso à unidade global.
-- Como dito anteriormente, a proposta, neste caso, é apenas cadastrar uma primeira permissão para viabilizar o acesso ao SEI para o usuário cadastrado, e não esgotar todas as suas permissões. Estas podem ser cadastradas posteriormente, com o sistema já em uso pelos usuários.
+- A macro de permissões trata o uso de `*` para a Unidade Global por meio de uma conversão interna para evitar falhas, trocando o asterisco (que gera erro de comportamento na macro) pelo termo `index=1`. Foi uma solução adotada para evitar erros de permissionamento no caso de acesso à unidade global.
+- Como dito anteriormente, a proposta, neste caso, é apenas cadastrar uma **primeira permissão** para viabilizar o acesso ao SEI para o usuário cadastrado, e não esgotar todas as suas permissões. Estas podem ser cadastradas posteriormente, com o sistema já em uso pelos usuários.
 - Esta macro utiliza comandos `pause` para gerar pequenos tempos de espera - gravados em `ms` (milissegundos), necessários ao carregamento de informações em listas "dependentes" (ou seja, situações em que os itens da lista de um nível abaixo variam de acordo com a escolha no nível superior). Se necessário, edite estes valores para mais ou para menos para otimizar seu funcionamento.
+
+<br/>
+
 
 <a name="assuntos"></a>
 ## 🗄️CADASTRAMENTO DE ASSUNTOS
 O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro 6.cargaAssuntos, responsável pelo cadastro dos assuntos da Tabela de Assuntos do SEI, com base no Código de Classificação de Documentos (CCD) e na Tabela de Temporalidade e Destinação (TTD).
 
 #### Suas colunas são:
-**0.Index:** Número sequencial (auxilia na identificação linha a linha durante a execução da macro).  
-**1.CodigoEstruturado:** Código de Classificação de Documentos (CCD), que estrutura os assuntos conforme as funções da instituição. A hierarquia é implícita no código, sem necessidade de definir assunto pai.  
-**2.NomeAssunto:** Nome do assunto conforme o CCD.  
-**3.chkEstrutural:** Indica se o item é apenas estrutural (valor S). Assuntos estruturais não são selecionáveis na hora de classificar documentos, servindo apenas como agrupadores.  
-**4.PrazoCorrente:** Prazo em anos de guarda na fase corrente, conforme a TTD.  
-**5.PrazoIntermed:** Prazo em anos de guarda na fase intermediária.  
-**6.Destinacao:** Destinação final do documento: Guarda Permanente ou Eliminação.  
-**7.Obs:** Campo livre para observações manuais.  
+0. **Index:** Número sequencial (auxilia na identificação linha a linha durante a execução da macro).  
+1. **CodigoEstruturado:** Código de Classificação de Documentos (CCD), que estrutura os assuntos conforme as funções da instituição. A hierarquia é implícita no código, sem necessidade de definir assunto pai.  
+2. **NomeAssunto:** Nome do assunto conforme o CCD.  
+3. **chkEstrutural:** Indica se o item é apenas estrutural (valor S). Assuntos estruturais não são selecionáveis na hora de classificar documentos, servindo apenas como agrupadores.  
+4. **PrazoCorrente:** Prazo em anos de guarda na fase corrente, conforme a TTD.  
+5. **PrazoIntermed:** Prazo em anos de guarda na fase intermediária.  
+6. **Destinacao:** Destinação final do documento: Guarda Permanente ou Eliminação.  
+7. **Obs:** Campo livre para observações manuais.  
 
 #### Exemplo de arquivo `exemploAssuntos.csv` em formato de tabela:
 
@@ -279,13 +299,14 @@ O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro 6.cargaAssun
 | 5       | 020.02.01            | Planos de Ensino              |                  | 2                | 3                | Eliminação        |                              |
 
 
-0.Index,1.CodigoEstruturado,2.NomeAssunto,3.chkEstrutural,4.PrazoCorrente,5.PrazoIntermed,6.Destinacao,7.Obs
-1,020.01,Atividades Acadêmicas,S,,,,Exemplo de observação
-2,020.01.01,Projetos de Pesquisa,,5,10,Guarda Permanente,Pendente validação
-3,020.01.02,Eventos Acadêmicos,,3,2,Eliminação,
-4,020.02,Ensino,S,,,,Pendente validação
-5,020.02.01,Planos de Ensino,,2,3,Eliminação,
-
+#### Formato `.csv` correspondente:
+> 0.Index,1.CodigoEstruturado,2.NomeAssunto,3.chkEstrutural,4.PrazoCorrente,5.PrazoIntermed,6.Destinacao,7.Obs  
+> 1,020.01,Atividades Acadêmicas,S,,,,Exemplo de observação  
+> 2,020.01.01,Projetos de Pesquisa,,5,10,Guarda Permanente,Pendente validação  
+> 3,020.01.02,Eventos Acadêmicos,,3,2,Eliminação,  
+> 4,020.02,Ensino,S,,,,Pendente validação  
+> 5,020.02.01,Planos de Ensino,,2,3,Eliminação,  
+  
 ### Pontos de atenção sobre a macro referentes a Assuntos:
 
 ### 🗃️ Macro 6.assuntos
