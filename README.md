@@ -318,7 +318,7 @@ O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro 6.cargaAssun
 
 ## 📫 Contato
 
-Dúvidas ou sugestões? Abra uma [Issue](https://github.com/pengovbr/macros-SEI-SIP/issues) ou entre em contato conosco por meio da [Central de Atendimento do PEN](https://portaldeservicos.gestao.gov.br).
+Dificuldades, dúvidas ou sugestões? [Abra uma Issue](https://github.com/pengovbr/macros-SEI-SIP/issues/new/choose) ou entre em contato conosco por meio da [Central de Atendimento do PEN](https://portaldeservicos.gestao.gov.br).
 
 ## 📄 Licença
 
