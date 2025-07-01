@@ -156,12 +156,7 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 Confira, no vídeo a seguir, uma demonstração de uso da macro `1.cargaUnidades`:
 
 
-https://www.youtube.com/watch?v=
-
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=uYujObEl0RY
-" target="_blank"><img src="https://github.com/user-attachments/assets/b7abde7f-62af-40d7-bd3f-d9b1144d4946" 
-alt="Macros-SEI-SIP" border="10" /></a>
+https://youtu.be/uYujObEl0RY?si=Iz2UvfGvs1kw8MHw
 
 
  <br/>
