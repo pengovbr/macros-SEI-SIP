@@ -153,6 +153,12 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 
 <br/>
 
+Confira, no vídeo a seguir, uma demonstração de uso da macro `1.cargaUnidades`:
+
+   [![video-macros-print](https://github.com/user-attachments/assets/b7abde7f-62af-40d7-bd3f-d9b1144d4946)](https://mtegovbr-my.sharepoint.com/:v:/g/personal/pedro_moreira_gestao_gov_br/EXvsW7drsHhAhVPUlXpvIRQBH-ZRaPQPlV_P0lbrH5paUw?e=bdNg4R&nav=eyJwbGF5YmFja09wdGlvbnMiOnt9LCJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJUZWFtcyIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJwb3N0cm9sbC1jb3B5bGluayIsInJlZmVycmFsUGxheWJhY2tTZXNzaW9uSWQiOiJmMGM2ZDJjOS0zMGQ0LTQ5ZmItODBjMy02NzgxMmQzNTdiOWYifX0%3D "Exemplo em vídeo")
+
+ <br/>
+ <br/>
 
 #### Em seguida, serão abordados os três grandes temas tratados por estas ferramentas: Unidades, usuários e assuntos.  
 <br/>
@@ -267,6 +273,7 @@ O arquivo `exemploUsuarios.csv` é utilizado para alimentar as macros `4.cargaUs
 
 
 ### 🪪 Macro 5.permissões
+- O ponto de partida dessa macro é o sistema SIP, menu `Permissões` > `Atribuição em Bloco`;
 - A macro de permissões trata o uso de `*` para a Unidade Global por meio de uma conversão interna para evitar falhas, trocando o asterisco (que gera erro de comportamento na macro) pelo termo `index=1`. Foi uma solução adotada para evitar erros de permissionamento no caso de acesso à unidade global.
 - Como dito anteriormente, a proposta, neste caso, é apenas cadastrar uma **primeira permissão** para viabilizar o acesso ao SEI para o usuário cadastrado, e não esgotar todas as suas permissões. Estas podem ser cadastradas posteriormente, com o sistema já em uso pelos usuários.
 - Esta macro utiliza comandos `pause` para gerar pequenos tempos de espera - gravados em `ms` (milissegundos), necessários ao carregamento de informações em listas "dependentes" (ou seja, situações em que os itens da lista de um nível abaixo variam de acordo com a escolha no nível superior). Se necessário, edite estes valores para mais ou para menos para otimizar seu funcionamento.
