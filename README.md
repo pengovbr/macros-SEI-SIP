@@ -127,7 +127,9 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 ### ↻ Rodar a macro no UI.Vision
 1. Acesse o UI.Vision a partir do ícone ![image](https://github.com/user-attachments/assets/3147ce13-d273-4844-9153-07a4bbc1d3c6) ao lado da Barra de Endereços, ou clicando no ícone ![image](https://github.com/user-attachments/assets/dcac9331-6c97-42a3-b6fe-923095035e85) (Extensões).
 2. Na tela inicial do Ui.Vision, importe o arquivo `.zip` (para importar todas as macros) ou `.json` (para importar uma macro específica) para o UiVision, clicando no botão ![image](https://github.com/user-attachments/assets/86fd9e48-84ae-4e0a-a97c-4e5e10161b95). Este passo só precisa ser executado uma vez (não é necessário "re-importar" as macros).  
-- ![UI Vision-Import-Json](https://github.com/user-attachments/assets/32dc93eb-7c19-4fc4-8112-21ce2396f05a).  
+![UI Vision-Import-Json](https://github.com/user-attachments/assets/32dc93eb-7c19-4fc4-8112-21ce2396f05a).  
+<br/>
+
   - A(s) macro(s) importada(s) deve(m) aparecer na lista à esquerda da tela.  
 ![image](https://github.com/user-attachments/assets/903496f3-1dee-40e9-8f75-7c9dd4246482)
 3. Importe o arquivo `.csv` correspondente para utilização na macro, clicando em `CSV` e depois em `Import CSV`.
