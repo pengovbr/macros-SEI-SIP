@@ -120,7 +120,9 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 
 ## 📝 Orientações gerais e observações
 
-- Há dois tipos de erros possíveis na reprodução das macros: os erros que ocorrem no SEI ou SIP, que são exibidos pelas macros no `echo`, como parte do resultado da execução (erros previstos), e os erros que ocorrem por falha de execução da própria macro, que são exibidos como **"Error"** e interrompem a execução das macros. Nestes casos, é importante investigar para ver o que causou o erro e o que pode ser feito para sanar o reportado. Alguns erros, como o **"Lost connection to site"** (conexão perdida com o site), por exemplo, podem ser resolvidos com uma reexecução da macro. Outros podem exigir uma revisão do arquivo `.csv` ou revisão das configurações de execução do UI.Vision (botão ⚙️ _Settings_).
+- Há dois tipos de erros possíveis na reprodução das macros:
+  - os erros que ocorrem no SEI ou SIP, que são exibidos pelas macros no `echo`, como parte do resultado da execução (erros previstos);
+  - e os erros que ocorrem por falha de execução da própria macro, que são exibidos como **"Error"** e interrompem a execução das macros. Nestes casos, é importante investigar para ver o que causou o erro e o que pode ser feito para sanar o reportado. Alguns erros, como o **"Lost connection to site"** (conexão perdida com o site), por exemplo, podem ser resolvidos com uma reexecução da macro. Outros podem exigir uma revisão do arquivo `.csv` ou revisão das configurações de execução do UI.Vision (botão ⚙️ _Settings_).
 - Certifique-se de que os dados de entrada (nomes, siglas, e-mails, CPF etc.) estejam devidamente validados antes da execução, para evitar retrabalho por inconsistência.
 - Embora bastante incomuns, alterações na interface do SEI ou SIP podem impactar os seletores usados (IDs, nomes, posições). Verifique e atualize conforme necessário.
 
