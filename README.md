@@ -320,9 +320,12 @@ O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro 6.cargaAssun
 - O log desta macro traz informações de progresso e detalha cada assunto carregado (informa se é apenas estrutural ou, se não, quais os prazos e qual a destinação associada a este assunto).
 <br/>
 <br/>
+
 ---
+
+
 <a name="demo-video"></a>
-### Vídeo com contextualizaçãop e demonstração de uso da macro `1.cargaUnidades`
+### 🎬 Vídeo com contextualização e demonstração de uso da macro `1.cargaUnidades`
 
 _Clique na imagem com o botão direito e abra o link em nova aba, caso precise manter esta aberta._
 
