@@ -153,14 +153,9 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 
 <br/>
 
-Confira, no vídeo a seguir, uma demonstração de uso da macro `1.cargaUnidades`:
+Confira, no final deste **Readme**, uma demonstração em vídeo do uso da macro `1.cargaUnidades`:
 
-
-https://youtu.be/uYujObEl0RY?si=Iz2UvfGvs1kw8MHw
-
-
- <br/>
- <br/>
+<br/>
 
 #### Em seguida, serão abordados os três grandes temas tratados por estas ferramentas: Unidades, usuários e assuntos.  
 <br/>
@@ -322,6 +317,15 @@ O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro 6.cargaAssun
 - O ponto de partida dessa macro é o sistema SEI, menu `Administração` > `Tabelas de Assunto` > [Escolher a tabela desejada] >`Assuntos da Tabela`;
 - O arquivo de referência é o `exemploAssuntos.csv`, cuja estrutura está detalhada acima.
 - O log desta macro traz informações de progresso e detalha cada assunto carregado (informa se é apenas estrutural ou, se não, quais os prazos e qual a destinação associada a este assunto).
+
+---
+### Vídeo com contextualizaçãop e demonstração de uso da macro `1.cargaUnidades`
+
+_Clique na imagem com o botão direito e abra o link em nova aba, caso precise manter esta aberta._
+
+[![video-macros-mini](https://github.com/user-attachments/assets/591f5eec-712d-4373-a385-70e9672a1f9d)](https://youtu.be/uYujObEl0RY)
+
+
 
 ---
 
