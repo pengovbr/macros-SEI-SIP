@@ -17,7 +17,6 @@
 - [Contato](#contato)
 
 ---
-<br/>
 
 <a name="introducao"></a>
 ## ℹ️ Introdução
@@ -55,20 +54,21 @@ Automatizar processos administrativos repetitivos no SEI/SIP com segurança e ef
 ## 🛠️ Pré-requisitos
 
 - Navegador com extensão UiVision RPA instalada ([Google Chrome](https://chrome.google.com/webstore/detail/uivision-rpa/ljdobmomdgdljniojadhoplhkpialdid) ou [Mozilla Firefox](https://addons.mozilla.org/en-US/firefox/addon/uivision-rpa/)). As macros foram criadas no Google Chrome, mas não deve haver conflito.
+  - Na lista de extensões do navegador, é recomendável "fixar" o UI.Vision para facilitar o acesso à extensão, clicando no ícone ![image](https://github.com/user-attachments/assets/fae6c779-4018-4558-9180-4277218f15ce) (Fixar) ao lado da extensão. Uma vez fixada, o botão "fixar" fica azul e o ícone da extensão fica visível ao lado da Barra de Endereços.
 - Arquivo(s) `.csv` de entrada preenchidos conforme estrutura apresentada nos arquivos exemplo.
-- Acesso de Administrador aos ambientes do SEI e SIP.
+- Acesso de **Administrador** aos ambientes do SEI e SIP.
 
 <br/>
 
 ## 📥 Download dos arquivos
 
-Aqui, você pode baixar todos os arquivos: 
-
-[📦 Arquivo `.zip` com todas as macros e exemplos `.csv`](https://github.com/pengovbr/macros-SEI-SIP/blob/main/macros-SEI-SIP.zip)  
-
-Ou baixar cada arquivo, individualmente:
+Aqui, você pode baixar todos os arquivos do repositório.
 
 > Clique com o botão direito e escolha “Salvar link como...”
+
+Você pode baixar este [📦 arquivo `.zip` com todas as macros e exemplos `.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/refs/heads/main/macros-SEI-SIP.zip)  
+
+Ou baixar cada um, individualmente, de acordo com sua necessidade:
 
 ### 🔧 Macros UI.Vision
 
@@ -107,46 +107,50 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 <a name="como-usar"></a>
 ## ▶️ Como usar
 
-1. Instale a extensão UiVision RPA no seu navegador.
-2. Importe os arquivos `.json` para o UiVision via menu `Manage Macros > Import`.  
-![UI Vision-Import-Json](https://github.com/user-attachments/assets/32dc93eb-7c19-4fc4-8112-21ce2396f05a)
+### 𝄜 Gerar um arquivo `.csv` de referência
+- A primeira etapa de uma atividade de cadastro de um volume grande de dados no SEI ou no SIP é, certamente, gerar um arquivo de referência, que tenha todos os dados a serem cadastrados. Normalmente, se utiliza um editor de planilhas para compilar - linha a linha - as informações que serão cadastradas. O arquivo em formato `.csv` nada mais é do que uma conversão da planilha original em um formato compatível com outros sistemas. Partindo dessa lógica, foram gerados os arquivos exemplo disponíveis neste repositório, que contêm todos os dados necessários aos cadastros e parametrizações do sistema.
+- Por outro lado, elaborar um arquivo `.csv` manualmente, no layout do formato, também pode ser **muito** complicado. Se você tiver grandes quantidades de dados nas linhas e colunas, os valores ficam muito próximos e o risco de você se confundir aumenta consideravelmente. Assim, a maneira mais fácil de gerar um `.csv` é a partir da conversão de uma planilha. Recomenda-se, neste caso, utilizar o [editor de planilhas da Google](https://docs.google.com/spreadsheets), porque ele oferece a opção de gerar um arquivo `.csv` com  facilidade. Basta clicar, após gerar a lista de dados a serem cadastrados, em `Arquivo` > `Baixar` > `Valores separados por vírgulas (.csv)` e fazer o download do arquivo para a pasta que você escolher.  
 
-3. Importe o arquivo `.csv` correspondente para utilização na macro.  
-![image](https://github.com/user-attachments/assets/7cfa207c-6c81-4127-8d3a-ae05b5ba7f7c)
+  ![image](https://github.com/user-attachments/assets/be8474d6-c5f5-4c63-9b29-9e0692c86108)
+
+> [!NOTE]
+>- _Por que não usar o Microsoft Excel?_ Porque, infelizmente, o Excel usa um padrão de configurações de regionalização no Brasil que:
+>    - Usa ponto e vírgula (`;`) ao invés de vírgula (`,`) para separar os valores. Isso quebra por completo a capacidade de leitura do UI.Vision;
+>    - Usa a codificação `ISO 8859-1` ao invés da `UTF8`,  amplamente mais compatível com diferentes idiomas e símbolos. 
+
+- Os arquivos `.csv` devem estar no formato esperado por cada macro. A primeira linha de cada arquivo exemplo traz um cabeçalho indicando a estrutura de cada `.csv`.
+    - Independente do editor utilizado, é recomendável fazer o download do arquivo exemplo que deseja utilizar e modificar (apenas) seu conteúdo, **preservando sua estrutura original**.
+  - Caso opte por gerar um arquivo novo, este arquivo deverá ter a **mesma quantidade** de colunas e estas devem estar na **mesma posição** (com relação aos exemplos, descritos [aqui](#unidades), [aqui](#usuarios) e [aqui](#assuntos)) para que as macros funcionem corretamente.
+
+- Caso algum termo utilizado no arquivo `.csv` contenha vírgulas, coloque o valor inteiro entre aspas (por exemplo: A `Divisão de Obras, Contratos e Serviços Gerais` deve ser grafada no arquivo `.csv` como `"Divisão de Obras, Contratos e Serviços Gerais"` (com aspas).
+
+### ↻ Rodar a macro no UI.Vision
+1. Acesse o UI.Vision a partir do ícone ![image](https://github.com/user-attachments/assets/3147ce13-d273-4844-9153-07a4bbc1d3c6) ao lado da Barra de Endereços, ou clicando no ícone ![image](https://github.com/user-attachments/assets/dcac9331-6c97-42a3-b6fe-923095035e85) (Extensões).
+2. Na tela inicial do Ui.Vision, importe o arquivo `.zip` (para importar todas as macros) ou `.json` (para importar uma macro específica) para o UiVision, clicando no botão ![image](https://github.com/user-attachments/assets/86fd9e48-84ae-4e0a-a97c-4e5e10161b95). Este passo só precisa ser executado uma vez (não é necessário "re-importar" as macros).  
+- ![UI Vision-Import-Json](https://github.com/user-attachments/assets/32dc93eb-7c19-4fc4-8112-21ce2396f05a).  
+  - A(s) macro(s) importada(s) deve(m) aparecer na lista à esquerda da tela.  
+![image](https://github.com/user-attachments/assets/903496f3-1dee-40e9-8f75-7c9dd4246482)
+3. Importe o arquivo `.csv` correspondente para utilização na macro, clicando em `CSV` e depois em `Import CSV`.
+![image](https://github.com/user-attachments/assets/d23265df-eaae-4439-98fe-39ec912c0c59)
+ 
+4. As macros fazem referência aos arquivos de exemplo específicos (`exemploUnidades.csv`, `exemploUsuarios.csv` ou `exemploAssuntos.csv`. Portanto, caso tenha gerado um arquivo com outro nome para servir de referência, **altere também** o valor do campo `Target` da linha onde consta o comando `csvReadArray` na macro, para que corresponda ao arquivo que irá utilizar.
+![image](https://github.com/user-attachments/assets/fdbce9bd-2316-4df7-b6b7-0c7c691862bb)
+
+5. Abra o SEI ou SIP no navegador e acesse o menu correspondente à macro (Por exemplo: a macro `4.cargaUsuarios` se inicia no sistema `SIP`, menu `Usuários` > `Listar`). Estes caminhos estão indicados abaixo, nas instruções Macro a Macro, e também são exibidos sempre na primeira linha de cada macro.
+6. A página  em que a macro será executada deve estar aberta na tela para iniciar sua execução.
+![image](https://github.com/user-attachments/assets/ab4e37dc-bf4a-46d6-86b4-b22a6eccea23)
 
 
-4. Caso tenha renomeado o arquivo, altere também o valor do campo `Target` da linha onde consta o comando `csvReadArray` na macro, para que corresponda ao arquivo que irá utilizar.
-6. Abra o SEI ou SIP no navegador e acesse o menu correspondente à macro (Por exemplo: a macro `4.cargaUsuarios` se inicia no sistema `SIP`, menu `Usuários` > `Listar`). Estes caminhos estão indicados abaixo, nas instruções Macro a Macro, e também são exibidos sempre na primeira linha de cada macro.
-7. A página  em que a macro será executada deve estar aberta na tela para iniciar sua execução.
-8. Execute a macro desejada, clicando no botão `Play Macro`.
-9. Acompanhe o log da execução e valide o resultado no sistema. As macros apresentam quantas linhas foram cadastradas com sucesso ou com falha. Valide a execução por meio de batimento entre as quantidades de valores cadastrados e a quantidade de valores existentes no arquivo de referência.
+7. Execute a macro desejada, clicando no botão `Play Macro`.  
+![image](https://github.com/user-attachments/assets/7f11b577-351a-480f-8ef2-f8d88aebb805)
+
+8. Acompanhe o log da execução e valide o resultado no sistema. As macros apresentam quantas linhas foram cadastradas com sucesso ou com falha. Valide a execução por meio de batimento entre as quantidades de valores cadastrados e a quantidade de valores existentes no arquivo de referência.  
+![image](https://github.com/user-attachments/assets/ab4efc74-33fd-438b-80fe-0281a844a3a6)
+
 
 <br/>
 
 ## 📝 Orientações gerais e observações
-
-- Há dois tipos de erros possíveis na reprodução das macros:
-  - os erros que ocorrem no SEI ou SIP, que são exibidos pelas macros no `echo`, como parte do resultado da execução (erros previstos);
-  - e os erros que ocorrem por falha de execução da própria macro, que são exibidos como **"Error"** e interrompem a execução das macros. Nestes casos, é importante investigar para ver o que causou o erro e o que pode ser feito para sanar o reportado. Alguns erros, como o **"Lost connection to site"** (conexão perdida com o site), por exemplo, podem ser resolvidos com uma reexecução da macro. Outros podem exigir uma revisão do arquivo `.csv` ou revisão das configurações de execução do UI.Vision (botão ⚙️ _Settings_).
-- Certifique-se de que os dados de entrada (nomes, siglas, e-mails, CPF etc.) estejam devidamente validados antes da execução, para evitar retrabalho por inconsistência.
-- Embora bastante incomuns, alterações na interface do SEI ou SIP podem impactar os seletores usados (IDs, nomes, posições). Verifique e atualize conforme necessário.
-
-### 𝄜 Como gerar o arquivo `.csv`?
-- Elaborar um arquivo `.csv` manualmente pode ser **muito** complicado. Se você tiver grandes quantidades de linhas ou colunas, os valores ficam muito próximos e o risco de você se confundir aumenta consideravelmente. Assim, a maneira mais fácil de gerar um `.csv` é a partir de uma planilha. Recomenda-se, neste caso, utilizar o [editor de planilhas da Google](https://docs.google.com/spreadsheets), porque ele oferece a opção de gerar um arquivo `.csv` com  facilidade. Basta clicar, após gerar a lista de dados a serem cadastrados, em `Arquivo` > `Baixar` > `Valores separados por vírgulas (.csv)` e fazer o download do arquivo para a pasta que você escolher.
-  - Independente do editor utilizado, é recomendável fazer o download do arquivo exemplo que deseja utilizar e modificar seu conteúdo, **preservando sua estrutura original**.
-- Os arquivos `.csv` devem estar no formato esperado por cada macro. A primeira linha de cada arquivo exemplo traz um cabeçalho indicando a estrutura de cada `.csv`.
-- Caso algum termo utilizado no arquivo `.csv` contenha vírgulas, coloque o valor inteiro entre aspas (por exemplo: A `Divisão de Obras, Contratos e Serviços Gerais` deve ser grafada no arquivo `.csv` como `"Divisão de Obras, Contratos e Serviços Gerais"` (com aspas).
-
-### ⬇️ Campos `ID Origem` 
-- Estas macros não incluem as informações de `ID Origem` para cadastro de unidades ou de usuários. **Caso faça uso  de informações de ID Origem (<ins>e somente nesse caso</ins>)** - como, por exemplo, em casos de importação de sistemas legados ou importação usuários de sistema de RH -, acrescente uma coluna adicional aos arquivos da seguinte maneira:
-  - Para unidades, acrescente a coluna `8.idOrigemUnidade` ao arquivo que você criar com base no `exemploUnidades.csv` e, na macro `1.cargaUnidades`, inclua uma linha abaixo da linha 24 com as seguintes especificações: `Command: type | Target: id=txtIdOrigem |Value: ${unidades[${i}][8]}`.
-  - Para usuários, acrescente a coluna `9.idOrigemUsuario` ao arquivo que você criar com base no `exemploUsuarios.csv` e, na macro `4.cargaUsuarios` inclua uma linha abaixo da linha 25 com as seguintes especificações: `Command: type | Target: id=txtIdOrigem |Value: ${usuarios[${i}][9]}`.
-
-### ⏯️ Linha de Início (Retomada após erro ou pausa)
-- Todas as macros permitem retomar a execução a partir de uma linha específica do `.csv`, bastando ajustar a variável de início `i`, logo no início de cada macro no comando `store | 1 | i`. Este valor `1` indica que a macro deve iniciar sua execução pela 1ª linha do `.csv`. Basta alterar para a linha da qual se deseja retomar, em caso de necessidade. Isso é útil para continuidade após interrupções.
-
-### 💾 Armazenamento das macros
-- No canto inferior esquerdo de sua interface, o UI.Vision permite que você defina se irá salvar as macros no armazenamento da própria extensão `Local Storage (In Browser)` ou em uma pasta de seu computador `Fyle system (on hard drive)`. Se você utilizar a opção `Local Storage (In Browser)`, você precisará sempre importar novamente o `.csv` a cada nova alteração ou correção. Se salvas no computador, basta atualizar os arquivos normalmente e clicar em 🔄 _(Reload all resources on hard drive)_ para que as alterações se reflitam na execução das macros. Neste caso (`Local Storage (In Browser)`), as macros devem ser salvas dentro da pasta do UI.Vision, subpasta `macros` e os arquivos `.csv` devem ser salvos na subpasta `datasources`.
 
 ### 🧾 Visualizando os logs
 - Recomenda-se que a visualização dos logs (no canto inferior direito da tela, ao lado do botão `Clear`) seja definida com a opção `Echo & Status`, para que as mensagens exibidas sejam apenas aquelas configuradas na criação das macros. As macros foram desenvolvidas para exibir informações de progresso e estimativa de tempo restante, conforme são executadas. A exibição completa (`All`) traz a execução linha a linha de cada macro e pode gerar confusão para usuários não familizarizados com o tema. Neste sentido, sua utilização é recomendada apenas em caso de necessidade de depuração de erros, por usuários experientes.  
@@ -159,9 +163,28 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 > - ❌ Falha, com a mensagem de erro capturada
 > - 🏁 Resumo final com total de registros e número de erros
 
+- Há dois tipos de erros possíveis na reprodução das macros:
+  - os erros que ocorrem no SEI ou SIP, que são exibidos pelas macros no `echo`, como parte do resultado da execução (erros previstos);
+  - e os erros que ocorrem por falha de execução da própria macro, que são exibidos como **"Error"** e interrompem a execução das macros. Nestes casos, é importante investigar para ver o que causou o erro e o que pode ser feito para sanar o reportado. Alguns erros, como o **"Lost connection to site"** (conexão perdida com o site), por exemplo, podem ser resolvidos com uma reexecução da macro. Outros podem exigir uma revisão do arquivo `.csv` ou revisão das configurações de execução do UI.Vision (botão ⚙️ _Settings_).
+- Certifique-se de que os dados de entrada (nomes, siglas, e-mails, CPF etc.) estejam devidamente validados antes da execução, para evitar retrabalho por inconsistência.
+- Embora bastante incomuns, alterações na interface do SEI ou SIP podem impactar os seletores usados (IDs, nomes, posições). Verifique e atualize conforme necessário.
+
+### ⬇️ Campos `ID Origem` 
+- Estas macros não incluem as informações de `ID Origem` para cadastro de unidades ou de usuários. **Caso faça uso  de informações de ID Origem (<ins>e somente nesse caso</ins>)** - como, por exemplo, em casos de importação de sistemas legados ou importação usuários de sistema de RH -, acrescente uma coluna adicional aos arquivos da seguinte maneira:
+  - Para unidades, acrescente a coluna `8.idOrigemUnidade` ao arquivo que você criar com base no `exemploUnidades.csv` e, na macro `1.cargaUnidades`, inclua uma linha abaixo da linha 24 com as seguintes especificações: `Command: type | Target: id=txtIdOrigem |Value: ${unidades[${i}][8]}`.
+  - Para usuários, acrescente a coluna `9.idOrigemUsuario` ao arquivo que você criar com base no `exemploUsuarios.csv` e, na macro `4.cargaUsuarios` inclua uma linha abaixo da linha 25 com as seguintes especificações: `Command: type | Target: id=txtIdOrigem |Value: ${usuarios[${i}][9]}`.
+
+### ⏯️ Linha de Início (Retomada após erro ou pausa)
+- Todas as macros permitem retomar a execução a partir de uma linha específica do `.csv`, bastando ajustar a variável de início `i`, logo no início de cada macro no comando `store | 1 | i`. Este valor `1` indica que a macro deve iniciar sua execução pela 1ª linha do `.csv`. Basta alterar para a linha da qual se deseja retomar, em caso de necessidade. Isso é útil para continuidade após interrupções.
+
+### 💾 Armazenamento das macros
+- No canto inferior esquerdo de sua interface, o UI.Vision permite que você defina se irá salvar as macros no armazenamento da própria extensão `Local Storage (In Browser)` ou em uma pasta de seu computador `Fyle system (on hard drive)`. Se você utilizar a opção `Local Storage (In Browser)`, você precisará sempre importar novamente o `.csv` a cada nova alteração ou correção. Se salvas no computador, basta atualizar os arquivos normalmente e clicar em 🔄 _(Reload all resources on hard drive)_ para que as alterações se reflitam na execução das macros. Neste caso (`Local Storage (In Browser)`), as macros devem ser salvas dentro da pasta do UI.Vision, subpasta `macros` e os arquivos `.csv` devem ser salvos na subpasta `datasources`.
+![image](https://github.com/user-attachments/assets/efff66cf-9b8b-40f8-8485-10500e4a8f23) ![image](https://github.com/user-attachments/assets/b04e1201-04b8-45a4-a7a8-8b5057536c86)
+
 <br/>
 
-Confira, no final deste **Readme**, uma demonstração em vídeo do uso da macro `1.cargaUnidades`:
+> [!TIP]
+> ### Confira, no final deste **Readme**, uma demonstração em vídeo do uso da macro `1.cargaUnidades`.
 
 <br/>
 
