@@ -64,7 +64,7 @@ Automatizar processos administrativos repetitivos no SEI/SIP com segurança e ef
 
 Aqui, você pode baixar todos os arquivos: 
 
-[📦 Arquivo ZIP com todas as macros e exemplos CSV](https://github.com/pengovbr/macros-SEI-SIP/blob/main/macros-SEI-SIP.zip)  
+[📦 Arquivo `.zip` com todas as macros e exemplos `.csv`](https://github.com/pengovbr/macros-SEI-SIP/blob/main/macros-SEI-SIP.zip)  
 
 Ou baixar cada arquivo, individualmente:
 
@@ -72,19 +72,19 @@ Ou baixar cada arquivo, individualmente:
 
 ### 🔧 Macros UI.Vision
 
-📁 macros-SEI-SIP/  
-├─ [1.cargaUnidades.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/1.cargaUnidades.json)  
-├─ [2.hierarquia.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/2.hierarquia.json)  
-├─ [3.dadosUnidadesSEI.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/3.dadosUnidadesSEI.json)  
-├─ [4.cargaUsuarios.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/4.cargaUsuarios.json)  
-├─ [5.primeirasPermissoes.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/5.permissoes.json)  
-├─ [6.cargaAssuntos.json](https://github.com/pengovbr/macros-SEI-SIP/raw/main/6.cargaAssuntos.json)  
+📁 `macros-SEI-SIP/`  
+├─ [`1.cargaUnidades.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/1.cargaUnidades.json)  
+├─ [`2.hierarquia.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/2.hierarquia.json)  
+├─ [`3.dadosUnidadesSEI.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/3.dadosUnidadesSEI.json)  
+├─ [`4.cargaUsuarios.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/4.cargaUsuarios.json)  
+├─ [`5.primeirasPermissoes.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/5.permissoes.json)  
+├─ [`6.cargaAssuntos.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/6.cargaAssuntos.json)  
 
 ### 📑 Arquivos de exemplo `.csv`
-└📁 csv/  
-&nbsp;&nbsp; ├─ [exemploAssuntos.csv](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploAssuntos.csv)  
-&nbsp;&nbsp; ├─ [exemploUnidades.csv](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUnidades.csv)  
-&nbsp;&nbsp; └─ [exemploUsuarios.csv](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUsuarios.csv)  
+└📁 `csv/`  
+&nbsp;&nbsp; ├─ [`exemploAssuntos.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploAssuntos.csv)  
+&nbsp;&nbsp; ├─ [`exemploUnidades.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUnidades.csv)  
+&nbsp;&nbsp; └─ [`exemploUsuarios.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUsuarios.csv)  
 
 ### 🔧 Sobre as macros incluídas:
 São 06 (seis) macros, que executam diferentes operações nos sistemas SEI e SIP, conforme detalhado abaixo:
