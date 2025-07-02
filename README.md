@@ -116,7 +116,7 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 > [!NOTE]
 >- _Por que não usar o Microsoft Excel?_ Porque, infelizmente, o Excel usa um padrão de configurações de regionalização no Brasil que:
 >    - Usa ponto e vírgula (`;`) ao invés de vírgula (`,`) para separar os valores. Isso quebra por completo a capacidade de leitura do UI.Vision;
->    - Usa a codificação `ISO 8859-1` ao invés da `UTF8`,  amplamente mais compatível com diferentes idiomas e símbolos. 
+>    - Usa a codificação `ISO 8859-1` ao invés da `UTF8` (amplamente mais compatível com diferentes idiomas e símbolos), o que resulta em geração de caracteres desconfigurados, como acentos, cedilhas etc. 
 
 - Os arquivos `.csv` devem estar no formato esperado por cada macro. A primeira linha de cada arquivo exemplo traz um cabeçalho indicando a estrutura de cada `.csv`.
     - Independente do editor utilizado, é recomendável fazer o download do arquivo exemplo que deseja utilizar e modificar (apenas) seu conteúdo, **preservando sua estrutura original**.
