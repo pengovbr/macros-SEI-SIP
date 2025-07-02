@@ -270,7 +270,7 @@ O arquivo `exemploUsuarios.csv` é utilizado para alimentar as macros `4.cargaUs
 - O arquivo de referência é o `exemploUsuários.csv`, cuja estrutura está detalhada acima.
 
 
-### 🪪 Macro 5.permissões
+### 🪪 Macro `5.permissões`
 - O ponto de partida dessa macro é o sistema SIP, menu `Permissões` > `Atribuição em Bloco`;
 - A macro de permissões trata o uso de `*` para a Unidade Global por meio de uma conversão interna para evitar falhas, trocando o asterisco (que gera erro de comportamento na macro) pelo termo `index=1`. Foi uma solução adotada para evitar erros de permissionamento no caso de acesso à unidade global.
 - Como dito anteriormente, a proposta, neste caso, é apenas cadastrar uma **primeira permissão** para viabilizar o acesso ao SEI para o usuário cadastrado, e não esgotar todas as suas permissões. Estas podem ser cadastradas posteriormente, com o sistema já em uso pelos usuários.
@@ -314,7 +314,7 @@ O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro 6.cargaAssun
   
 ### Pontos de atenção sobre a macro referentes a Assuntos:
 
-### 🗃️ Macro 6.assuntos
+### 🗃️ Macro `6.assuntos`
 - O ponto de partida dessa macro é o sistema SEI, menu `Administração` > `Tabelas de Assunto` > [Escolher a tabela desejada] >`Assuntos da Tabela`;
 - O arquivo de referência é o `exemploAssuntos.csv`, cuja estrutura está detalhada acima.
 - O log desta macro traz informações de progresso e detalha cada assunto carregado (informa se é apenas estrutural ou, se não, quais os prazos e qual a destinação associada a este assunto).
