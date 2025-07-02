@@ -87,7 +87,7 @@ Ou baixar cada arquivo, individualmente:
 &nbsp;&nbsp; └─ [exemploUsuarios.csv](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUsuarios.csv)  
 
 ### 🔧 Sobre as macros incluídas:
-São 06 (seis) macros, diferentes operações nos sistemas SEI e SIP.
+São 06 (seis) macros, que executam diferentes operações nos sistemas SEI e SIP, conforme detalhado abaixo:
 1.	**Cadastro de Unidades no SIP**: Automatiza o registro de unidades administrativas no sistema, com base em sua sigla, descrição e órgão vinculado;
 2.	**Cadastro das Unidades na Hierarquia no SIP**: Realiza o vínculo entre as unidades cadastradas, definindo sua posição na estrutura hierárquica;
 3.	**Cadastro de Dados Complementares das Unidades no SEI**: Preenche informações adicionais relacionadas às unidades, como tipo, endereço ou outros campos auxiliares;
