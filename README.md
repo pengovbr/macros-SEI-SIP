@@ -108,8 +108,13 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 ## ▶️ Como usar
 
 1. Instale a extensão UiVision RPA no seu navegador.
-2. Importe os arquivos `.json` para o UiVision via menu `Manage Macros > Import`.
-3. Importe o arquivo `.csv` correspondente para utilização na macro.
+2. Importe os arquivos `.json` para o UiVision via menu `Manage Macros > Import`.  
+![UI Vision-Import-Json](https://github.com/user-attachments/assets/32dc93eb-7c19-4fc4-8112-21ce2396f05a)
+
+3. Importe o arquivo `.csv` correspondente para utilização na macro.  
+![image](https://github.com/user-attachments/assets/7cfa207c-6c81-4127-8d3a-ae05b5ba7f7c)
+
+
 4. Caso tenha renomeado o arquivo, altere também o valor do campo `Target` da linha onde consta o comando `csvReadArray` na macro, para que corresponda ao arquivo que irá utilizar.
 6. Abra o SEI ou SIP no navegador e acesse o menu correspondente à macro (Por exemplo: a macro `4.cargaUsuarios` se inicia no sistema `SIP`, menu `Usuários` > `Listar`). Estes caminhos estão indicados abaixo, nas instruções Macro a Macro, e também são exibidos sempre na primeira linha de cada macro.
 7. A página  em que a macro será executada deve estar aberta na tela para iniciar sua execução.
