@@ -126,7 +126,14 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 
 ### ↻ Rodar a macro no UI.Vision
 1. Acesse o UI.Vision a partir do ícone ![image](https://github.com/user-attachments/assets/3147ce13-d273-4844-9153-07a4bbc1d3c6) ao lado da Barra de Endereços, ou clicando no ícone ![image](https://github.com/user-attachments/assets/dcac9331-6c97-42a3-b6fe-923095035e85) (Extensões).
-2. Na tela inicial do Ui.Vision, importe o arquivo `.zip` (para importar todas as macros) ou `.json` (para importar uma macro específica) para o UiVision, clicando no botão ![image](https://github.com/user-attachments/assets/86fd9e48-84ae-4e0a-a97c-4e5e10161b95). Este passo só precisa ser executado uma vez (não é necessário "re-importar" as macros).  
+
+2. Uma dica útil para a primeira vez que utilizar o UI.Vision (além de explorar a interface para se familiarizar com os campos e botões) é clicar no botão ![image](https://github.com/user-attachments/assets/709f50d0-f3d3-42b4-af20-a9358aba9601) (_Settings_) e alterar algumas configurações. A opção `Command Interval` pode ser configurada para `Fast (no delay)`. As macros testadas funcionaram bem nessa velocidade. Caso tenha problemas de execução, retorne para uma velocidade mais lenta.
+
+![image](https://github.com/user-attachments/assets/5f3784e7-3687-45de-80d5-7371b0c6c706)
+  
+
+ 
+3. Na tela inicial do Ui.Vision, importe o arquivo `.zip` (para importar todas as macros) ou `.json` (para importar uma macro específica) para o UiVision, clicando no botão ![image](https://github.com/user-attachments/assets/86fd9e48-84ae-4e0a-a97c-4e5e10161b95). Este passo só precisa ser executado uma vez (não é necessário "re-importar" as macros).   
 ![UI Vision-Import-Json](https://github.com/user-attachments/assets/32dc93eb-7c19-4fc4-8112-21ce2396f05a).  
 <br/>
 
@@ -167,7 +174,7 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 
 - Há dois tipos de erros possíveis na reprodução das macros:
   - os erros que ocorrem no SEI ou SIP, que são exibidos pelas macros no `echo`, como parte do resultado da execução (erros previstos);
-  - e os erros que ocorrem por falha de execução da própria macro, que são exibidos como **"Error"** e interrompem a execução das macros. Nestes casos, é importante investigar para ver o que causou o erro e o que pode ser feito para sanar o reportado. Alguns erros, como o **"Lost connection to site"** (conexão perdida com o site), por exemplo, podem ser resolvidos com uma reexecução da macro. Outros podem exigir uma revisão do arquivo `.csv` ou revisão das configurações de execução do UI.Vision (botão ⚙️ _Settings_).
+  - e os erros que ocorrem por falha de execução da própria macro, que são exibidos como **"Error"** e interrompem a execução das macros. Nestes casos, é importante investigar para ver o que causou o erro e o que pode ser feito para sanar o reportado. Alguns erros, como o **"Lost connection to site"** (conexão perdida com o site), por exemplo, podem ser resolvidos com uma reexecução da macro. Outros podem exigir uma revisão do arquivo `.csv` ou revisão das configurações de execução do UI.Vision (botão ![image](https://github.com/user-attachments/assets/38802f7c-b5b1-4766-9cc1-e90fca974597) _Settings_).
 - Certifique-se de que os dados de entrada (nomes, siglas, e-mails, CPF etc.) estejam devidamente validados antes da execução, para evitar retrabalho por inconsistência.
 - Embora bastante incomuns, alterações na interface do SEI ou SIP podem impactar os seletores usados (IDs, nomes, posições). Verifique e atualize conforme necessário.
 
