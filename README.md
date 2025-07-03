@@ -33,7 +33,7 @@ Usuários com perfil de Administração do SEI, que tenham acesso ao SIP para ca
 
 ## 🎯 Objetivo
 
-Automatizar processos administrativos repetitivos no SEI/SIP com segurança e eficiência, reduzindo o esforço manual de operadores e padronizando o carregamento de dados a partir de arquivos `.csv`.
+### Automatizar processos administrativos repetitivos no SEI/SIP com segurança e eficiência, reduzindo o esforço manual de operadores e padronizando o carregamento de dados a partir de arquivos `.csv`.
 
 > [!WARNING]
 > **ATENÇÃO!** As macros disponibilizadas neste repositório foram desenvolvidas para facilitar atividades administrativas repetitivas nos sistemas SEI e SIP, mas devem ser utilizadas com cautela e sob responsabilidade do usuário.
