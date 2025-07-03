@@ -125,7 +125,7 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 - Caso algum termo utilizado no arquivo `.csv` contenha vírgulas, coloque o valor inteiro entre aspas (por exemplo: A `Divisão de Obras, Contratos e Serviços Gerais` deve ser grafada no arquivo `.csv` como `"Divisão de Obras, Contratos e Serviços Gerais"` (com aspas).
 
 ### ↻ Rodar a macro no UI.Vision
-1. Acesse o UI.Vision a partir do ícone ![image](https://github.com/user-attachments/assets/3147ce13-d273-4844-9153-07a4bbc1d3c6) ao lado da Barra de Endereços, ou clicando no ícone ![image](https://github.com/user-attachments/assets/dcac9331-6c97-42a3-b6fe-923095035e85) (Extensões).
+1. Acesse o UI.Vision a partir do ícone ![image](https://github.com/user-attachments/assets/3147ce13-d273-4844-9153-07a4bbc1d3c6) ao lado da Barra de Endereços, ou clicando no ícone ![image](https://github.com/user-attachments/assets/c0bdfd3c-d946-4fd8-a879-6a3636d7322f) (Extensões).
 
 2. Uma dica útil para a primeira vez que utilizar o UI.Vision (além de explorar a interface para se familiarizar com os campos e botões) é clicar no botão ![image](https://github.com/user-attachments/assets/709f50d0-f3d3-42b4-af20-a9358aba9601) (_Settings_) e alterar algumas configurações. A opção `Command Interval` pode ser configurada para `Fast (no delay)`. As macros testadas funcionaram bem nessa velocidade. Caso tenha problemas de execução, retorne para uma velocidade mais lenta.  
   ![image](https://github.com/user-attachments/assets/5f3784e7-3687-45de-80d5-7371b0c6c706)
