@@ -55,7 +55,7 @@ Usuários com perfil de Administração do SEI, que tenham acesso ao SIP para ca
 
 - Navegador com extensão UiVision RPA instalada ([Google Chrome](https://chrome.google.com/webstore/detail/uivision-rpa/ljdobmomdgdljniojadhoplhkpialdid) ou [Mozilla Firefox](https://addons.mozilla.org/en-US/firefox/addon/uivision-rpa/)). As macros foram criadas no Google Chrome, mas não deve haver conflito.
   - Na lista de extensões do navegador, é recomendável "fixar" o UI.Vision para facilitar o acesso à extensão, clicando no ícone ![image](https://github.com/user-attachments/assets/fae6c779-4018-4558-9180-4277218f15ce) (Fixar) ao lado da extensão. Uma vez fixada, o botão "fixar" fica azul e o ícone da extensão fica visível ao lado da Barra de Endereços.
-- Arquivo(s) `.csv` de entrada preenchidos conforme estrutura apresentada nos arquivos exemplo.
+- Arquivo(s) `.csv` de entrada, preenchidos conforme estrutura apresentada nos arquivos exemplo.
 - Acesso de **Administrador** aos ambientes do SEI e SIP.
 
 <br/>
@@ -108,7 +108,7 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 ## ▶️ Como usar
 
 ### 𝄜 Gerar um arquivo `.csv` de referência
-- A primeira etapa de uma atividade de cadastro de um volume grande de dados no SEI ou no SIP é, certamente, gerar um arquivo de referência, que tenha todos os dados a serem cadastrados. Normalmente, se utiliza um editor de planilhas para compilar - linha a linha - as informações que serão cadastradas. O arquivo em formato `.csv` nada mais é do que uma conversão da planilha original em um formato compatível com outros sistemas. Partindo dessa lógica, foram gerados os arquivos de exemplo disponíveis neste repositório, que contêm todos os dados necessários aos cadastros e parametrizações do sistema.
+- A primeira etapa de uma atividade de cadastro de um volume grande de dados no SEI ou no SIP é, certamente, gerar um arquivo de referência que tenha todos os dados a serem cadastrados. Normalmente, se utiliza um editor de planilhas para compilar - linha a linha - as informações que serão cadastradas. O arquivo em formato `.csv` nada mais é do que uma conversão da planilha original em um formato compatível com outros sistemas. Partindo dessa lógica, foram gerados os arquivos de exemplo disponíveis neste repositório, que contêm todos os dados necessários aos cadastros e parametrizações do sistema.
 - Por outro lado, elaborar um arquivo `.csv` manualmente, no layout do formato, também pode ser **muito** complicado. Se você tiver grandes quantidades de dados nas linhas e colunas, os valores ficam muito próximos e o risco de você se confundir aumenta consideravelmente. Assim, a maneira mais fácil de gerar um `.csv` é a partir da conversão de uma planilha. Recomenda-se, neste caso, utilizar o [editor de planilhas da Google](https://docs.google.com/spreadsheets), porque ele oferece a opção de gerar um arquivo `.csv` com  facilidade. Basta clicar, após gerar a lista de dados a serem cadastrados, em `Arquivo` > `Baixar` > `Valores separados por vírgulas (.csv)` e fazer o download do arquivo para a pasta que você escolher.  
 
   ![image](https://github.com/user-attachments/assets/be8474d6-c5f5-4c63-9b29-9e0692c86108)
@@ -141,7 +141,7 @@ Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo 
 3. Importe o arquivo `.csv` correspondente para utilização na macro, clicando em `CSV` e depois em `Import CSV`.
 ![image](https://github.com/user-attachments/assets/d23265df-eaae-4439-98fe-39ec912c0c59)
  
-4. As macros fazem referência aos arquivos de exemplo específicos (`exemploUnidades.csv`, `exemploUsuarios.csv` ou `exemploAssuntos.csv`. Portanto, caso tenha gerado um arquivo com outro nome para servir de referência, **altere também** o valor do campo `Target` da linha onde consta o comando `csvReadArray` na macro, para que corresponda ao arquivo que irá utilizar.
+4. As macros fazem referência aos arquivos de exemplo específicos (`exemploUnidades.csv`, `exemploUsuarios.csv` ou `exemploAssuntos.csv`). Portanto, caso tenha gerado um arquivo com outro nome para servir de referência, **altere também** o valor do campo `Target` da linha onde consta o comando `csvReadArray` na macro, para que corresponda ao arquivo que irá utilizar.
 ![image](https://github.com/user-attachments/assets/fdbce9bd-2316-4df7-b6b7-0c7c691862bb)
 
 5. Abra o SEI ou SIP no navegador e acesse o menu correspondente à macro (Por exemplo: a macro `4.cargaUsuarios` se inicia no sistema `SIP`, menu `Usuários` > `Listar`). Estes caminhos estão indicados abaixo, nas instruções Macro a Macro, e também são exibidos sempre na primeira linha de cada macro.
