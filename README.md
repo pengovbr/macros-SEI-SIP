@@ -381,4 +381,4 @@ Dificuldades, dúvidas ou sugestões? [Abra uma Issue](https://github.com/pengov
 
 ## 📄 Licença
 
-Este repositório é disponibilizado sob a [Licença Creative Commons (CC BY-NC-SA 4.0)](LICENSE).
+Este repositório é disponibilizado sob a [Licença Creative Commons (CC BY-NC-SA 4.0)]([LICENSE](https://github.com/pengovbr/macros-SEI-SIP/blob/main/LICENSE.md)).
