@@ -1,12 +1,12 @@
 {
   "Name": "3.dadosUnidadesSEI",
-  "CreationDate": "2025-6-24",
+  "CreationDate": "2025-8-7",
   "Commands": [
     {
       "Command": "comment",
       "Target": "Macro para complementar os dados das unidades no SEI.",
       "Value": "PONTO DE PARTIDA: Sistema SEI, Menu \"Administração\" > \"Unidades\" > \"Listar\"",
-      "Description": "Recomendação: no log, exibir a opção \"Echo & Status\". Não deixe de conferir a documentação de referência."
+      "Description": "Como será criada uma array, os valores de linha e coluna começam em [0] e [0]. Recomendação: no log, exibir a opção \"Echo & Status\"."
     },
     {
       "Command": "csvReadArray",
@@ -120,7 +120,7 @@
       "Description": "Calcula a estimativa de tempo restante em formato humanizado, considerando minutos e segundos com pluralização."
     },
     {
-      "Command": "if_v2",
+      "Command": "if",
       "Target": "${i} > 3",
       "Value": "",
       "Description": "Cria uma condicionante para exibir o tempo restante estimado apenas a partir da 4ª execução, quando a estimativa estará mais precisa."
@@ -215,6 +215,12 @@
       "Description": "Este comando indica que as ações da macro vão incidir sobre a modal, e não sobre a janela abaixo dela."
     },
     {
+      "Command": "if",
+      "Target": "${unidades[${i}][6]} == \"S\"",
+      "Value": "",
+      "Description": "Cria uma condicionante com base no valor da coluna 6 do arquivo de referência, que consulta se a unidade USA OU NÃO o endereço do órgão ao qual está vinculada."
+    },
+    {
       "Command": "check",
       "Target": "id=chkSinEnderecoAssociado",
       "Value": "on",
@@ -227,15 +233,151 @@
       "Description": "Comando para confirmar que a checkbox foi assinalada."
     },
     {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Caso contrário,"
+    },
+    {
+      "Command": "uncheck",
+      "Target": "id=chkSinEnderecoAssociado",
+      "Value": "off",
+      "Description": "Desmarca a checkbox \"Usar Endereço Associado\", que importa o endereço da pessoa jurídica (Órgão) à qual a unidade está subordinada."
+    },
+    {
+      "Command": "assertNotChecked",
+      "Target": "id=chkSinEnderecoAssociado",
+      "Value": "Usa o endereço associado",
+      "Description": "Comando para confirmar que a checkbox não foi assinalada."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtEndereco",
+      "Value": "${unidades[${i}][7]}",
+      "Targets": [
+        "id=txtEndereco",
+        "name=txtEndereco",
+        "xpath=//*[@id=\"txtEndereco\"]",
+        "xpath=//input[@id='txtEndereco']",
+        "xpath=//div[4]/input",
+        "css=#txtEndereco"
+      ],
+      "Description": "Cadastra a linha 1 do endereço da unidade."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtComplemento",
+      "Value": "${unidades[${i}][8]}",
+      "Targets": [
+        "id=txtComplemento",
+        "name=txtComplemento",
+        "xpath=//*[@id=\"txtComplemento\"]",
+        "xpath=//input[@id='txtComplemento']",
+        "xpath=//div[4]/input[2]",
+        "css=#txtComplemento"
+      ],
+      "Description": "Cadastra o complemento (linha 2) do endereço da unidade."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtBairro",
+      "Value": "${unidades[${i}][9]}",
+      "Targets": [
+        "id=txtBairro",
+        "name=txtBairro",
+        "xpath=//*[@id=\"txtBairro\"]",
+        "xpath=//input[@id='txtBairro']",
+        "xpath=//input[3]",
+        "css=#txtBairro"
+      ],
+      "Description": "Informa o bairro onde está localizada a unidade."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selPais",
+      "Value": "label=Brasil",
+      "Targets": [
+        "id=selPais",
+        "name=selPais",
+        "xpath=//*[@id=\"selPais\"]",
+        "xpath=//select[@id='selPais']",
+        "xpath=//div[4]/select",
+        "css=#selPais"
+      ],
+      "Description": "Seleciona o país em que está localizada a unidade. Por padrão, o país selecionado será o Brasil, para o qual há UFs e cidades disponíveis para seleção."
+    },
+    {
+      "Command": "selectAndWait",
+      "Target": "id=selUf",
+      "Value": "label=${unidades[${i}][10]}",
+      "Targets": [
+        "id=selUf",
+        "name=selUf",
+        "xpath=//*[@id=\"selUf\"]",
+        "xpath=//select[@id='selUf']",
+        "xpath=//select[2]",
+        "css=#selUf"
+      ],
+      "Description": "Seleciona a UF em que está localizada a unidade. Há uma espera para "
+    },
+    {
+      "Command": "select",
+      "Target": "id=selCidade",
+      "Value": "label=${unidades[${i}][11]}",
+      "Targets": [
+        "id=selCidade",
+        "name=selCidade",
+        "xpath=//*[@id=\"selCidade\"]",
+        "xpath=//select[@id='selCidade']",
+        "xpath=//select[3]",
+        "css=#selCidade"
+      ],
+      "Description": "Seleciona "
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtCep",
+      "Value": "${unidades[${i}][12]}",
+      "Targets": [
+        "id=txtCep",
+        "name=txtCep",
+        "xpath=//*[@id=\"txtCep\"]",
+        "xpath=//input[@id='txtCep']",
+        "xpath=//input[6]",
+        "css=#txtCep"
+      ],
+      "Description": "Informa o CEP de onde está localizada a unidade."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if-else\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 29 da macro.)"
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtCnpj",
+      "Value": "${unidades[${i}][13]}",
+      "Targets": [
+        "id=txtCnpj",
+        "name=txtCnpj",
+        "xpath=//*[@id=\"txtCnpj\"]",
+        "xpath=//input[@id='txtCnpj']",
+        "xpath=//div[10]/input",
+        "css=#txtCnpj"
+      ],
+      "Description": "Informa o CNPJ da unidade, caso tenha um específico."
+    },
+    {
       "Command": "type",
       "Target": "id=txtTelefoneComercialPJ",
-      "Value": "${unidades[${i}][6]}",
+      "Value": "${unidades[${i}][14]}",
       "Description": "Cadastra o telefone comercial associado à unidade no arquivo CSV."
     },
     {
       "Command": "type",
       "Target": "id=txtSitioInternet",
-      "Value": "${unidades[${i}][7]}",
+      "Value": "${unidades[${i}][15]}",
       "Description": "Cadastra o website associado à unidade no arquivo CSV."
     },
     {
@@ -277,7 +419,7 @@
       "Description": "Esta etapa é a conferência de que o SEI voltou à tela anterior após salvar."
     },
     {
-      "Command": "if_v2",
+      "Command": "if",
       "Target": "${!StatusOK} == true",
       "Value": "",
       "Description": "E aqui, entra uma regra condicional, com base na verificação acima."
