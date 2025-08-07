@@ -211,34 +211,47 @@ O arquivo exemploUnidades.csv é utilizado para alimentar as macros `1.cargaUnid
 1. **ORGAO**: Sigla do órgão em que a unidade será cadastrada (deve estar idêntica à sigla do órgão no SIP) - **Campo obrigatório**;  
 2. **SIGLA**: Sigla da Unidade a ser cadastrada - **Campo obrigatório**;  
 3. **DESCRICAO**: Nome da Unidade a ser cadastrada - **Campo obrigatório**;  
-4. **PAI**: Unidade imediatamente superior na hierarquia - **Campo obrigatório** (no caso de unidade "raiz", que não possui unidade acima, deve ser deixado em branco);  
+4. **SUPERIOR NA HIERARQUIA**: Unidade imediatamente superior na hierarquia - **Campo obrigatório** (no caso de unidade "raiz", que não possui unidade acima, deve ser deixado em branco);  
 5. **EMAIL**: Endereço de e-mail corporativo da unidade;  
-6. **TELEFONE**: Telefone da unidade; e  
-7. **SITE**: sítio web da unidade.  
+6. **USA ENDEREÇO DO ÓRGÃO?**: Campo S/N (Sim ou não) que permite ao administrador utilizar os mesmos dados de contato do órgão para a unidade ou preencher as informações de cada unidade individualmente (útil para órgãos com unidades descentralizadas);
+7. **ENDEREÇO DA UNIDADE:** Campo para informar a primeira linha do endereço da unidade, caso informado que esta não usa o mesmo endereço do órgão.
+8. **COMPLEMENTO DO ENDEREÇO:** Campo para informar a segunda linha (complemento) do endereço da unidade, caso informado que esta não usa o mesmo endereço do órgão.
+9. **BAIRRO DA UNIDADE:** Campo para informar o bairro da unidade, caso informado que esta não usa o mesmo endereço do órgão.
+10. **UF DA UNIDADE:** Campo para informar a UF em que está localizada unidade, caso informado que esta não usa o mesmo endereço do órgão.
+11. **CIDADE DA UNIDADE:** Campo para informar a Cidade em que está localizada unidade, caso informado que esta não usa o mesmo endereço do órgão.
+12. **CEP DA UNIDADE:** Campo para informar o CEP do local da unidade, caso informado que esta não usa o mesmo endereço do órgão.
+13. **CNPJ DA UNIDADE:** Campo para informar o CNPJ da unidade;.
+14. **TELEFONE DA UNIDADE**: Campo para informar o Telefone da unidade; e  
+15. **SITE DA UNIDADE**: Campo para informar o sítio web da unidade.  
 
 #### Exemplo de arquivo `exemploUnidades.csv` em formato de tabela:
 
-| 0-Seq. | 1-ORGAO | 2-SIGLA | 3-DESCRICAO | 4-PAI | 5-EMAIL | 6-TELEFONE | 7-SITE
-|---|---|---|---|---|---|---|---|
-| 1 | ORGAO1 | UNI1 | Nome da Unidade 1 | | uni1@orgao1.gov | (99) 2233-4455 | gov.br/orgao1
-| 2 | ORGAO1 | SUBUNI1.1 | Nome da Subunidade 1.1 | UNI1 | subuni1.1@orgao1.gov | (99) 2233-5566 | gov.br/orgao1
-| 3 | ORGAO1 | SUBUNI1.2 | Nome da Subunidade 1.2 | UNI1 | subuni1.2@orgao1.gov | (99) 2233-5566 | gov.br/orgao1/tema-xpto
-| 4 | ORGAO1 | SUBUNI1.2.1 | "Nome da Subunidade 1.2.1, antiga 1.3" | SUBUNI1.2 | subuni1.2.1@orgao1.gov | (99) 2233-6677 | gov.br/orgao1/tema-xpto
-| 5 | ORGAO1 | UNI2 | Nome da Unidade 2 | | uni2@orgao1.gov | (99) 2233-3344 | gov.br/orgao1/tema-xyz
-| ... | | | | | | | |  
+| 0-Seq. | 1-orgaoUnidade | 2-siglaUnidade | 3-descricaoUnidade                           | 4-superiorNaHierarquia | 5-emailUnidade                | 6-usaEndereçoDoÓrgao? | 7-endereçoUnidade                                  | 8-complementoEndereco     | 9-bairroUnidade | 10-UFUnidade | 11-cidadeUnidade | 12-CEPUnidade | 13-CNPJUnidade | 14-telefoneUnidade | 15-siteUnidade                              |
+|--------|----------------|----------------|----------------------------------------------|-------------------------|-------------------------------|------------------------|-----------------------------------------------------|----------------------------|------------------|---------------|-------------------|----------------|----------------|---------------------|---------------------------------------------|
+| 1      | GOV-CR         | GABIN          | gabinete                                     |                         | governador@cariris.gov.br     | S                      |                                                     |                            |                  |               |                   |                |                | (61)2345-6789       | https://governo.cr.gov.br/                 |
+| 2      | GOV-CR         | ASIMP          | Assessoria de Imprensa                       | GABIN                   | imprensa@cariris.gov.br       | S                      |                                                     |                            |                  |               |                   |                |                | (61)2345-6789       | https://governo.cr.gov.br/                 |
+| 3      | GOV-CR         | PROJUR         | Procuradoria Estadual                        | GABIN                   | procuradoria@cariris.gov.br   | S                      |                                                     |                            |                  |               |                   |                |                | (61)2345-6789       | https://governo.cr.gov.br/                 |
+| 4      | GOV-CR         | ESPRE          | Escritório de Projetos estratégicos          |                         | projetos@cariris.gov.br       | S                      |                                                     |                            |                  |               |                   |                |                | (61)2345-6789       | https://governo.cr.gov.br/                 |
+| 5      | GOV-CR         | SETIN          | Secretaria de Transformação Digital e Inovação |                         | setin@cariris.gov.br          | N                      | Avenida 123, Área Especial 456, Palácio de Governo  | Bloco C, Sala 253-A       | Centro           | CR            | Esperança         | 59900-000      |                | (61)2345-6543       | https://governo.cr.gov.br/inovacao         |
+| 6      | GOV-CR         | SUTEC          | Subsecretaria de Tecnologia e Infraestrutura | SETIN                   | sutec@cariris.gov.br          | N                      | Avenida 123, Área Especial 456, Palácio de Governo  | Bloco C, Sala 253         | Centro           | CR            | Esperança         | 59900-000      |                | (61)2345-6543       | https://governo.cr.gov.br/inovacao         |
+| 7      | GOV-CR         | SUINV          | Subsecretaria de Inovação                    | SETIN                   | suinv@cariris.gov.br          | N                      | Avenida 123, Área Especial 456, Palácio de Governo  | Bloco C, Sala 255         | Centro           | CR            | Esperança         | 59900-000      |                | (61)2345-6543       | https://governo.cr.gov.br/inovacao         |
+
 
 #### Formato `.csv` correspondente:
 
-> 0-Seq.,1-ORGAO,2-SIGLA,3-DESCRICAO,4-PAI,5-EMAIL,6-TELEFONE,7-SITE  
-> 1,ORGAO1,UNI1,Nome da Unidade 1,,uni1@orgao1.gov,(99) 2233-4455,gov.br/orgao1  
-> 2,ORGAO1,SUBUNI1.1,Nome da Subunidade 1.1,UNI1,subuni1.1@orgao1.gov,(99) 2233-5566,gov.br/orgao1  
-> 3,ORGAO1,SUBUNI1.2,Nome da Subunidade 1.2,UNI1,subuni1.2@orgao1.gov,(99) 2233-5566,gov.br/orgao1/tema-xpto  
-> 4,ORGAO1,SUBUNI1.2.1,"Nome da Subunidade 1.2.1, antiga 1.3",SUBUNI1.2,subuni1.2.1@orgao1.gov,(99) 2233-6677,gov.br/orgao1/xpto  
-> 5,ORGAO1,UNI2,Nome da Unidade 2,,uni2@orgao1.gov,(99) 2233-3344,gov.br/orgao1/tema-xyz  
+> 0-Seq.,1-orgaoUnidade,2-siglaUnidade,3-descricaoUnidade,4-superiorNaHierarquia,5-emailUnidade,6-usaEndereçoDoÓrgao?,7-endereçoUnidade,8-complementoEndereco,9-bairroUnidade,10-UFUnidade,11-cidadeUnidade,12-CEPUnidade,13-CNPJUnidade,14-telefoneUnidade,15-siteUnidade
+> 1,GOV-CR,GABIN,gabinete,,governador@cariris.gov.br,S,,,,,,,,(61)2345-6789,https://governo.cr.gov.br/
+> 2,GOV-CR,ASIMP,Assessoria de Imprensa,GABIN,imprensa@cariris.gov.br,S,,,,,,,,(61)2345-6789,https://governo.cr.gov.br/
+> 3,GOV-CR,PROJUR,Procuradoria Estadual,GABIN,procuradoria@cariris.gov.br,S,,,,,,,,(61)2345-6789,https://governo.cr.gov.br/
+> 4,GOV-CR,ESPRE,Escritório de Projetos estratégicos,,projetos@cariris.gov.br,S,,,,,,,,(61)2345-6789,https://governo.cr.gov.br/
+> 5,GOV-CR,SETIN,Secretaria de Transformação Digital e Inovação,,setin@cariris.gov.br,N,"Avenida 123, Área Especial 456, Palácio de Governo","Bloco C, Sala 253-A",Centro,CR,Esperança,59900-000,,(61)2345-6543,https://governo.cr.gov.br/inovacao
+> 6,GOV-CR,SUTEC,Subsecretaria de Tecnologia e Infraestrutura,SETIN,sutec@cariris.gov.br,N,"Avenida 123, Área Especial 456, Palácio de Governo","Bloco C, Sala 253",Centro,CR,Esperança,59900-000,,(61)2345-6543,https://governo.cr.gov.br/inovacao
+> 7,GOV-CR,SUINV,Subsecretaria de Inovação,SETIN,suinv@cariris.gov.br,N,"Avenida 123, Área Especial 456, Palácio de Governo","Bloco C, Sala 255",Centro,CR,Esperança,59900-000,,(61)2345-6543,https://governo.cr.gov.br/inovacao
+
 
 > [!NOTE]
 > Veja como são usadas aspas para isolar conteúdo que tenha vírgulas originalmente.  
-> Repare também que as unidades `UNI1` e `UNI2` são unidades "raiz", e portanto nada foi inserido na coluna `Pai`. O arquivo `.csv` traz duas vírgulas seguidas para mostrar que o campo foi deixado em branco.
+> Repare também que as unidades `UNI1` e `UNI2` são unidades "raiz", e portanto nada foi inserido na coluna `SUPERIOR.NA.HIERARQUIA`. O arquivo `.csv` traz duas vírgulas seguidas para mostrar que o campo foi deixado em branco.
 
 ### Pontos de atenção sobre as macros referentes a Unidades: 
 
@@ -250,10 +263,10 @@ O arquivo exemploUnidades.csv é utilizado para alimentar as macros `1.cargaUnid
 ### 🖧 Macro `2.hierarquia`
 - O ponto de partida dessa macro é o sistema SIP, menu `Hierarquias` > `Montar` > Hierarquia `SEI` > `Pesquisar`;
 - O arquivo de referência é o `exemploUnidades.csv`, cuja estrutura está detalhada acima.
-- As colunas `1-ORGÃO`,`2-SIGLA` e `4-PAI` são utilizadas por esta macro. As demais são usadas pelas macros posteriores.
+- As colunas `1-ORGÃO`,`2-SIGLA` e `4-SUPERIOR.NA.HIERARQUIA` são utilizadas por esta macro. As demais são usadas pelas macros posteriores.
 
 > [!IMPORTANT]
-> - As linhas que trazem a coluna `4-PAI` em branco indicam que se trata de uma unidade _"Raiz"_, ou seja, que não possui nenhuma unidade acima de si na hierarquia. As demais linhas devem trazer a unidade imediatamente superior a elas para cadastramento na hierarquia.
+> - As linhas que trazem a coluna `4-SUPERIOR.NA.HIERARQUIA` em branco indicam que se trata de uma unidade _"Raiz"_, ou seja, que não possui nenhuma unidade acima de si na hierarquia. As demais linhas devem trazer a unidade imediatamente superior a elas para cadastramento na hierarquia.
 > - Por isso, é importante ter em mente que a hierarquia deve ser cadastrada <ins>**de cima para baixo**</ins>. Ou seja, primeiro devem ser inseridos na planilha os níveis mais altos da estrutura organizacional e depois os que vierem abaixo destes. Isso evita que o SIP retorne mensagem de erro informando que a unidade superior não foi encontrada ou travamento da macro.
 - Esta macro executa um script para atribuir ao campo "Data de Início" da unidade na hierarquia com a data atual (dia em que a macro está sendo executada). Caso opte por utilizar outra data, "comente" a linha 32 da macro (clicando em `//`) e altere o teor do campo `value` da linha 33, em que consta `${dataHoje}` para a data que deseja fazer constar.
 
@@ -325,7 +338,7 @@ O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro 6.cargaAssun
 
 #### Suas colunas são:
 0. **Index:** Número sequencial (auxilia na identificação linha a linha durante a execução da macro).  
-1. **CodigoEstruturado:** Código de Classificação de Documentos (CCD), que estrutura os assuntos conforme as funções da instituição. A hierarquia é implícita no código, sem necessidade de definir assunto pai.  
+1. **CodigoEstruturado:** Código de Classificação de Documentos (CCD), que estrutura os assuntos conforme as funções da instituição. A hierarquia é implícita no código, sem necessidade de definir assunto hierarquicamente superior.  
 2. **NomeAssunto:** Nome do assunto conforme o CCD.  
 3. **chkEstrutural:** Indica se o item é apenas estrutural (valor S). Assuntos estruturais não são selecionáveis na hora de classificar documentos, servindo apenas como agrupadores.  
 4. **PrazoCorrente:** Prazo em anos de guarda na fase corrente, conforme a TTD.  
