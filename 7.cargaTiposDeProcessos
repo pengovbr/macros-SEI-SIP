@@ -1,0 +1,928 @@
+{
+  "Name": "7.cargaTiposdeProcesso",
+  "CreationDate": "2025-8-7",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "Esta macro cadastra Tipos de Processo no SEI a partir de um arquivo CSV. INSTRUÇÕES:",
+      "Value": "Execute a Macro (Play Macro) a partir do sistema SEI > Menu \"Administração\" > \"Tipos de Processo\"",
+      "Description": "Recomendação: no log, exibir a opção \"Echo & Status\". Não deixe de conferir a documentação de referência."
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "exemploTiposDeProcesso.csv",
+      "Value": "tiposProcesso",
+      "Description": "Este primeiro comando lê os dados do arquivo CSV e os salva em uma estrutura interna da macro. Consulte a documentação de referência para instruções quanto à montagem do arquivo CSV."
+    },
+    {
+      "Command": "store",
+      "Target": "1",
+      "Value": "i",
+      "Description": "IMPORTANTE: Este comando indica A PARTIR DE QUAL LINHA do arquivo de referência a macro vai ser executada (e, dela, vai até o final) Se necessário retomar a execução a partir de um erro, altere este valor para a linha da qual pretende retomar."
+    },
+    {
+      "Command": "store",
+      "Target": "${i}",
+      "Value": "linhaInicial",
+      "Description": "Salva a linha inicial para calcular o progresso da execução."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${tiposProcesso}.length) - 1;",
+      "Value": "totalLinhas",
+      "Description": "Este comando obtém a quantidade de linhas da lista que foi importada do arquivo CSV."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var d = new Date(); return d.getTime()",
+      "Value": "tempoInicio",
+      "Description": "Registra o momento inicial da execução."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "ok",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções bem-sucedidas da macro."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "falha",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções mal-sucedidas da macro. (Erros no sistema, não no próprio UI.Vision)"
+    },
+    {
+      "Command": "echo",
+      "Target": "🧮 Iniciando processamento pela linha ${i}, de um total de ${totalLinhas}.",
+      "Value": "",
+      "Description": "Informa no log o ponto de partida."
+    },
+    {
+      "Command": "while",
+      "Target": "${i} <= ${totalLinhas}",
+      "Value": "",
+      "Description": "O comando \"while\" indica que a macro deve executar uma determinada ação enquanto uma condição específica não for satisfeita. A ação é retomar o cadastro da próxima linha e a condição, aqui, é que o valor da linha em execução tem que ser inferior ao total de linhas."
+    },
+    {
+      "Command": "echo",
+      "Target": "🔁 Processando linha ${i}: Tipo de Processo \"${tiposProcesso[${i}][1]}\".",
+      "Value": "blue",
+      "Description": "Exibe no log qual unidade está sendo cadastrada."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var atual = Number(${i}) - Number(${linhaInicial}); var total = Number(${totalLinhas}) - Number(${linhaInicial}) + 1; return Math.floor((atual / total) * 100);",
+      "Value": "progresso",
+      "Description": "Calcula o progresso relativo, de 0 a 100%."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var d = new Date(); return d.getTime()",
+      "Value": "tempoAtual",
+      "Description": "Registra o momento de início de cada iteração da macro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return (${tempoAtual} - ${tempoInicio}) / (Number(${i}) + 1);",
+      "Value": "tempoPorLinha",
+      "Description": "Estima o tempo gasto em cada linha da macro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var tempoEstimado = (Number(${totalLinhas}) - Number(${i})) * Number(${tempoPorLinha}); var min = Math.floor(tempoEstimado / 60000); var seg = Math.round((tempoEstimado % 60000) / 1000); var texto = '~ '; if (min > 0) texto += min + ' minuto' + (min != 1 ? 's' : ''); if (seg > 0 || min == 0) texto += (min > 0 ? ' ' : '') + seg + ' segundo' + (seg != 1 ? 's' : ''); return texto.trim();",
+      "Value": "estimativa",
+      "Description": "Calcula a estimativa de tempo restante em formato humanizado, considerando minutos e segundos com pluralização."
+    },
+    {
+      "Command": "if",
+      "Target": "${i} > 3",
+      "Value": "",
+      "Description": "Cria uma condicionante para exibir o tempo restante estimado apenas a partir da 4ª execução, quando a estimativa estará mais precisa."
+    },
+    {
+      "Command": "echo",
+      "Target": "📈 Progresso: ${progresso}% | ⏳ Tempo restante estimado: ${estimativa}",
+      "Value": "blue",
+      "Description": "Conforme condicional acima, exibe o progresso e o tempo restante estimado."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Caso contrário,"
+    },
+    {
+      "Command": "echo",
+      "Target": "📈 Progresso: ${progresso}%",
+      "Value": "blue",
+      "Description": "exibe (nas primeiras 3 linhas) apenas o progresso."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "encerra essa condicionante \"if\" (linha 16)."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnNovo",
+      "Value": "",
+      "Targets": [
+        "id=btnNovo",
+        "xpath=//*[@id=\"btnNovo\"]",
+        "xpath=//button[@id='btnNovo']",
+        "xpath=//button[2]",
+        "css=#btnNovo"
+      ],
+      "Description": "Clica no Botão \"Novo Tipo de Processo\""
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtNome",
+      "Value": "${tiposProcesso[${i}][1]}",
+      "Targets": [
+        "id=txtNome",
+        "name=txtNome",
+        "xpath=//*[@id=\"txtNome\"]",
+        "xpath=//input[@id='txtNome']",
+        "xpath=//div[2]/div/input",
+        "css=#txtNome"
+      ],
+      "Description": "Informa o nome do Tipo de Processo a ser cadastrado"
+    },
+    {
+      "Command": "type",
+      "Target": "id=txaDescricao",
+      "Value": "${tiposProcesso[${i}][2]}",
+      "Targets": [
+        "id=txaDescricao",
+        "name=txaDescricao",
+        "xpath=//*[@id=\"txaDescricao\"]",
+        "xpath=//textarea[@id='txaDescricao']",
+        "xpath=//textarea",
+        "css=#txaDescricao"
+      ],
+      "Description": "Preenche a descrição, se houver, do Tipo de Processo a ser cadastrado."
+    },
+    {
+      "Command": "click",
+      "Target": "id=imgLupaAssuntos",
+      "Value": "",
+      "Targets": [
+        "id=imgLupaAssuntos",
+        "xpath=//*[@id=\"imgLupaAssuntos\"]",
+        "xpath=//img[@id='imgLupaAssuntos']",
+        "xpath=//div[2]/div/div/img",
+        "css=#imgLupaAssuntos"
+      ],
+      "Description": "Clica no ícone para abrir a modal de seleção de assunto sugerido."
+    },
+    {
+      "Command": "selectFrame",
+      "Target": "index=0",
+      "Value": "",
+      "Description": "seleciona essa modal de escolha de assunto."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtPalavrasPesquisaAssuntos",
+      "Value": "${tiposProcesso[${i}][3]}",
+      "Targets": [
+        "id=txtPalavrasPesquisaAssuntos",
+        "name=txtPalavrasPesquisaAssuntos",
+        "xpath=//*[@id=\"txtPalavrasPesquisaAssuntos\"]",
+        "xpath=//input[@id='txtPalavrasPesquisaAssuntos']",
+        "xpath=//input[2]",
+        "css=#txtPalavrasPesquisaAssuntos"
+      ],
+      "Description": "Insere o código do assunto a ser pesquisado para associar ao tipo de processo."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnPesquisar",
+      "Value": "",
+      "Targets": [
+        "id=btnPesquisar",
+        "xpath=//*[@id=\"btnPesquisar\"]",
+        "xpath=//button[@id='btnPesquisar']",
+        "xpath=//div/button",
+        "css=#btnPesquisar"
+      ],
+      "Description": "Pesquisa pelo Assunto digitado."
+    },
+    {
+      "Command": "check",
+      "Target": "id=chkInfraItem0",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"divInfraSparklingModalClose1753705742000\"]/a/img",
+        "xpath=//div[2]/div/div[3]/a/img",
+        "css=#divInfraSparklingModalClose1753705742000 > a > img"
+      ],
+      "Description": "Marca a checkbox correspondente ao assunto selecionado."
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=chkInfraItem0",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td/div/label",
+        "xpath=//td/div/label",
+        "css=#divInfraAreaTabela > table > tbody > tr.infraTrSelecionada.infraTrClara.infraTrMarcada > td:nth-child(1) > div > label"
+      ],
+      "Description": "Garante que a checkbox foi assinalada."
+    },
+    {
+      "Command": "click",
+      "Target": "id=btnTransportarSelecao",
+      "Value": "",
+      "Targets": [
+        "id=btnTransportarSelecao",
+        "xpath=//*[@id=\"btnTransportarSelecao\"]",
+        "xpath=//button[@id='btnTransportarSelecao']",
+        "xpath=//button[2]",
+        "css=#btnTransportarSelecao"
+      ],
+      "Description": "Transporta o item selecionado para a caixa de assuntos."
+    },
+    {
+      "Command": "click",
+      "Target": "id=btnFecharSelecao",
+      "Value": "",
+      "Targets": [
+        "id=btnFecharSelecao",
+        "xpath=//*[@id=\"btnFecharSelecao\"]",
+        "xpath=//button[@id='btnFecharSelecao']",
+        "xpath=//button[3]",
+        "css=#btnFecharSelecao"
+      ],
+      "Description": "Fecha a modal de seleção de assuntos."
+    },
+    {
+      "Command": "selectWindow",
+      "Target": "tab=0",
+      "Value": "",
+      "Description": "A macro retorna para a janela original, de edição do Tipo de Processo."
+    },
+    {
+      "Command": "if",
+      "Target": "${tiposProcesso[${i}][4]} != \"\"",
+      "Value": "",
+      "Description": "Gera uma condicionante que diz que SE o campo referente a restrição de tipos de unidade que poderão criar processos deste tipo estiver preenchido..."
+    },
+    {
+      "Command": "click",
+      "Target": "id=imgLupaOrgaos",
+      "Value": "",
+      "Description": "a macro deve abrir a modal de seleção de órgãos,"
+    },
+    {
+      "Command": "selectFrame",
+      "Target": "index=0",
+      "Value": "",
+      "Description": "selecionar essa modal para executar os próximos comandos,"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${tiposProcesso[${i}][4]}.split(';');",
+      "Value": "listaOrgaos",
+      "Description": "em seguida, deve transformar os valores separados por ponto e vírgula em uma lista de órgãos separados."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${listaOrgaos}.length;",
+      "Value": "totalOrgaos",
+      "Description": "Então, ela conta quantos órgãos serão marcados... "
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "idx",
+      "Description": "E começa pelo primeiro órgão da lista."
+    },
+    {
+      "Command": "while",
+      "Target": "${idx} < ${totalOrgaos}",
+      "Value": "",
+      "Description": "Deve repetir para cada órgão,"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${listaOrgaos}[${idx}].trim();",
+      "Value": "orgaoAtual",
+      "Description": "armazenando, numa variável, o órgão a ser tratado nos próximos comandos."
+    },
+    {
+      "Command": "echo",
+      "Target": "🔹Limitando ao órgão ${orgaoAtual}",
+      "Value": "",
+      "Description": "Então a macro reporta qual órgão está sendo tratado,"
+    },
+    {
+      "Command": "check",
+      "Target": "xpath=//input[@title=\"${orgaoAtual}\" and @type=\"checkbox\"]",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"divInfraSparklingModalClose1754417194467\"]/a/img",
+        "xpath=//div[2]/div/div[3]/a/img",
+        "css=#divInfraSparklingModalClose1754417194467 > a > img"
+      ],
+      "Description": "marca a checkbox equivalente à sigla do órgão,"
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "xpath=//input[@title=\"${orgaoAtual}\" and @type=\"checkbox\"]",
+      "Value": "",
+      "Description": "e confere se ela de fato foi assinalada."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${idx}) + 1;",
+      "Value": "idx",
+      "Description": "Com este comando, a macro passa para o próximo órgão."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "Até que se encerre este \"loop\" de órgãos."
+    },
+    {
+      "Command": "click",
+      "Target": "id=btnTransportarSelecao",
+      "Value": "",
+      "Description": "Então, confirma a seleção"
+    },
+    {
+      "Command": "click",
+      "Target": "id=btnFecharSelecao",
+      "Value": "",
+      "Description": "e fecha a modal de seleção de órgão."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 33 da macro.)"
+    },
+    {
+      "Command": "selectWindow",
+      "Target": "tab=0",
+      "Value": "",
+      "Description": "Com este comando, a macro retorna para a janela principal,"
+    },
+    {
+      "Command": "if",
+      "Target": "${tiposProcesso[${i}][5]} != \"\"",
+      "Value": "",
+      "Description": "E este, confere se há restrição a unidades específicas, dentro de cada órgão, para criar processos deste Tipo."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${tiposProcesso[${i}][5]}.split(';');",
+      "Value": "listaOrgaosComUnidades",
+      "Description": "Este script separa os blocos de órgão+unidades, ex: ['ORGAO-A:UNI1|UNI2','ORGAO-B:UNI3|UNI4']"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${listaOrgaosComUnidades}.length;",
+      "Value": "totalOrgaosComUnidades",
+      "Description": "E este conta quantos blocos (órgãos) existem para cadastrar."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "idxOrgao",
+      "Description": "O cadastro se inicia no primeiro órgão..."
+    },
+    {
+      "Command": "while",
+      "Target": "${idxOrgao} < ${totalOrgaosComUnidades}",
+      "Value": "",
+      "Description": "e deve percorrer todos - este while indica que os comandos deste intervalo vão se repetir até que as unidades do último órgão sejam cadastradas na restrição de unidades que podem criar processos deste tipo."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${listaOrgaosComUnidades}[${idxOrgao}].split(':');",
+      "Value": "partesOrgao",
+      "Description": "Para cada órgão, a macro divide órgão e unidades: ['ORGAO-A':'UNI1|UNI2']"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${partesOrgao}[0].trim();",
+      "Value": "orgaoAtual",
+      "Description": "Dessa expressão, a macro extrai a sigla do órgão"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${partesOrgao}[1].split('|');",
+      "Value": "listaUnidades",
+      "Description": "E, em seguida, a lista de unidades"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${listaUnidades}.length;",
+      "Value": "totalUnidades",
+      "Description": "E conta quantas unidades neste órgão serão cadastradas."
+    },
+    {
+      "Command": "echo",
+      "Target": "🔹 Configurando órgão ${orgaoAtual} com ${totalUnidades} unidade(s).",
+      "Value": "blue",
+      "Description": "Em seguida, relata qual órgão vai configurar e com quantas unidades."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selOrgaos",
+      "Value": "label=${orgaoAtual}",
+      "Targets": [
+        "xpath=//*[@id=\"selOrgaos\"]/option",
+        "xpath=//option[@value='0']",
+        "xpath=//div[4]/div/div[2]/select/option",
+        "css=#selOrgaos > option:nth-child(1)"
+      ],
+      "Description": "Seleciona o órgão atual na caixa de seleção,"
+    },
+    {
+      "Command": "click",
+      "Target": "id=imgLupaUnidades",
+      "Value": "",
+      "Description": "E abre modal de seleção de unidades a partir desse órgão."
+    },
+    {
+      "Command": "selectFrame",
+      "Target": "index=0",
+      "Value": "",
+      "Description": "Seleciona o frame da modal de seleção de unidades"
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "idxUnidade",
+      "Description": "E determina que deve começar a buscar pela primeira unidade do órgão."
+    },
+    {
+      "Command": "while",
+      "Target": "${idxUnidade} < ${totalUnidades}",
+      "Value": "",
+      "Description": "Percorrendo todas as unidades listadas para esse órgão, nesse Tipo de Processo."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${listaUnidades}[${idxUnidade}].trim();",
+      "Value": "unidadeAtual",
+      "Description": "Este script pega a sigla da unidade atual"
+    },
+    {
+      "Command": "echo",
+      "Target": "🔹Limitando à unidade ${unidadeAtual} do órgão ${orgaoAtual}.",
+      "Value": "",
+      "Description": "E aqui, a macro explica qual unidade está sendo incluída na restrição."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtSiglaUnidade",
+      "Value": "${unidadeAtual}",
+      "Targets": [
+        "id=divInfraSparklingModalClose1754590881979",
+        "xpath=//*[@id=\"divInfraSparklingModalClose1754590881979\"]",
+        "xpath=//div[@id='divInfraSparklingModalClose1754590881979']",
+        "xpath=//div[2]/div/div[3]",
+        "css=#divInfraSparklingModalClose1754590881979"
+      ],
+      "Description": "Este comando digita a sigla da unidade na caixa de busca."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnPesquisar",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"divInfraSparklingModalClose1754590881979\"]/a/img",
+        "xpath=//div[2]/div/div[3]/a/img",
+        "css=#divInfraSparklingModalClose1754590881979 > a > img"
+      ],
+      "Description": "Este comando equivale ao clique no botão \"Pesquisar\""
+    },
+    {
+      "Command": "check",
+      "Target": "xpath=//input[contains (@title, \"${unidadeAtual}\")]",
+      "Value": "",
+      "Description": "E este, em seguida, assinala a unidade na lista de resultados exibidos da busca."
+    },
+    {
+      "Command": "click",
+      "Target": "id=btnTransportarSelecao",
+      "Value": "",
+      "Description": "Em seguida, a macro transporta a unidade selecionada para a caixa de unidades,"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${idxUnidade}) + 1;",
+      "Value": "idxUnidade",
+      "Description": "e vai para a próxima unidade da lista, até acabar."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"while\", como a utilizada aqui. Ele indica que se encerra uma condição de repetição. Este é o \"end\" do \"while\" da linha 64 da macro.)"
+    },
+    {
+      "Command": "click",
+      "Target": "id=btnFecharSelecao",
+      "Value": "",
+      "Description": "Em seguida, a macro fecha a modal de seleção de unidades,"
+    },
+    {
+      "Command": "selectWindow",
+      "Target": "tab=0",
+      "Value": "",
+      "Description": "e volta à tela principal."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${idxOrgao}) + 1;",
+      "Value": "idxOrgao",
+      "Description": "Agora, a macro prossegue para as unidades do próximo órgão"
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"while\", como a utilizada aqui. Ele indica que se encerra uma condição de repetição. Este é o \"end\" do \"while\" da linha 54 da macro.)"
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 50 da macro.)"
+    },
+    {
+      "Command": "store",
+      "Target": "${tiposProcesso[${i}][6]}",
+      "Value": "niveisAcesso",
+      "Description": "Agora a macro deve ler os Níveis de Acesso Permitidos - público ou restrito - da coluna 6 (PUB, RES ou PUB;RES)."
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return ${niveisAcesso}.includes('PUB');",
+      "Value": "temPUB",
+      "Description": "Aqui ela cria uma variável para monitorar se há 'PUB' na lista de níveis permitidos."
+    },
+    {
+      "Command": "if",
+      "Target": "${temPUB} == true",
+      "Value": "",
+      "Description": "Se houver 'PUB', ela marca a checkbox de \"Público\"."
+    },
+    {
+      "Command": "check",
+      "Target": "id=chkSinPublicoPermitido",
+      "Value": "",
+      "Description": "Este comando é o que assinala a checkbox de nível de acesso permitido \"Público\"."
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=chkSinPublicoPermitido",
+      "Value": "",
+      "Description": "E este confere se a checkbox de nível de acesso permitido \"Público\" foi de fato assinalada."
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.getElementById('optPublicoSugestao').disabled = false;",
+      "Value": "",
+      "Description": "Este comando ativa o radio button de nível de acesso sugerido (público)."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 80 da macro.)"
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return ${niveisAcesso}.includes('RES');",
+      "Value": "temRES",
+      "Description": "Aqui ela cria uma variável para monitorar se há 'RES' na lista de níveis permitidos."
+    },
+    {
+      "Command": "if",
+      "Target": "${temRES} == true",
+      "Value": "",
+      "Description": "Se houver 'RES', ela marca a checkbox de \"Restrito\"."
+    },
+    {
+      "Command": "check",
+      "Target": "id=chkSinRestritoPermitido",
+      "Value": "",
+      "Description": "Este comando é o que assinala a checkbox de nível de acesso permitido \"Restrito\"."
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=chkSinRestritoPermitido",
+      "Value": "",
+      "Description": "E este confere se a checkbox de nível de acesso permitido \"Restrito\" foi de fato assinalada."
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.getElementById('optRestritoSugestao').disabled = false;",
+      "Value": "",
+      "Description": "Este comando ativa o radio button de nível de acesso sugerido (restrito)."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 86 da macro.)"
+    },
+    {
+      "Command": "if",
+      "Target": "${tiposProcesso[${i}][7]} == \"PUB\"",
+      "Value": "",
+      "Description": "Verifica se o tipo de processo tem Nível de Acesso \"Público\" sugerido para uso padrão quando forem criados processos do Tipo por sistemas integrados ou módulos."
+    },
+    {
+      "Command": "check",
+      "Target": "id=optPublicoSugestao",
+      "Value": "",
+      "Targets": [
+        "id=optPublicoSugestao",
+        "name=rdoNivelAcessoSugestao",
+        "xpath=//*[@id=\"optPublicoSugestao\"]",
+        "xpath=//input[@id='optPublicoSugestao']",
+        "xpath=//div[2]/div/fieldset/div[3]/div/input",
+        "css=#optPublicoSugestao"
+      ],
+      "Description": "Este comando é o que assinala a checkbox de nível de acesso sugerido \"Público\" para sistemas e módulos,"
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=optPublicoSugestao",
+      "Value": "",
+      "Description": "E este confere se a checkbox de nível de acesso sugerido \"Público\" foi de fato assinalada."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Caso contrário"
+    },
+    {
+      "Command": "check",
+      "Target": "id=optRestritoSugestao",
+      "Value": "",
+      "Targets": [
+        "id=optRestritoSugestao",
+        "name=rdoNivelAcessoSugestao",
+        "xpath=//*[@id=\"optRestritoSugestao\"]",
+        "xpath=//input[@id='optRestritoSugestao']",
+        "xpath=//div[2]/div/fieldset/div[2]/div/input",
+        "css=#optRestritoSugestao"
+      ],
+      "Description": "Este comando é o que assinala a checkbox de nível de acesso sugerido \"Restrito\" para sistemas e módulos,"
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=optRestritoSugestao",
+      "Value": "",
+      "Description": "E este confere se a checkbox de nível de acesso sugerido \"Restrito\" foi de fato assinalada."
+    },
+    {
+      "Command": "executeScript",
+      "Target": "alterarNivelAcessoSugerido();",
+      "Value": "",
+      "Description": "Caso o nível de acesso sugerido seja \"restrito\", este script força a alteração do nível de acesso (simulando um clique manual), habilitando a escolha de hipótese legal sugerida."
+    },
+    {
+      "Command": "pause",
+      "Target": "300",
+      "Value": "",
+      "Description": "Esta pausa de 0,3 segundos é necessária para o sistema carregar as hipóteses legais após o comando anterior."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selHipoteseLegal",
+      "Value": "label=${tiposProcesso[${i}][8]}",
+      "Targets": [
+        "id=selHipoteseLegal",
+        "name=selHipoteseLegal",
+        "xpath=//*[@id=\"selHipoteseLegal\"]",
+        "xpath=//select[@id='selHipoteseLegal']",
+        "xpath=//div[7]/select",
+        "css=#selHipoteseLegal"
+      ],
+      "Description": "E este comando seleciona a hipótese legal indicada no arquivo CSV"
+    },
+    {
+      "Command": "if",
+      "Target": "${tiposProcesso[${i}][9]} == \"Sim\"",
+      "Value": "",
+      "Description": "Este comando verifica se o Tipo de Processo é exclusivo da Ouvidoria."
+    },
+    {
+      "Command": "check",
+      "Target": "id=chkSinOuvidoria",
+      "Value": "",
+      "Description": "Se sim, ele marca a checkbox correspondente."
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=chkSinOuvidoria",
+      "Value": "",
+      "Description": "E valida se a checkbox foi marcada."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 100 da macro.)"
+    },
+    {
+      "Command": "if",
+      "Target": "${tiposProcesso[${i}][10]} == \"Sim\"",
+      "Value": "",
+      "Description": "Este comando verifica se este Tipo de Processo exclusivo da Ouvidoria permite contato anônimo."
+    },
+    {
+      "Command": "check",
+      "Target": "id=chkSinOuvidoriaAnonimo",
+      "Value": "",
+      "Description": "Se sim, ele marca a checkbox correspondente."
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=chkSinOuvidoriaAnonimo",
+      "Value": "",
+      "Description": "E valida se a checkbox foi marcada."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 104 da macro.)"
+    },
+    {
+      "Command": "if",
+      "Target": "${tiposProcesso[${i}][11]} == \"Sim\"",
+      "Value": "",
+      "Description": "Este comando verifica se o Tipo de Processo permite o cadastro de apenas um processo por interessado."
+    },
+    {
+      "Command": "check",
+      "Target": "id=chkSinIndividual",
+      "Value": "",
+      "Description": "Se sim, ele marca a checkbox correspondente."
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=chkSinIndividual",
+      "Value": "",
+      "Description": "E valida se a checkbox foi marcada."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 108 da macro.)"
+    },
+    {
+      "Command": "if",
+      "Target": "${tiposProcesso[${i}][12]} == \"Sim\"",
+      "Value": "",
+      "Description": "Este comando verifica se o Tipo de Processo é interno do Sistema (exclusivo de sistemas integrados e módulos, inacessível a usuários humanos)."
+    },
+    {
+      "Command": "check",
+      "Target": "id=chkSinInterno",
+      "Value": "",
+      "Description": "Se sim, ele marca a checkbox correspondente."
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=chkSinInterno",
+      "Value": "",
+      "Description": "E valida se a checkbox foi marcada."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 112 da macro.)"
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "name=sbmCadastrarTipoProcedimento",
+      "Value": "",
+      "Targets": [
+        "name=sbmCadastrarTipoProcedimento",
+        "xpath=//*[@id=\"divInfraBarraComandosSuperior\"]/button",
+        "xpath=//button[@name='sbmCadastrarTipoProcedimento']",
+        "xpath=//div/button",
+        "css=#divInfraBarraComandosSuperior > button:nth-child(2)"
+      ],
+      "Description": ""
+    },
+    {
+      "Command": "store",
+      "Target": "true",
+      "Value": "!statusOK",
+      "Description": "Este comando é necessário para a validação do if posterior (linha 20)."
+    },
+    {
+      "Command": "verifyElementPresent",
+      "Target": "id=btnImprimir",
+      "Value": "",
+      "Targets": [
+        "id=btnImprimir",
+        "xpath=//*[@id=\"btnImprimir\"]",
+        "xpath=//button[@id='btnImprimir']",
+        "xpath=//button[5]",
+        "css=#btnImprimir"
+      ],
+      "Description": "Esta etapa é a conferência de que o SIP voltou à tela anterior após salvar."
+    },
+    {
+      "Command": "if",
+      "Target": "${!statusOK} == true",
+      "Value": "",
+      "Description": "Este comando valida se a verificação anterior manteve o status da execução como bem sucedida. Se sim, mensagem de sucesso. Se não, mensagem de erro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + 1;",
+      "Value": "ok",
+      "Description": "Primeiro, a macro acrescenta + 1 ao valor de \"ok\", ou seja, acrescenta uma execução bem-sucedida à conta."
+    },
+    {
+      "Command": "echo",
+      "Target": "✅ Tipo de Processo ${tiposProcesso[${i}][1]} cadastrado com sucesso.",
+      "Value": "green",
+      "Description": "E por meio desta linha, exibe a mensagem de sucesso no log."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "caso contrário..."
+    },
+    {
+      "Command": "storeText",
+      "Target": "id=divInfraMensagens",
+      "Value": "mensagemErro",
+      "Description": "a macro armazena a mensagem de erro exibida pelo SIP,"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${falha}) + 1;",
+      "Value": "falha",
+      "Description": "em seguida, acrescenta + 1 ao valor de \"falha\", ou seja, acrescenta uma execução malsucedida à conta..."
+    },
+    {
+      "Command": "echo",
+      "Target": "❌ Falha ao cadastrar o Tipo de Processo ${tiposProcesso[${i}][1]}. Erro: \"${mensagemErro}\"",
+      "Value": "red",
+      "Description": "E, então, por meio desta linha, exibe a mensagem de falha no log."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnCancelar",
+      "Value": "",
+      "Description": "Este clique no botão \"Cancelar\" permite à macro retornar à tela anterior para retomar o cadastro."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"while\", como a utilizada aqui. Ele indica que se encerra uma condição de repetição. Este é o \"end\" do \"while\" da linha 10 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${i}) + 1;",
+      "Value": "i",
+      "Description": "Esta linha acrescenta + 1 ao valor de \"i\", que corresponde à linha a ser lida pela macro até chegar ao valor máximo. Ou seja, este é o comando que faz as iterações se repetirem enquanto houver dados a cadastrar."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + Number(${falha});",
+      "Value": "total",
+      "Description": "Esta linha acrescenta + 1 ao valor de \"i\", que corresponde à linha a ser lida pela macro até chegar ao valor máximo. Ou seja, este é o comando que faz as iterações se repetirem enquanto houver dados a cadastrar."
+    },
+    {
+      "Command": "echo",
+      "Target": "🏁 Carga finalizada: ${total} registros processados, sendo ${ok} com sucesso e ${falha} com erro.",
+      "Value": "",
+      "Description": "E, por fim, esta linha relata - ao final da execução da macro - quantos registros foram processados, quantos com sucesso e quantos com erro."
+    }
+  ]
+}
