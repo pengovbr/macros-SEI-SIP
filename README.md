@@ -14,6 +14,7 @@
 - [Cadastramento de Unidades](#unidades)
 - [Cadastramento de Usuários](#usuarios)
 - [Cadastramento de Assuntos](#assuntos)
+- [Cadastramento de Tipos de Processo](#tiposDeProcesso)
 - [Demonstração em vídeo](#demo-video)
 - [Licença](#-licença)
 - [Contato](#contato)
@@ -81,12 +82,14 @@ Ou baixar cada um, individualmente, de acordo com sua necessidade:
 ├─ [`4.cargaUsuarios.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/4.cargaUsuarios.json)  
 ├─ [`5.primeirasPermissoes.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/5.permissoes.json)  
 ├─ [`6.cargaAssuntos.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/6.cargaAssuntos.json)  
+└─[`7.cargaTiposDeProcesso.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/7.cargaTiposDeProcessos.json)
 
 ### 📑 Arquivos de exemplo `.csv`
 └📁 `csv/`  
 &nbsp;&nbsp; ├─ [`exemploAssuntos.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploAssuntos.csv)  
 &nbsp;&nbsp; ├─ [`exemploUnidades.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUnidades.csv)  
 &nbsp;&nbsp; └─ [`exemploUsuarios.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUsuarios.csv)  
+&nbsp;&nbsp; └─ [`exemploTiposDeProcesso.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploTiposDeProcesso.csv)  
 
 ### 🔧 Sobre as macros incluídas:
 São 06 (seis) macros, que executam diferentes operações nos sistemas SEI e SIP, conforme detalhado abaixo:
@@ -94,14 +97,16 @@ São 06 (seis) macros, que executam diferentes operações nos sistemas SEI e SI
 2.	**Cadastro das Unidades na Hierarquia no SIP**: Realiza o vínculo entre as unidades cadastradas, definindo sua posição na estrutura hierárquica;
 3.	**Cadastro de Dados Complementares das Unidades no SEI**: Preenche informações adicionais relacionadas às unidades, como tipo, endereço ou outros campos auxiliares;
 4.	**Cadastro de Usuários no SIP**: Cria contas de usuários no sistema, utilizando dados como CPF, nome, login e e-mail institucional etc.;
-5.	**Cadastro das Primeiras Permissões no SIP**: Atribui as primeiras permissões dos usuários, conforme o perfil a ser concedido e a unidade de atuação no sistema; e
-6.	**Cadastro de Assuntos no SEI**: Preenche as informações referentes aos assuntos que constam das Tabelas de Assunto do SEI, para fins de classificação de processos e documentos e controle da temporalidade.
+5.	**Cadastro das Primeiras Permissões no SIP**: Atribui as primeiras permissões dos usuários, conforme o perfil a ser concedido e a unidade de atuação no sistema; 
+6.	**Cadastro de Assuntos no SEI**: Preenche as informações referentes aos assuntos que constam das Tabelas de Assunto do SEI, para fins de classificação de processos e documentos e controle da temporalidade; e
+7.	**Cadastro de Tipos de Processo no SEI**: Preenche as informações dos Tipos de Processo a serm cadastrados no sistema, parametrizando-os com classificação por assunto sugerida, restrição a órgãos e unidades para gerar o Tipo de Processo, níveis de acesso etc.
 
 ### 📑 Sobre os arquivos de exemplo em `.csv`:
 Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo para preenchimento pelo administrador: 
 1. **exemploUnidades**: que traz a estrutura de dados referentes a unidades, para execução das macros `1.cargaUnidades.json`, `2.hierarquia.json ` e `3.dadosUnidadesSEI.json`;
-2. **exemploUsuarios**: que traz a estrutura de dados referentes a usuários,  para execução das macros `4.cargaUsuarios.json` e `5.primeirasPermissoes.json `; e
-3. **exemploAssuntos**: que traz a estrutura de dados referentes aos assuntos da tabela, para servir de modelo para preenchimento pelo administrador, para execução da macro `6.cargaAssuntos.json `;
+2. **exemploUsuarios**: que traz a estrutura de dados referentes a usuários,  para execução das macros `4.cargaUsuarios.json` e `5.primeirasPermissoes.json `; 
+3. **exemploAssuntos**: que traz a estrutura de dados referentes aos assuntos da tabela, para servir de modelo para preenchimento pelo administrador, para execução da macro `6.cargaAssuntos.json `; e
+4. **exemploTiposDeProcesso**: que traz a estrutura de dados referente aos Tipos de Processo, para execução da macro `7.cargaTiposDeProcesso.json`
 
 <br/>
 
@@ -318,12 +323,12 @@ O arquivo `exemploUsuarios.csv` é utilizado para alimentar as macros `4.cargaUs
 
 ### Pontos de atenção sobre as macros referentes a Usuários:
 
-### 👩🏻‍💻 4.Macro cargaUsuarios
+### <img width="24" height="24" alt="image" src="https://github.com/user-attachments/assets/cb5a8743-27fc-4a5a-9423-a9e3a12a6a2b" /> Macro `4.cargaUsuarios`
 - O ponto de partida dessa macro é o sistema SIP, menu `Usuários` > `Listar`;
 - O arquivo de referência é o `exemploUsuários.csv`, cuja estrutura está detalhada acima.
 
 
-### 🪪 Macro `5.permissões`
+### <img width="24" height="24" alt="image" src="https://github.com/user-attachments/assets/50e5b32b-cd6c-415e-b62f-2735f2fc5ad3" /> Macro `5.permissões`
 - O ponto de partida dessa macro é o sistema SIP, menu `Permissões` > `Atribuição em Bloco`;
 - A macro de permissões trata o uso de `*` para a Unidade Global por meio de uma conversão interna para evitar falhas, trocando o asterisco (que gera erro de comportamento na macro) pelo termo `index=1`. Foi uma solução adotada para evitar erros de permissionamento no caso de acesso à unidade global.
 - Como dito anteriormente, a proposta, neste caso, é apenas cadastrar uma **primeira permissão** para viabilizar o acesso ao SEI para o usuário cadastrado, e não esgotar todas as suas permissões. Estas podem ser cadastradas posteriormente, com o sistema já em uso pelos usuários.
@@ -334,7 +339,7 @@ O arquivo `exemploUsuarios.csv` é utilizado para alimentar as macros `4.cargaUs
 
 <a name="assuntos"></a>
 ## 🗄️CADASTRAMENTO DE ASSUNTOS
-O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro 6.cargaAssuntos, responsável pelo cadastro dos assuntos da Tabela de Assuntos do SEI, com base no Código de Classificação de Documentos (CCD) e na Tabela de Temporalidade e Destinação (TTD).
+O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro `6.cargaAssuntos`, responsável pelo cadastro dos assuntos da Tabela de Assuntos do SEI, com base no Código de Classificação de Documentos (CCD) e na Tabela de Temporalidade e Destinação (TTD).
 
 #### Suas colunas são:
 0. **Index:** Número sequencial (auxilia na identificação linha a linha durante a execução da macro).  
@@ -373,6 +378,60 @@ O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro 6.cargaAssun
 - O log desta macro traz informações de progresso e detalha cada assunto carregado (informa se é apenas estrutural ou, se não, quais os prazos e qual a destinação associada a este assunto).
 <br/>
 <br/>
+<a name="tiposDeProcesso"></a>
+## 🗂️ CADASTRAMENTO DE TIPOS DE PROCESSO
+O arquivo `exemploTiposDeProcesso.csv` é utilizado para alimentar a macro `7.cargaTiposDeProcesso`, responsável pelo cadastro dos Tipos de Processo no SEI. Ele inclui informações diversas, como a Classificação por Assunto sugerida, os órgãos e unidades a que se deseja restringir a criação de processos desse tipo, os níveis de acesso permitidos e sugeridos (os sugeridos se aplicam a sistemas integrados via Webservice e módulos), dentre outras funcionalidades.
+
+#### Suas colunas são:
+0. **Seq:** Número sequencial (auxilia na identificação linha a linha na execução da macro).  
+1. **Nome:** Nome do tipo de processo a ser criado.
+2. **descricao:** Descrição complementar do tipo de processo (campo opcional).  
+3. **sugestaoDeAssuntos:** Lista de códigos de assuntos sugeridos para este tipo (separados por ponto e vírgula).  
+4. **restringirAosOrgaos:** Lista de siglas de órgãos autorizados a utilizar o tipo (separados por ponto e vírgula). **Deixe em branco** para liberar para todos.  
+5. **restringirAsUnidades:** Lista de siglas de unidades de cada órgão, autorizadas a utilizar o tipo (separadas da seguinte maneira ORGAO-A:UNIDADE1|UNIDADE2|UNIDADE3;ORGAO-B:UNIDADE4|UNIDADE5|UNIDADE6). **Deixe em branco** para liberar para todas.  
+6. **niveisDeAcessoPermitidos:** Lista dos níveis de acesso permitidos, sendo **"RES"** para Restrito, **"SIG"** para Sigiloso e **"PUB"** para Público.  
+7. **nivelDeAcessoSugerido:** Nível de acesso sugerido (obrigatório ser um dos valores da lista anterior).  
+8. **grauSigilo:** É o grau de sigilo sugerido para este Tipo de Processo, quando sigiloso, podendo ser **"U"** para Ultrassecreto, **"S"** para Secreto e **"R"** para Reservado.  
+9. **sugestaoHipoteseLegal:** Hipótese legal sugerida (O ).  
+10. **exclusivoOuvidoria:** Indica se o tipo será exclusivo da Ouvidoria (S ou deixe em branco).  
+11. **permiteContatoAnonimo:** Se marcado como S, permite abertura de processo sem identificação (só se for exclusivo da ouvidoria).  
+12. **ProcessoUnicoPorInteressado:** Indica se só poderá existir um processo desse tipo por interessado (S ou em branco).  
+13. **InternoDoSistema:** Indica se o tipo de processo será usado apenas internamente, sem visibilidade para usuários comuns (S ou em branco).  
+
+
+#### Visão do arquivo `exemplo.csv` em formato de tabela:
+
+| 0.Seq | 1.Nome                                                                                      | 2.descricao                                                              | 3.sugestaoDeAssuntos | 4.restringirAosOrgaos | 5.restringirAsUnidades                    | 6.NiveisDeAcessoPermitidos | 7.NivelDeAcessoSugerido | 8.GrauSigilo | 9.sugestaoHipoteseLegal                                                                                       | 10.exclusivoOuvidoria | 11.permiteContatoAnonimo(ouvidoria) | 12.ProcessoUnicoPorInteressado | 13.InternoDoSistema |
+|-------|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|----------------------|-----------------------|--------------------------------------------|---------------------------|------------------------|--------------|--------------------------------------------------------------------------------------------------------------|-----------------------|-------------------------------------|---------------------------------|---------------------|
+| 1     | Comunicação: Serviço De Transmissão De Dados, Voz E Imagem                                 | Processo relacionado a serviço de transmissão de dados, voz e imagem.    | 073.4                | PEN;SBM               | PEN:ADMIN&#124;NEG;SBM:GABPREF&#124;SEDUC  | PUB;RES                   | RES                    |              | Protocolo Pendente de Análise de Restrição (Art. 6º, III, da Lei nº 12.527/2011)                              |                       |                                     |                                 |                     |
+| 2     | Gestão de Contrato: Cadastramento De Fornecedores E De Prestadores De Serviços              | Processo relacionado a cadastramento de fornecedores e de prestadores.   | 030.02               | PEN;SBM               |                                            | PUB;RES;SIG               | SIG                    | R            | Informação Pessoal Sensível (Art. 31 da Lei nº 12.527/2011)                                                   |                       |                                     |                                 |                     |
+| 3     | Capacitação: Contratação de curso com ônus à Instituição                                   | Processo relacionado a com ônus.                                          | 028.21               |                       |                                            | PUB                       | PUB                    |              |                                                                                                              |                       |                                     |                                 |                     |
+| 4     | Pessoal: Avaliação de Desempenho                                                            | Processo relacionado a desempenho.                                       | 23.155               | SBM;PEN               | SBM:GABPREF;PEN:ADMIN                      | PUB;RES                   | RES                    |              | Investigação/Prevenção de Acidentes Aeronáuticos (Art. 88-I, § 3º, da Lei nº 7.565/1986)                      | SIM                   | SIM                                 |                                 |                     |
+| 5     | Pessoal: Emissão De Certificados                                                            | Processo relacionado a emissão de certificados.                          | 914                  |                       |                                            | PUB;RES                   | RES                    |              | Sigilo de Empresa em Situação Falimentar (Art. 169 da Lei nº 11.101/2005)                                     | SIM                   |                                     |                                 |                     |
+
+
+
+#### Formato `.csv` correspondente:
+> 0.Seq,1.Nome,2.descricao,3.sugestaoDeAssuntos,4.restringirAosOrgaos,5.restringirAsUnidades,6.NiveisDeAcessoPermitidos,7.NivelDeAcessoSugerido,8.GrauSigilo,9.sugestaoHipoteseLegal,10.exclusivoOuvidoria,11.permiteContatoAnonimo(ouvidoria),12.ProcessoUnicoPorInteressado,13.InternoDoSistema  
+> 1,"Comunicação: Serviço De Transmissão De Dados, Voz E Imagem","Processo relacionado a serviço de transmissão de dados, voz e imagem.",073.4,PEN;SBM,"PEN:ADMIN|NEG;SBM:GABPREF|SEDUC","PUB;RES",RES,,"Protocolo Pendente de Análise de Restrição (Art. 6º, III, da Lei nº > 12.527/2011)",,,,  
+> 2,"Gestão de Contrato: Cadastramento De Fornecedores E De Prestadores De Serviços","Processo relacionado a cadastramento de fornecedores e de prestadores de serviços.",030.02,PEN;SBM,,"PUB;RES;SIG",SIG,R,"Informação Pessoal Sensível (Art. 31 da Lei nº 12.527/2011)",,,,  
+> 3,"Capacitação: Contratação de curso com ônus à Instituição","Processo relacionado a com ônus.",028.21,,,PUB,PUB,,,,,,  
+> 4,"Pessoal: Avaliação de Desempenho","Processo relacionado a desempenho.",23.155,SBM;PEN,"SBM:GABPREF;PEN:ADMIN","PUB;RES",RES,,"Investigação/Prevenção de Acidentes Aeronáuticos (Art. 88-I, § 3º, da Lei nº 7.565/1986)",SIM,SIM,,  
+> 5,"Pessoal: Emissão De Certificados","Processo relacionado a emissão de certificados.",914,,,PUB;RES,RES,,"Sigilo de Empresa em Situação Falimentar (Art. 169 da Lei nº 11.101/2005)",SIM,,,  
+
+  
+### Pontos de atenção sobre a macro referentes a Tipos de Processo:
+
+### <img width="24" height="24" alt="image" src="https://github.com/user-attachments/assets/9544de43-9ff6-4d5b-a530-eb5500e9bf47" /> Macro `6.assuntos`
+- O ponto de partida dessa macro é o sistema SEI, menu `Administração` > `Tipos de Processo`;
+- O arquivo de referência é o `exemploTiposDePRocesso.csv`, cuja estrutura está detalhada acima.
+- O log desta macro traz informações de progresso e detalha cada Tipo de Processo carregado (informando se a criação de processos desse tipo está limitada a determinado órgão ou unidade).
+> [!NOTE]
+> - Por se tratar de uma macro que alterna bastante entre diferentes modais (janelas auxiliares de seleção), há um risco maior de falha de execução. Neste caso, basta retomar a execução da macro da linha em que ela foi interrompida, alterando o valor na linha 3 `store|1|i`, alterando o valor `1` pelo número da linha da qual deseja retomar.
+> - Os campos de limitação a órgãos e unidades são de uso facultativo. Caso deseje que os Tipos de Processo estejam disponíveis para todas as unidades de todos os órgãos de sua instalação, deixe-os em branco.
+<br/>
+<br/>
+
 
 ---
 
