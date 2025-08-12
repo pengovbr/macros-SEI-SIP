@@ -1,21 +1,21 @@
-0-Seq.,1-ORGAO,2-SIGLA,3-DESCRICAO,4-PAI,5-EMAIL,6-TELEFONE,7-SITE
-1,ANITEC,PRESI,Presidência,,presidencia@anitec.gov.br,(61)2345-6789,https://anitec.gov.br/
-2,ANITEC,ASCOM,Assessoria de Comunicação,PRESI,ascom@anitec.gov.br,(61)2345-6789,https://anitec.gov.br/
-3,ANITEC,ASJUR,Assessoria Jurídica,PRESI, asjur@anitec.gov.br,(61)2345-6789,https://anitec.gov.br/
-4,ANITEC,ASPLAN,Assessoria de Planejamento Estratégico,,asplan@anitec.gov.br,(61)2345-6789,https://anitec.gov.br/
-5,ANITEC,DTDIN,Departamento de Transformação Digital e Inovação,,dtdin@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/inovacao
-6,ANITEC,CGTEC,Coordenação-Geral de Tecnologia,DTDIN,cgtec@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/inovacao
-7,ANITEC,CGINV,Coordenação-Geral de Inovação,DTDIN,cginv@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/inovacao
-8,ANITEC,CGSIS,Coordenação-Geral de Sistemas,DTDIN,cgsis@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/solucoes
-9,ANITEC,DEPAD,Departamento de Administração,,depad@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/institucional
-10,ANITEC,CGPRI,Coordenação-Geral de Planejamento e Projetos Internos,DEPAD,cgpri@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/
-11,ANITEC,CGSUP,Coordenação-Geral de Suporte Operacional,DEPAD,cgsup@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/
-12,ANITEC,CGDGP,Coordenação-Geral de Desenvolvimento e Gestão de Pessoas,DEPAD,cgdgp@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/quem-somos
-13,ANITEC,COINF,Coordenação de Infraestrutura,CGTEC,coinf@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/
-14,ANITEC,CODES,Coordenação de Desenvolvimento de Sistemas,CGSIS,cgsis@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/solucoes
-15,ANITEC,COLAB,Coordenação de Laboratórios de Inovação,CGINV,colab@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/inovacao
-16,ANITEC,COPRO,Coordenação de Projetos,CGINV,copro@anitec.gov.br,(61)2345-6543,https://anitec.gov.br/inovacao
-17,ANITEC,COCAP,Coordenação de Capacitação,CGDGP,cocap@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/capacita
-18,ANITEC,CGCON,Coordenação-Geral de Contratos,DEPAD,cgcon@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/transparencia
-19,ANITEC,COSEG,Coordenação de Serviços Gerais,CGSUP,coseg@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/
-20,ANITEC,COFIS,Coordenação de Fiscalização Contratual,CGCON,cofis@anitec.gov.br,(61)2345-3210,https://anitec.gov.br/transparencia
+0-Seq.,1-orgaoUnidade,2-siglaUnidade,3-descricaoUnidade,4-superiorNaHierarquia,5-emailUnidade,6-usaEndereçoDoÓrgao?,7-endereçoUnidade,8-complementoEndereco,9-bairroUnidade,10-UFUnidade,11-cidadeUnidade,12-CEPUnidade,13-CNPJUnidade,14-telefoneUnidade,15-siteUnidade
+1,GOV-CR,GABIN,Gabinete,,governador@cariris.gov.br,S,,,,,,,,(61)2345-6789,https://governo.cr.gov.br/
+2,GOV-CR,ASIMP,Assessoria de Imprensa,GABIN,imprensa@cariris.gov.br,S,,,,,,,,(61)2345-6789,https://governo.cr.gov.br/
+3,GOV-CR,PROJUR,Procuradoria Estadual,GABIN,procuradoria@cariris.gov.br,S,,,,,,,,(61)2345-6789,https://governo.cr.gov.br/
+4,GOV-CR,ESPRE,Escritório de Projetos estratégicos,,projetos@cariris.gov.br,S,,,,,,,,(61)2345-6789,https://governo.cr.gov.br/
+5,GOV-CR,SETIN,Secretaria de Transformação Digital e Inovação,,setin@cariris.gov.br,N,"Avenida 123, Área Especial 456, Palácio de Governo","Bloco C, Sala 253-A",Centro,CR,Esperança,59900-000,,(61)2345-6543,https://governo.cr.gov.br/inovacao
+6,GOV-CR,SUTEC,Subsecretaria de Tecnologia e Infraestrutura,SETIN,sutec@cariris.gov.br,N,"Avenida 123, Área Especial 456, Palácio de Governo","Bloco C, Sala 253",Centro,CR,Esperança,59900-000,,(61)2345-6543,https://governo.cr.gov.br/inovacao
+7,GOV-CR,SUINV,Subsecretaria de Inovação,SETIN,suinv@cariris.gov.br,N,"Avenida 123, Área Especial 456, Palácio de Governo","Bloco C, Sala 255",Centro,CR,Esperança,59900-000,,(61)2345-6543,https://governo.cr.gov.br/inovacao
+8,GOV-CR,SUSIG,Subsecretaria de Sistemas de Governo,SETIN,susig@cariris.gov.br,N,"Avenida 123, Área Especial 456, Palácio de Governo","Bloco C, Sala 257",Centro,CR,Esperança,59900-000,,(61)2345-6543,https://governo.cr.gov.br/solucoes
+9,GOV-CR,SEADM,Secretaria de Administração,,secad@cariris.gov.br,S,,,,,,,,(61)2345-3210,https://governo.cr.gov.br/institucional
+10,GOV-CR,SUPRI,Superintendência de Planejamento e Projetos Internos,SEADM,supri@cariris.gov.br,S,,,,,,,,(61)2345-3210,https://governo.cr.gov.br/
+11,GOV-CR,SUOPE,Superintendência de Gestão e Suporte Operacional,SEADM,suope@cariris.gov.br,S,,,,,,,,(61)2345-3210,https://governo.cr.gov.br/
+12,GOV-CR,SUGEP,"Superintendência de Carreiras, Desenvolvimento e Gestão de Pessoas",SEADM,sugep@cariris.gov.br,S,,,,,,,,(61)2345-3210,https://governo.cr.gov.br/quem-somos
+13,GOV-CR,COIRE,Coordenadoria de Infraestrutura e Redes,SUTEC,coire@cariris.gov.br,N,"Avenida 123, Área Especial 456, Palácio de Governo","Bloco C, Sala S08",Centro,CR,Esperança,59900-000,,(61)2345-6543,https://governo.cr.gov.br/
+14,GOV-CR,COSAU,Coordenadoria de Desenvolvimento de Sistemas e Automação,SUSIG,cosau@cariris.gov.br,N,"Avenida 123, Área Especial 456, Palácio de Governo","Bloco C, Sala 253",Centro,CR,Esperança,59900-000,,(61)2345-6543,https://governo.cr.gov.br/solucoes
+15,GOV-CR,COLAB,Coordeadoria de Promoção à Inovação,SUINV,colab@cariris.gov.br,N,"Avenida 123, Área Especial 456, Palácio de Governo","Bloco C, Sala 257",Centro,CR,Esperança,59900-000,,(61)2345-6543,https://governo.cr.gov.br/inovacao
+16,GOV-CR,COAPE,Coordenadoria de Apoio a Projetos Estratégicos,ESPRE,coape@cariris.gov.br,S,,,,,,,,(61)2345-6543,https://governo.cr.gov.br/inovacao
+17,GOV-CR,COPLA,Coordenadoria de Planejamento de Capacitação,SUGEP,copla@cariris.gov.br,S,,,,,,,,(61)2345-3210,https://governo.cr.gov.br/capacita
+18,GOV-CR,SUFIS,Superintendência de Fiscalização e Gestão de Contratos,SEADM,sufis@cariris.gov.br,S,,,,,,,,(61)2345-3210,https://governo.cr.gov.br/transparencia
+19,GOV-CR,COPAR,"Coordenadoria de Patrimônio, Arquivo e Recursos Logísticos",SUOPE,copar@cariris.gov.br,S,,,,,,,,(61)2345-3210,https://governo.cr.gov.br/
+20,GOV-CR,COFIC,Coordenadoria de Fiscalização Contratual,SUFIS,cofic@cariris.gov.br,S,,,,,,,,(61)2345-3210,https://governo.cr.gov.br/transparencia
