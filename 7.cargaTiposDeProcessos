@@ -1,6 +1,6 @@
 {
   "Name": "7.cargaTiposdeProcesso",
-  "CreationDate": "2025-8-7",
+  "CreationDate": "2025-8-12",
   "Commands": [
     {
       "Command": "comment",
@@ -210,8 +210,8 @@
       "Description": "Pesquisa pelo Assunto digitado."
     },
     {
-      "Command": "check",
-      "Target": "id=chkInfraItem0",
+      "Command": "click",
+      "Target": "xpath=//label[contains(@title,\"${tiposProcesso[${i}][3]}\")]",
       "Value": "",
       "Targets": [
         "xpath=//*[@id=\"divInfraSparklingModalClose1753705742000\"]/a/img",
@@ -219,17 +219,6 @@
         "css=#divInfraSparklingModalClose1753705742000 > a > img"
       ],
       "Description": "Marca a checkbox correspondente ao assunto selecionado."
-    },
-    {
-      "Command": "assertChecked",
-      "Target": "id=chkInfraItem0",
-      "Value": "",
-      "Targets": [
-        "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td/div/label",
-        "xpath=//td/div/label",
-        "css=#divInfraAreaTabela > table > tbody > tr.infraTrSelecionada.infraTrClara.infraTrMarcada > td:nth-child(1) > div > label"
-      ],
-      "Description": "Garante que a checkbox foi assinalada."
     },
     {
       "Command": "click",
@@ -313,7 +302,7 @@
     },
     {
       "Command": "echo",
-      "Target": "🔹Limitando ao órgão ${orgaoAtual}",
+      "Target": "🔹Limitando a criação de processos do tipo \"${tiposProcesso[${i}][1]}\" ao órgão ${orgaoAtual}.",
       "Value": "",
       "Description": "Então a macro reporta qual órgão está sendo tratado,"
     },
@@ -344,7 +333,7 @@
       "Command": "end",
       "Target": "",
       "Value": "",
-      "Description": "Até que se encerre este \"loop\" de órgãos."
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"while\", como a utilizada aqui. Ele indica que se encerra uma condição de repetição. Este é o \"end\" do \"while\" da linha 38 da macro.)"
     },
     {
       "Command": "click",
@@ -359,16 +348,16 @@
       "Description": "e fecha a modal de seleção de órgão."
     },
     {
-      "Command": "end",
-      "Target": "",
-      "Value": "",
-      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 33 da macro.)"
-    },
-    {
       "Command": "selectWindow",
       "Target": "tab=0",
       "Value": "",
       "Description": "Com este comando, a macro retorna para a janela principal,"
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 32 da macro.)"
     },
     {
       "Command": "if",
@@ -426,9 +415,15 @@
     },
     {
       "Command": "echo",
-      "Target": "🔹 Configurando órgão ${orgaoAtual} com ${totalUnidades} unidade(s).",
+      "Target": "🔹 Limitando a criação de processos do tipo \"${tiposProcesso[${i}][1]}\" a ${totalUnidades} unidade(s) do órgão ${orgaoAtual}.",
       "Value": "blue",
       "Description": "Em seguida, relata qual órgão vai configurar e com quantas unidades."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "idxUnidade",
+      "Description": "E determina que deve começar a buscar pela primeira unidade do órgão."
     },
     {
       "Command": "select",
@@ -443,6 +438,12 @@
       "Description": "Seleciona o órgão atual na caixa de seleção,"
     },
     {
+      "Command": "while",
+      "Target": "${idxUnidade} < ${totalUnidades}",
+      "Value": "",
+      "Description": "Percorrendo todas as unidades listadas para esse órgão, nesse Tipo de Processo."
+    },
+    {
       "Command": "click",
       "Target": "id=imgLupaUnidades",
       "Value": "",
@@ -453,18 +454,6 @@
       "Target": "index=0",
       "Value": "",
       "Description": "Seleciona o frame da modal de seleção de unidades"
-    },
-    {
-      "Command": "store",
-      "Target": "0",
-      "Value": "idxUnidade",
-      "Description": "E determina que deve começar a buscar pela primeira unidade do órgão."
-    },
-    {
-      "Command": "while",
-      "Target": "${idxUnidade} < ${totalUnidades}",
-      "Value": "",
-      "Description": "Percorrendo todas as unidades listadas para esse órgão, nesse Tipo de Processo."
     },
     {
       "Command": "executeScript_Sandbox",
@@ -515,18 +504,6 @@
       "Description": "Em seguida, a macro transporta a unidade selecionada para a caixa de unidades,"
     },
     {
-      "Command": "executeScript_Sandbox",
-      "Target": "return Number(${idxUnidade}) + 1;",
-      "Value": "idxUnidade",
-      "Description": "e vai para a próxima unidade da lista, até acabar."
-    },
-    {
-      "Command": "end",
-      "Target": "",
-      "Value": "",
-      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"while\", como a utilizada aqui. Ele indica que se encerra uma condição de repetição. Este é o \"end\" do \"while\" da linha 64 da macro.)"
-    },
-    {
       "Command": "click",
       "Target": "id=btnFecharSelecao",
       "Value": "",
@@ -540,6 +517,18 @@
     },
     {
       "Command": "executeScript_Sandbox",
+      "Target": "return Number(${idxUnidade}) + 1;",
+      "Value": "idxUnidade",
+      "Description": "e vai para a próxima unidade da lista, até acabar."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"while\", como a utilizada aqui. Ele indica que se encerra uma condição de repetição. Este é o \"end\" do \"while\" da linha 61 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
       "Target": "return Number(${idxOrgao}) + 1;",
       "Value": "idxOrgao",
       "Description": "Agora, a macro prossegue para as unidades do próximo órgão"
@@ -548,19 +537,19 @@
       "Command": "end",
       "Target": "",
       "Value": "",
-      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"while\", como a utilizada aqui. Ele indica que se encerra uma condição de repetição. Este é o \"end\" do \"while\" da linha 54 da macro.)"
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"while\", como a utilizada aqui. Ele indica que se encerra uma condição de repetição. Este é o \"end\" do \"while\" da linha 53 da macro.)"
     },
     {
       "Command": "end",
       "Target": "",
       "Value": "",
-      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 50 da macro.)"
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 49 da macro.)"
     },
     {
       "Command": "store",
       "Target": "${tiposProcesso[${i}][6]}",
       "Value": "niveisAcesso",
-      "Description": "Agora a macro deve ler os Níveis de Acesso Permitidos - público ou restrito - da coluna 6 (PUB, RES ou PUB;RES)."
+      "Description": "Agora a macro deve ler os Níveis de Acesso Permitidos - público ou restrito - da coluna 6 (PUB, RES, SIG, PUB;RES; RES:SIG ou PUB;RES;SIG etc.)."
     },
     {
       "Command": "executeScript",
@@ -596,7 +585,7 @@
       "Command": "end",
       "Target": "",
       "Value": "",
-      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 80 da macro.)"
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 79 da macro.)"
     },
     {
       "Command": "executeScript",
@@ -632,39 +621,49 @@
       "Command": "end",
       "Target": "",
       "Value": "",
-      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 86 da macro.)"
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 85 da macro.)"
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return ${niveisAcesso}.includes('SIG');",
+      "Value": "temSIG",
+      "Description": "Aqui ela cria uma variável para monitorar se há 'SIG' na lista de níveis permitidos."
     },
     {
       "Command": "if",
-      "Target": "${tiposProcesso[${i}][7]} == \"PUB\"",
+      "Target": "${temSIG} == true",
       "Value": "",
-      "Description": "Verifica se o tipo de processo tem Nível de Acesso \"Público\" sugerido para uso padrão quando forem criados processos do Tipo por sistemas integrados ou módulos."
+      "Description": "Se houver 'RES', ela marca a checkbox de \"Restrito\"."
     },
     {
       "Command": "check",
-      "Target": "id=optPublicoSugestao",
+      "Target": "id=chkSinSigilosoPermitido",
       "Value": "",
-      "Targets": [
-        "id=optPublicoSugestao",
-        "name=rdoNivelAcessoSugestao",
-        "xpath=//*[@id=\"optPublicoSugestao\"]",
-        "xpath=//input[@id='optPublicoSugestao']",
-        "xpath=//div[2]/div/fieldset/div[3]/div/input",
-        "css=#optPublicoSugestao"
-      ],
-      "Description": "Este comando é o que assinala a checkbox de nível de acesso sugerido \"Público\" para sistemas e módulos,"
+      "Description": "Este comando é o que assinala a checkbox de nível de acesso permitido \"Restrito\"."
     },
     {
       "Command": "assertChecked",
-      "Target": "id=optPublicoSugestao",
+      "Target": "id=chkSinSigilosoPermitido",
       "Value": "",
-      "Description": "E este confere se a checkbox de nível de acesso sugerido \"Público\" foi de fato assinalada."
+      "Description": "E este confere se a checkbox de nível de acesso permitido \"Restrito\" foi de fato assinalada."
     },
     {
-      "Command": "else",
+      "Command": "executeScript",
+      "Target": "document.getElementById('optSigilosoSugestao').disabled = false;",
+      "Value": "",
+      "Description": "Este comando ativa o radio button de nível de acesso sugerido (restrito)."
+    },
+    {
+      "Command": "end",
       "Target": "",
       "Value": "",
-      "Description": "Caso contrário"
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 91 da macro.)"
+    },
+    {
+      "Command": "if",
+      "Target": "${tiposProcesso[${i}][7]} == \"RES\"",
+      "Value": "",
+      "Description": "Esta condicional verifica, inicialmente, se o Nível de Acesso sugerido para processos deste tipo (criados via sistemas integrados ou módulos) é \"restrito\"."
     },
     {
       "Command": "check",
@@ -678,7 +677,7 @@
         "xpath=//div[2]/div/fieldset/div[2]/div/input",
         "css=#optRestritoSugestao"
       ],
-      "Description": "Este comando é o que assinala a checkbox de nível de acesso sugerido \"Restrito\" para sistemas e módulos,"
+      "Description": "Se sim, este comando assinala a checkbox de nível de acesso sugerido \"Restrito\" para sistemas e módulos."
     },
     {
       "Command": "assertChecked",
@@ -701,7 +700,125 @@
     {
       "Command": "select",
       "Target": "id=selHipoteseLegal",
-      "Value": "label=${tiposProcesso[${i}][8]}",
+      "Value": "label=${tiposProcesso[${i}][9]}",
+      "Targets": [
+        "id=selHipoteseLegal",
+        "name=selHipoteseLegal",
+        "xpath=//*[@id=\"selHipoteseLegal\"]",
+        "xpath=//select[@id='selHipoteseLegal']",
+        "xpath=//div[7]/select",
+        "css=#selHipoteseLegal"
+      ],
+      "Description": "E este comando, por fim, seleciona a hipótese legal indicada no arquivo CSV."
+    },
+    {
+      "Command": "elseif",
+      "Target": "${tiposProcesso[${i}][7]} == \"SIG\"",
+      "Value": "",
+      "Description": "Seguindo a condicional, este comando verifica se o Nível de Acesso sugerido para processos deste tipo (criados via sistemas integrados ou módulos) é \"sigiloso\"."
+    },
+    {
+      "Command": "check",
+      "Target": "id=optSigilosoSugestao",
+      "Value": "",
+      "Targets": [
+        "id=optRestritoSugestao",
+        "name=rdoNivelAcessoSugestao",
+        "xpath=//*[@id=\"optRestritoSugestao\"]",
+        "xpath=//input[@id='optRestritoSugestao']",
+        "xpath=//div[2]/div/fieldset/div[2]/div/input",
+        "css=#optRestritoSugestao"
+      ],
+      "Description": "E este comando é o que assinala a checkbox de nível de acesso sugerido \"sigiloso\" para sistemas e módulos,"
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=optSigilosoSugestao",
+      "Value": "",
+      "Description": "E este confere se a checkbox de nível de acesso sugerido \"Restrito\" foi de fato assinalada."
+    },
+    {
+      "Command": "executeScript",
+      "Target": "alterarNivelAcessoSugerido();",
+      "Value": "",
+      "Description": "Caso o nível de acesso sugerido seja \"sigiloso\", este script força a alteração do nível de acesso (simulando um clique manual), habilitando a escolha de hipótese legal sugerida."
+    },
+    {
+      "Command": "if",
+      "Target": "${tiposProcesso[${i}][8]} == \"U\"",
+      "Value": "",
+      "Description": "Para processos sigilosos, é necessário indicar o grau de sigilo. Neste caso, esta condicional verifica se o Tipo de Processo tem grau de sigilo sugerido \"Ultrassecreto\"."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selGrauSigilo",
+      "Value": "label=Ultrassecreto",
+      "Targets": [
+        "id=selGrauSigilo",
+        "name=selGrauSigilo",
+        "xpath=//*[@id=\"selGrauSigilo\"]",
+        "xpath=//select[@id='selGrauSigilo']",
+        "xpath=//div[6]/select",
+        "css=#selGrauSigilo"
+      ],
+      "Description": "Se sim, este comando seleciona o grau \"Ultrassecreto\"."
+    },
+    {
+      "Command": "elseif",
+      "Target": "${tiposProcesso[${i}][8]} == \"S\"",
+      "Value": "",
+      "Description": "Caso contrário, este comando verifica se o grau de sigilo é \"secreto\"."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selGrauSigilo",
+      "Value": "label=Secreto",
+      "Targets": [
+        "id=selGrauSigilo",
+        "name=selGrauSigilo",
+        "xpath=//*[@id=\"selGrauSigilo\"]",
+        "xpath=//select[@id='selGrauSigilo']",
+        "xpath=//div[6]/select",
+        "css=#selGrauSigilo"
+      ],
+      "Description": "Se sim, este comando seleciona o grau \"Secreto\"."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Caso não seja nem ultrassecreto, nem secreto,"
+    },
+    {
+      "Command": "select",
+      "Target": "id=selGrauSigilo",
+      "Value": "label=Reservado",
+      "Targets": [
+        "id=selGrauSigilo",
+        "name=selGrauSigilo",
+        "xpath=//*[@id=\"selGrauSigilo\"]",
+        "xpath=//select[@id='selGrauSigilo']",
+        "xpath=//div[6]/select",
+        "css=#selGrauSigilo"
+      ],
+      "Description": "este comando seleciona o grau de sigilo \"Reservado\""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 106 da macro.)"
+    },
+    {
+      "Command": "pause",
+      "Target": "300",
+      "Value": "",
+      "Description": "Esta pausa de 0,3 segundos é necessária para o sistema carregar as hipóteses legais após o comando anterior."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selHipoteseLegal",
+      "Value": "label=${tiposProcesso[${i}][9]}",
       "Targets": [
         "id=selHipoteseLegal",
         "name=selHipoteseLegal",
@@ -713,8 +830,40 @@
       "Description": "E este comando seleciona a hipótese legal indicada no arquivo CSV"
     },
     {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Não sendo \"restrito\" ou \"sigiloso\", a macro atribuirá Nível de Acesso \"público\" sugerido para uso padrão, quando forem criados processos do Tipo por sistemas integrados ou módulos."
+    },
+    {
+      "Command": "check",
+      "Target": "id=optPublicoSugestao",
+      "Value": "",
+      "Targets": [
+        "id=optPublicoSugestao",
+        "name=rdoNivelAcessoSugestao",
+        "xpath=//*[@id=\"optPublicoSugestao\"]",
+        "xpath=//input[@id='optPublicoSugestao']",
+        "xpath=//div[2]/div/fieldset/div[3]/div/input",
+        "css=#optPublicoSugestao"
+      ],
+      "Description": "Este comando é o que assinala a checkbox de nível de acesso sugerido \"Público\" para sistemas e módulos,"
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=optPublicoSugestao",
+      "Value": "",
+      "Description": "E este confere se a checkbox de nível de acesso sugerido \"Público\" foi de fato assinalada."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 96 da macro.)"
+    },
+    {
       "Command": "if",
-      "Target": "${tiposProcesso[${i}][9]} == \"Sim\"",
+      "Target": "${tiposProcesso[${i}][10]} == \"Sim\"",
       "Value": "",
       "Description": "Este comando verifica se o Tipo de Processo é exclusivo da Ouvidoria."
     },
@@ -738,7 +887,7 @@
     },
     {
       "Command": "if",
-      "Target": "${tiposProcesso[${i}][10]} == \"Sim\"",
+      "Target": "${tiposProcesso[${i}][11]} == \"Sim\"",
       "Value": "",
       "Description": "Este comando verifica se este Tipo de Processo exclusivo da Ouvidoria permite contato anônimo."
     },
@@ -762,7 +911,7 @@
     },
     {
       "Command": "if",
-      "Target": "${tiposProcesso[${i}][11]} == \"Sim\"",
+      "Target": "${tiposProcesso[${i}][12]} == \"Sim\"",
       "Value": "",
       "Description": "Este comando verifica se o Tipo de Processo permite o cadastro de apenas um processo por interessado."
     },
@@ -782,11 +931,11 @@
       "Command": "end",
       "Target": "",
       "Value": "",
-      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 108 da macro.)"
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 107 da macro.)"
     },
     {
       "Command": "if",
-      "Target": "${tiposProcesso[${i}][12]} == \"Sim\"",
+      "Target": "${tiposProcesso[${i}][13]} == \"Sim\"",
       "Value": "",
       "Description": "Este comando verifica se o Tipo de Processo é interno do Sistema (exclusivo de sistemas integrados e módulos, inacessível a usuários humanos)."
     },
@@ -814,12 +963,11 @@
       "Value": "",
       "Targets": [
         "name=sbmCadastrarTipoProcedimento",
-        "xpath=//*[@id=\"divInfraBarraComandosSuperior\"]/button",
-        "xpath=//button[@name='sbmCadastrarTipoProcedimento']",
-        "xpath=//div/button",
-        "css=#divInfraBarraComandosSuperior > button:nth-child(2)"
+        "xpath=//*[@id=\"divInfraBarraComandosInferior\"]/button",
+        "xpath=//div[3]/button",
+        "css=#divInfraBarraComandosInferior > button:nth-child(3)"
       ],
-      "Description": ""
+      "Description": "Este comando simula o clique no botão \"Salvar\", gravando o Tipo de Processo cadastrado."
     },
     {
       "Command": "store",
@@ -892,13 +1040,7 @@
       "Command": "end",
       "Target": "",
       "Value": "",
-      "Description": ""
-    },
-    {
-      "Command": "end",
-      "Target": "",
-      "Value": "",
-      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"while\", como a utilizada aqui. Ele indica que se encerra uma condição de repetição. Este é o \"end\" do \"while\" da linha 10 da macro.)"
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma validação de uma condição. Este é o \"end\" do \"if\" da linha 119 da macro.)"
     },
     {
       "Command": "executeScript_Sandbox",
@@ -910,7 +1052,7 @@
       "Command": "end",
       "Target": "",
       "Value": "",
-      "Description": ""
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"while\", como a utilizada aqui. Ele indica que se encerra uma condição de repetição. Este é o \"end\" do \"while\" da linha 10 da macro.)"
     },
     {
       "Command": "executeScript_Sandbox",
