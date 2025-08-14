@@ -82,7 +82,7 @@ Ou baixar cada um, individualmente, de acordo com sua necessidade:
 ├─ [`4.cargaUsuarios.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/4.cargaUsuarios.json)  
 ├─ [`5.primeirasPermissoes.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/5.permissoes.json)  
 ├─ [`6.cargaAssuntos.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/6.cargaAssuntos.json)  
-└─[`7.cargaTiposDeProcesso.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/7.cargaTiposDeProcessos.json)
+└─[`7.cargaTiposDeProcesso.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/7.cargaTiposDeProcesso.json)
 
 ### 📑 Arquivos de exemplo `.csv`
 └📁 `csv/`  
