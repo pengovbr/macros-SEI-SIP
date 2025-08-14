@@ -93,7 +93,7 @@
       "Command": "echo",
       "Target": "🔁 Processando linha ${i}: ${unidades[${i}][3]} (${unidades[${i}][2]})",
       "Value": "blue",
-      "Description": "Exibe no log qual unidade está sendo cadastrada."
+      "Description": "Exibe no log a unidade cujos dados estão sendo cadastrados."
     },
     {
       "Command": "executeScript_Sandbox",
