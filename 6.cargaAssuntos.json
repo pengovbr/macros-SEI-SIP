@@ -66,7 +66,7 @@
       "Command": "echo",
       "Target": "🔁 Processando linha ${i}: ${assuntos[${i}][1]} - ${assuntos[${i}][2]}.",
       "Value": "blue",
-      "Description": "Exibe no log qual unidade está sendo cadastrada."
+      "Description": "Exibe no log qual assunto está sendo cadastrado."
     },
     {
       "Command": "executeScript_Sandbox",
