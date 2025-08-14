@@ -378,8 +378,10 @@ O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro `6.cargaAssu
 - O log desta macro traz informações de progresso e detalha cada assunto carregado (informa se é apenas estrutural ou, se não, quais os prazos e qual a destinação associada a este assunto).
 <br/>
 <br/>
+
 <a name="tiposDeProcesso"></a>
-## 🗂️ CADASTRAMENTO DE TIPOS DE PROCESSO
+## 🗂️ CADASTRAMENTO DE TIPOS DE PROCESSO  
+
 O arquivo `exemploTiposDeProcesso.csv` é utilizado para alimentar a macro `7.cargaTiposDeProcesso`, responsável pelo cadastro dos Tipos de Processo no SEI. Ele inclui informações diversas, como a Classificação por Assunto sugerida, os órgãos e unidades a que se deseja restringir a criação de processos desse tipo, os níveis de acesso permitidos e sugeridos (os sugeridos se aplicam a sistemas integrados via Webservice e módulos), dentre outras funcionalidades.
 
 #### Suas colunas são:
