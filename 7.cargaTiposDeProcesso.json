@@ -66,7 +66,7 @@
       "Command": "echo",
       "Target": "🔁 Processando linha ${i}: Tipo de Processo \"${tiposProcesso[${i}][1]}\".",
       "Value": "blue",
-      "Description": "Exibe no log qual unidade está sendo cadastrada."
+      "Description": "Exibe no log qual Tipo de Processo está sendo cadastrado."
     },
     {
       "Command": "executeScript_Sandbox",
