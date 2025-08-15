@@ -24,13 +24,22 @@
 <a name="introducao"></a>
 ## ℹ️ Introdução
 
-Este repositório contém diversas macros desenvolvidas com a ferramenta UI.Vision RPA para automatizar tarefas manuais e recorrentes relacionadas ao cadastro e configuração de usuários, unidades, assuntos e diversos outros itens de parametrização no Sistema Eletrônico de Informações - SEI (e no Sistema de Permissões - SIP). As automações foram desenhadas para facilitar cargas iniciais em massa de novos ambientes e agilizar cenários de mudança, como revisão da estrutura organizacional, admissão de grande quantidade de novos usuários (concursos, mudanças de carreira etc.) ou de entrada em vigor de nova tabela de assuntos etc.
+Este repositório contém diversas macros desenvolvidas com a ferramenta `UI.Vision RPA` para automatizar tarefas manuais e recorrentes relacionadas ao cadastro e configuração de usuários, unidades, assuntos, tipos de processo e diversos outros itens de parametrização no Sistema Eletrônico de Informações - SEI (e no Sistema de Permissões - SIP).
 
-As macros utilizam arquivos `.csv` como fonte de dados estruturada e realizam, de forma automatizada, a navegação e o preenchimento de campos nos sistemas SEI e SIP, interagindo diretamente com a interface de usuário (UI), sem qualquer manipulação de banco de dados, o que torna o processo extremamente seguro em termos de integridade do sistema. Cada macro trata um tipo específico de informação e obedece um padrão de repetição que apresenta mensagens de status e progresso, facilitando o acompanhamento em tempo real da execução.
+Seu uso se aplica a contextos como:
+
+- Implantação inicial de um novo ambiente SEI/SIP, com necessidade de carga massiva de unidades, usuários, assuntos e permissões.
+
+- Manutenções periódicas que demandam atualização ou complementação de cadastros em larga escala (Seja por alteração da estrutura organizacional, admissão de grande quantidade de novos usuários por concursos ou mudanças de carreira etc.)
+
+
+As macros utilizam arquivos `.csv` como fonte de dados estruturada e realizam, de forma automatizada, a navegação e o preenchimento de campos nos sistemas SEI e SIP, interagindo diretamente com a interface de usuário (UI), **sem qualquer manipulação de banco de dados**, o que torna o processo extremamente seguro em termos de integridade do sistema. 
+
+Cada macro trata um tipo específico de informação e obedece um padrão de repetição que apresenta mensagens de status e progresso, facilitando o acompanhamento em tempo real de sua execução.
 
 ## 👨‍🔧 A quem são destinadas estas macros? 
 
-Usuários com perfil de Administração do SEI, que tenham acesso ao SIP para cadastro de unidades, hierarquia, usuários, permissões e que tenham permissão para acessar e modificar configurações no menu `Administração` do SEI.
+Usuários com **perfil de Administração do SEI**, que tenham **acesso ao SIP** para cadastro de unidades, hierarquia, usuários, permissões e que tenham permissão para acessar e modificar configurações no menu `Administração` do SEI.
 
 <br/>
 
@@ -81,32 +90,36 @@ Ou baixar cada um, individualmente, de acordo com sua necessidade:
 ├─ [`3.dadosUnidadesSEI.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/3.dadosUnidadesSEI.json)  
 ├─ [`4.cargaUsuarios.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/4.cargaUsuarios.json)  
 ├─ [`5.primeirasPermissoes.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/5.permissoes.json)  
-├─ [`6.cargaAssuntos.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/6.cargaAssuntos.json)  
-└─[`7.cargaTiposDeProcesso.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/7.cargaTiposDeProcesso.json)
+├─ [`6.cargaContatoUsuarios.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/6.cargaContatoUsuarios.json)  
+├─ [`7.cargaAssuntos.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/7.cargaAssuntos.json)  
+└─[`8.cargaTiposDeProcesso.json`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/8.cargaTiposDeProcesso.json)
 
 ### 📑 Arquivos de exemplo `.csv`
 └📁 `csv/`  
-&nbsp;&nbsp; ├─ [`exemploAssuntos.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploAssuntos.csv)  
 &nbsp;&nbsp; ├─ [`exemploUnidades.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUnidades.csv)  
-&nbsp;&nbsp; └─ [`exemploUsuarios.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUsuarios.csv)  
+&nbsp;&nbsp; ├─ [`exemploUsuarios.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploUsuarios.csv)  
+&nbsp;&nbsp; ├─ [`exemploContatoUsuarios.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploContatoUsuarios.csv)  
+&nbsp;&nbsp; ├─ [`exemploAssuntos.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploAssuntos.csv)  
 &nbsp;&nbsp; └─ [`exemploTiposDeProcesso.csv`](https://github.com/pengovbr/macros-SEI-SIP/raw/main/csv/exemploTiposDeProcesso.csv)  
 
 ### 🔧 Sobre as macros incluídas:
-São 06 (seis) macros, que executam diferentes operações nos sistemas SEI e SIP, conforme detalhado abaixo:
+São 08 (oito) macros, que executam diferentes operações nos sistemas SEI e SIP, conforme detalhado abaixo:
 1.	**Cadastro de Unidades no SIP**: Automatiza o registro de unidades administrativas no sistema, com base em sua sigla, descrição e órgão vinculado;
 2.	**Cadastro das Unidades na Hierarquia no SIP**: Realiza o vínculo entre as unidades cadastradas, definindo sua posição na estrutura hierárquica;
 3.	**Cadastro de Dados Complementares das Unidades no SEI**: Preenche informações adicionais relacionadas às unidades, como tipo, endereço ou outros campos auxiliares;
 4.	**Cadastro de Usuários no SIP**: Cria contas de usuários no sistema, utilizando dados como CPF, nome, login e e-mail institucional etc.;
 5.	**Cadastro das Primeiras Permissões no SIP**: Atribui as primeiras permissões dos usuários, conforme o perfil a ser concedido e a unidade de atuação no sistema; 
-6.	**Cadastro de Assuntos no SEI**: Preenche as informações referentes aos assuntos que constam das Tabelas de Assunto do SEI, para fins de classificação de processos e documentos e controle da temporalidade; e
-7.	**Cadastro de Tipos de Processo no SEI**: Preenche as informações dos Tipos de Processo a serm cadastrados no sistema, parametrizando-os com classificação por assunto sugerida, restrição a órgãos e unidades para gerar o Tipo de Processo, níveis de acesso etc.
+6.  **Cadastro das Informações de Contato dos Usuários no SEI**: Cadastra dados de endereçamento e documentos pessoais dos usuários no SEI, para fins de importação no endereçamento de documentos;
+7.	**Cadastro de Assuntos no SEI**: Preenche as informações referentes aos assuntos que constam das Tabelas de Assunto do SEI, para fins de classificação de processos e documentos e controle da temporalidade; e
+8.	**Cadastro de Tipos de Processo no SEI**: Preenche as informações dos Tipos de Processo a serm cadastrados no sistema, parametrizando-os com classificação por assunto sugerida, restrição a órgãos e unidades para gerar o Tipo de Processo, níveis de acesso etc.
 
 ### 📑 Sobre os arquivos de exemplo em `.csv`:
-Estão disponíveis 03 (três) arquivos em formato `.csv` para servir de modelo para preenchimento pelo administrador: 
+Estão disponíveis 05 (cinco) arquivos em formato `.csv` para servir de modelo para preenchimento pelo administrador: 
 1. **exemploUnidades**: que traz a estrutura de dados referentes a unidades, para execução das macros `1.cargaUnidades.json`, `2.hierarquia.json ` e `3.dadosUnidadesSEI.json`;
-2. **exemploUsuarios**: que traz a estrutura de dados referentes a usuários,  para execução das macros `4.cargaUsuarios.json` e `5.primeirasPermissoes.json `; 
-3. **exemploAssuntos**: que traz a estrutura de dados referentes aos assuntos da tabela, para servir de modelo para preenchimento pelo administrador, para execução da macro `6.cargaAssuntos.json `; e
-4. **exemploTiposDeProcesso**: que traz a estrutura de dados referente aos Tipos de Processo, para execução da macro `7.cargaTiposDeProcesso.json`
+2. **exemploUsuarios**: que traz a estrutura de dados referentes a usuários,  para execução das macros `4.cargaUsuarios.json` e `5.primeirasPermissoes.json `;
+3. **exemploContatoUsuarios**: que traz a estrutura dos dados referentes às informações de contato dos usuparios, para execução da macro `6.cargaContatoUsuarios.json`
+4. **exemploAssuntos**: que traz a estrutura de dados referentes aos assuntos da tabela, para servir de modelo para preenchimento pelo administrador, para execução da macro `7.cargaAssuntos.json `; e
+5. **exemploTiposDeProcesso**: que traz a estrutura de dados referente aos Tipos de Processo, para execução da macro `8.cargaTiposDeProcesso.json`
 
 <br/>
 
