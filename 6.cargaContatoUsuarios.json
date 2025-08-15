@@ -1,0 +1,856 @@
+{
+  "Name": "6.cargaContatoUsuarios",
+  "CreationDate": "2025-8-15",
+  "Commands": [
+    {
+      "Command": "comment",
+      "Target": "Esta macro cadastra Informações de contato de Usuários no SEI a partir de um arquivo CSV. INSTRUÇÕES:",
+      "Value": "Execute a Macro (Play Macro) a partir do sistema SEI > Menu \"Administração\" > \"Usuários\" > \"Listar\"",
+      "Description": "Recomendação: no log, exibir a opção \"Echo & Status\". Não deixe de conferir a documentação de referência."
+    },
+    {
+      "Command": "csvReadArray",
+      "Target": "exemploContatoUsuarios.csv",
+      "Value": "contatoUsuario",
+      "Description": "Este primeiro comando lê os dados do arquivo CSV e os salva em uma estrutura interna da macro. Consulte a documentação de referência para instruções quanto à montagem do arquivo CSV."
+    },
+    {
+      "Command": "store",
+      "Target": "9",
+      "Value": "i",
+      "Description": "IMPORTANTE: Este comando indica A PARTIR DE QUAL LINHA do arquivo de referência a macro vai ser executada (e, dela, vai até o final) Se necessário retomar a execução a partir de um erro, altere este valor para a linha da qual pretende retomar."
+    },
+    {
+      "Command": "store",
+      "Target": "${i}",
+      "Value": "linhaInicial",
+      "Description": "Salva a linha inicial para calcular o progresso da execução."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${contatoUsuario}.length) - 1;",
+      "Value": "totalLinhas",
+      "Description": "Este comando obtém a quantidade de linhas da lista que foi importada do arquivo CSV."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var d = new Date(); return d.getTime()",
+      "Value": "tempoInicio",
+      "Description": "Registra o momento inicial da execução."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "ok",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções bem-sucedidas da macro."
+    },
+    {
+      "Command": "store",
+      "Target": "0",
+      "Value": "falha",
+      "Description": "Este comando gera a variável que armazenará a quantidade de execuções mal-sucedidas da macro. (Erros no sistema, não no próprio UI.Vision)"
+    },
+    {
+      "Command": "echo",
+      "Target": "🧮 Iniciando processamento pela linha ${i}, de um total de ${totalLinhas}.",
+      "Value": "",
+      "Description": "Informa no log o ponto de partida."
+    },
+    {
+      "Command": "while",
+      "Target": "${i} <= ${totalLinhas}",
+      "Value": "",
+      "Description": "O comando \"while\" indica que a macro deve executar uma determinada ação enquanto uma condição específica não for satisfeita. A ação é retomar o cadastro da próxima linha e a condição, aqui, é que o valor da linha em execução tem que ser inferior ao total de linhas."
+    },
+    {
+      "Command": "echo",
+      "Target": "🔁 Processando linha ${i}: usuário ${contatoUsuario[${i}][1]}.",
+      "Value": "blue",
+      "Description": "Exibe no log os dados de qual usuário estão sendo cadastrados."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var atual = Number(${i}) - Number(${linhaInicial}); var total = Number(${totalLinhas}) - Number(${linhaInicial}) + 1; return Math.floor((atual / total) * 100);",
+      "Value": "progresso",
+      "Description": "Calcula o progresso relativo, de 0 a 100%."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var d = new Date(); return d.getTime()",
+      "Value": "tempoAtual",
+      "Description": "Registra o momento de início de cada iteração da macro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return (${tempoAtual} - ${tempoInicio}) / (Number(${i}) + 1);",
+      "Value": "tempoPorLinha",
+      "Description": "Estima o tempo gasto em cada linha da macro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "var tempoEstimado = (Number(${totalLinhas}) - Number(${i})) * Number(${tempoPorLinha}); var min = Math.floor(tempoEstimado / 60000); var seg = Math.round((tempoEstimado % 60000) / 1000); var texto = '~ '; if (min > 0) texto += min + ' minuto' + (min != 1 ? 's' : ''); if (seg > 0 || min == 0) texto += (min > 0 ? ' ' : '') + seg + ' segundo' + (seg != 1 ? 's' : ''); return texto.trim();",
+      "Value": "estimativa",
+      "Description": "Calcula a estimativa de tempo restante em formato humanizado, considerando minutos e segundos com pluralização."
+    },
+    {
+      "Command": "if",
+      "Target": "${i} > 3",
+      "Value": "",
+      "Description": "Cria uma condicionante para exibir o tempo restante estimado apenas a partir da 4ª execução, quando a estimativa estará mais precisa."
+    },
+    {
+      "Command": "echo",
+      "Target": "📈 Progresso: ${progresso}% | ⏳ Tempo restante estimado: ${estimativa}",
+      "Value": "blue",
+      "Description": "Conforme condicional acima, exibe o progresso e o tempo restante estimado."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Caso contrário,"
+    },
+    {
+      "Command": "echo",
+      "Target": "📈 Progresso: ${progresso}%",
+      "Value": "blue",
+      "Description": "exibe (nas primeiras 3 linhas) apenas o progresso."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "encerra essa condicionante \"if\" (linha 16)."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtSiglaUsuario",
+      "Value": "${contatoUsuario[${i}][1]}",
+      "Targets": [
+        "id=txtSiglaUsuario",
+        "name=txtSiglaUsuario",
+        "xpath=//*[@id=\"txtSiglaUsuario\"]",
+        "xpath=//input[@id='txtSiglaUsuario']",
+        "xpath=//div[2]/input",
+        "css=#txtSiglaUsuario"
+      ],
+      "Description": "Informa a sigla do usuário para que o SEI busque"
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnPesquisar",
+      "Value": "",
+      "Targets": [
+        "id=btnPesquisar",
+        "xpath=//*[@id=\"btnPesquisar\"]",
+        "xpath=//input[@id='btnPesquisar']",
+        "xpath=//div[2]/form/div/input",
+        "css=#btnPesquisar"
+      ],
+      "Description": "E clica no botão pesquisar."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]/img",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]/img",
+        "xpath=//a[2]/img",
+        "css=#divInfraAreaTabela > table > tbody > tr.infraTrSelecionada.infraTrClara > td:nth-child(7) > a:nth-child(2) > img"
+      ],
+      "Description": "Em seguida, a macro clica no botão \"Editar Usuário\"."
+    },
+    {
+      "Command": "click",
+      "Target": "id=imgAlterarContato",
+      "Value": "",
+      "Targets": [
+        "id=imgAlterarContato",
+        "xpath=//*[@id=\"imgAlterarContato\"]",
+        "xpath=//img[@id='imgAlterarContato']",
+        "xpath=//fieldset[2]/div/img",
+        "css=#imgAlterarContato"
+      ],
+      "Description": "Este comando simula o clique em \"Alterar Contato\""
+    },
+    {
+      "Command": "selectFrame",
+      "Target": "index=0",
+      "Value": "",
+      "Description": "selecionar essa modal para executar os próximos comandos,"
+    },
+    {
+      "Command": "if",
+      "Target": "${contatoUsuario[${i}][2]} == \"F\"",
+      "Value": "",
+      "Description": "Esta condição verifica se o usuário é do gênero Feminino."
+    },
+    {
+      "Command": "click",
+      "Target": "xpath=//input[@id=\"optFeminino\" and @type=\"radio\"]",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"divInfraSparklingModalClose1755187369963\"]/a/img",
+        "xpath=//div[2]/div/div[3]/a/img",
+        "css=#divInfraSparklingModalClose1755187369963 > a > img"
+      ],
+      "Description": "Se sim, a macro simula o clique no radio button correspondente."
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "xpath=//input[@id=\"optFeminino\" and @type=\"radio\"]",
+      "Value": "",
+      "Description": "E valida se ele foi de fato clicado."
+    },
+    {
+      "Command": "elseif",
+      "Target": "${contatoUsuario[${i}][2]} == \"M\"",
+      "Value": "",
+      "Description": "Caso contrário, há um comando específico para verificar se é o gênero masculino."
+    },
+    {
+      "Command": "check",
+      "Target": "xpath=//input[@id=\"optMasculino\" and @type=\"radio\"]",
+      "Value": "",
+      "Targets": [
+        "xpath=//*[@id=\"divOptMasculino\"]/div/label",
+        "xpath=//fieldset[2]/div[2]/div/label",
+        "css=#divOptMasculino > div > label"
+      ],
+      "Description": "E este comando clica no gênero correto."
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "xpath=//input[@id=\"optMasculino\" and @type=\"radio\"]",
+      "Value": "",
+      "Description": "E valida se o clique foi feito de fato."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 26 da macro.)"
+    },
+    {
+      "Command": "if",
+      "Target": "${contatoUsuario[${i}][3]} == \"S\"",
+      "Value": "",
+      "Description": "Aqui, a macro valida se o usuário utiliza o mesmo endereço do órgão ou está em local diferente da sede."
+    },
+    {
+      "Command": "check",
+      "Target": "id=chkSinEnderecoAssociado",
+      "Value": "",
+      "Targets": [
+        "id=chkSinEnderecoAssociado",
+        "name=chkSinEnderecoAssociado",
+        "xpath=//*[@id=\"chkSinEnderecoAssociado\"]",
+        "xpath=//input[@id='chkSinEnderecoAssociado']",
+        "xpath=//div[3]/div/div/input",
+        "css=#chkSinEnderecoAssociado"
+      ],
+      "Description": "Se sim, aciona a checkbox de utilização do endereço do órgão."
+    },
+    {
+      "Command": "assertChecked",
+      "Target": "id=chkSinEnderecoAssociado",
+      "Value": "",
+      "Description": "E valida se ela foi de fato assinalada."
+    },
+    {
+      "Command": "echo",
+      "Target": "🔗 Usuário(a) ${contatoUsuario[${i}][1]} usa o endereço do órgão ao qual está associado.",
+      "Value": "",
+      "Description": "Aqui é o registro no log de que o usuário usa o endereço do órgão."
+    },
+    {
+      "Command": "elseif",
+      "Target": "${contatoUsuario[${i}][3]} == \"N\"",
+      "Value": "",
+      "Description": "Caso contrário, "
+    },
+    {
+      "Command": "uncheck",
+      "Target": "id=chkSinEnderecoAssociado",
+      "Value": "",
+      "Targets": [
+        "id=chkSinEnderecoAssociado",
+        "name=chkSinEnderecoAssociado",
+        "xpath=//*[@id=\"chkSinEnderecoAssociado\"]",
+        "xpath=//input[@id='chkSinEnderecoAssociado']",
+        "xpath=//div[3]/div/div/input",
+        "css=#chkSinEnderecoAssociado"
+      ],
+      "Description": "A macro desmarca a checkbox de uso do endereço do órgão pelo usuário."
+    },
+    {
+      "Command": "assertNotChecked",
+      "Target": "id=chkSinEnderecoAssociado",
+      "Value": "",
+      "Description": "E busca garantir que ela foi desmarcada."
+    },
+    {
+      "Command": "echo",
+      "Target": "⛓‍💥 Usuário(a) ${contatoUsuario[${i}][1]} não usa o endereço do órgão ao qual está associado.",
+      "Value": "",
+      "Description": "Para, em seguida, avisar que o usuário não usa o endereço do órgão em que atua."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtEndereco",
+      "Value": "${contatoUsuario[${i}][4]}",
+      "Targets": [
+        "id=txtEndereco",
+        "name=txtEndereco",
+        "xpath=//*[@id=\"txtEndereco\"]",
+        "xpath=//input[@id='txtEndereco']",
+        "xpath=//div[4]/input",
+        "css=#txtEndereco"
+      ],
+      "Description": "Nesta situação - de não usar o endereço - o sistema preenche o endereço do usuário."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtComplemento",
+      "Value": "${contatoUsuario[${i}][5]}",
+      "Targets": [
+        "id=txtComplemento",
+        "name=txtComplemento",
+        "xpath=//*[@id=\"txtComplemento\"]",
+        "xpath=//input[@id='txtComplemento']",
+        "xpath=//div[4]/input[2]",
+        "css=#txtComplemento"
+      ],
+      "Description": "E aqui, complementa este endereço, normalmente com número da casa ou do apartamento."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtBairro",
+      "Value": "${contatoUsuario[${i}][6]}",
+      "Targets": [
+        "id=txtBairro",
+        "name=txtBairro",
+        "xpath=//*[@id=\"txtBairro\"]",
+        "xpath=//input[@id='txtBairro']",
+        "xpath=//input[3]",
+        "css=#txtBairro"
+      ],
+      "Description": "Neste campo, é informado o bairro do usuário."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selPais",
+      "Value": "label=${contatoUsuario[${i}][7]}",
+      "Targets": [
+        "id=selPais",
+        "name=selPais",
+        "xpath=//*[@id=\"selPais\"]",
+        "xpath=//select[@id='selPais']",
+        "xpath=//div[4]/select",
+        "css=#selPais"
+      ],
+      "Description": "E aqui, é selecionado o país onde ele reside."
+    },
+    {
+      "Command": "pause",
+      "Target": "300",
+      "Value": "",
+      "Description": "Uma pausa de 0,3 segundos para que o SEI carregue a lista de UFs do próximo campo. (Aumente este valor, se necessário)"
+    },
+    {
+      "Command": "select",
+      "Target": "id=selUf",
+      "Value": "label=${contatoUsuario[${i}][8]}",
+      "Targets": [
+        "id=selUf",
+        "name=selUf",
+        "xpath=//*[@id=\"selUf\"]",
+        "xpath=//select[@id='selUf']",
+        "xpath=//select[2]",
+        "css=#selUf"
+      ],
+      "Description": "E aqui, é inserida a UF do endereço do usuário."
+    },
+    {
+      "Command": "pause",
+      "Target": "300",
+      "Value": "",
+      "Description": "Nova pausa de 0,3 segundos, para permitir o carregamento da lista de cidades da UF. (Aumente este valor, se necessário)"
+    },
+    {
+      "Command": "select",
+      "Target": "id=selCidade",
+      "Value": "label=${contatoUsuario[${i}][9]}",
+      "Targets": [
+        "id=selCidade",
+        "name=selCidade",
+        "xpath=//*[@id=\"selCidade\"]",
+        "xpath=//select[@id='selCidade']",
+        "xpath=//select[3]",
+        "css=#selCidade"
+      ],
+      "Description": "E, em seguida, a macro seleciona a cidade do usuário. "
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtCep",
+      "Value": "${contatoUsuario[${i}][10]}",
+      "Targets": [
+        "id=txtCep",
+        "name=txtCep",
+        "xpath=//*[@id=\"txtCep\"]",
+        "xpath=//input[@id='txtCep']",
+        "xpath=//input[6]",
+        "css=#txtCep"
+      ],
+      "Description": "Em seguida, é preenchido o CEP do usuário."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 33 da macro.)"
+    },
+    {
+      "Command": "select",
+      "Target": "id=selCargo",
+      "Value": "label=${contatoUsuario[${i}][11]}",
+      "Targets": [
+        "xpath=//*[@id=\"divInfraSparklingModalClose1755183521789\"]/a/img",
+        "xpath=//div[2]/div/div[3]/a/img",
+        "css=#divInfraSparklingModalClose1755183521789 > a > img"
+      ],
+      "Description": "Este comando seleciona o cargo do usuário."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selCategoria",
+      "Value": "label=${contatoUsuario[${i}][12]}",
+      "Targets": [
+        "id=selCategoria",
+        "name=selCategoria",
+        "xpath=//*[@id=\"selCategoria\"]",
+        "xpath=//select[@id='selCategoria']",
+        "xpath=//div[6]/select[2]",
+        "css=#selCategoria"
+      ],
+      "Description": "E este, seleciona a categoria do usuário."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtFuncao",
+      "Value": "${contatoUsuario[${i}][13]}",
+      "Targets": [
+        "id=txtFuncao",
+        "name=txtFuncao",
+        "xpath=//*[@id=\"txtFuncao\"]",
+        "xpath=//input[@id='txtFuncao']",
+        "xpath=//div[6]/input[3]",
+        "css=#txtFuncao"
+      ],
+      "Description": "E neste campo é informada a função que ele ocupa."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selTitulo",
+      "Value": "label=*${contatoUsuario[${i}][14]}*",
+      "Targets": [
+        "id=selTitulo",
+        "name=selTitulo",
+        "xpath=//*[@id=\"selTitulo\"]",
+        "xpath=//select[@id='selTitulo']",
+        "xpath=//div[6]/select[3]",
+        "css=#selTitulo"
+      ],
+      "Description": "Aqui é possível selecionar títulos, entre os previamente cadastrados."
+    },
+    {
+      "Command": "storeValue",
+      "Target": "id=txtCpf",
+      "Value": "cpfAtual",
+      "Description": "Este comando armazena o CPF, caso haja algum já informado no campo específico."
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var el=document.getElementById('txtCpf'); return el ? el.value.trim().length : 0;",
+      "Value": "tamCpf",
+      "Description": "E este confere se o valor armazenado tem tamanho maior que zero."
+    },
+    {
+      "Command": "if",
+      "Target": "${tamCpf} > 0",
+      "Value": "",
+      "Description": "se o tamanho do CPF for maior que zero, o campo não é alterado."
+    },
+    {
+      "Command": "echo",
+      "Target": "⏭️ O campo \"CPF\" do(a) usuário(a) ${contatoUsuario[${i}][1]} já possui valor informado (${cpfAtual}), que não será alterado. Prosseguindo para o próximo item.",
+      "Value": "blue",
+      "Description": "e essa informação é refletida na tela."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Caso contrário (caso o campo esteja vazio),"
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtCpf",
+      "Value": "${contatoUsuario[${i}][15]}",
+      "Description": "o CPF é cadastrado no campo correspondente."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 57 da macro.)"
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtRg",
+      "Value": "${contatoUsuario[${i}][16]}",
+      "Targets": [
+        "id=txtRg",
+        "name=txtRg",
+        "xpath=//*[@id=\"txtRg\"]",
+        "xpath=//input[@id='txtRg']",
+        "xpath=//div[7]/input[2]",
+        "css=#txtRg"
+      ],
+      "Description": "Este comando cadastra o RG do usuário."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtOrgaoExpedidor",
+      "Value": "${contatoUsuario[${i}][17]}",
+      "Targets": [
+        "id=txtOrgaoExpedidor",
+        "name=txtOrgaoExpedidor",
+        "xpath=//*[@id=\"txtOrgaoExpedidor\"]",
+        "xpath=//input[@id='txtOrgaoExpedidor']",
+        "xpath=//div[7]/input[3]",
+        "css=#txtOrgaoExpedidor"
+      ],
+      "Description": "E este, o órgão expedidor do RG."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtNascimento",
+      "Value": "${contatoUsuario[${i}][18]}",
+      "Targets": [
+        "id=txtNascimento",
+        "name=txtNascimento",
+        "xpath=//*[@id=\"txtNascimento\"]",
+        "xpath=//input[@id='txtNascimento']",
+        "xpath=//div[7]/input[4]",
+        "css=#txtNascimento"
+      ],
+      "Description": "Aqui, é inserida a data de nascimento do usuário."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtMatricula",
+      "Value": "${contatoUsuario[${i}][19]}",
+      "Targets": [
+        "id=txtMatricula",
+        "name=txtMatricula",
+        "xpath=//*[@id=\"txtMatricula\"]",
+        "xpath=//input[@id='txtMatricula']",
+        "xpath=//div[8]/input",
+        "css=#txtMatricula"
+      ],
+      "Description": "E aqui, a matrícula funcional."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtMatriculaOab",
+      "Value": "${contatoUsuario[${i}][20]}",
+      "Targets": [
+        "id=txtMatriculaOab",
+        "name=txtMatriculaOab",
+        "xpath=//*[@id=\"txtMatriculaOab\"]",
+        "xpath=//input[@id='txtMatriculaOab']",
+        "xpath=//div[8]/input[2]",
+        "css=#txtMatriculaOab"
+      ],
+      "Description": "Caso o usuário tenha registro na OAB, é aqui que ele é inserido."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtNumeroPassaporte",
+      "Value": "${contatoUsuario[${i}][21]}",
+      "Targets": [
+        "id=txtNumeroPassaporte",
+        "name=txtNumeroPassaporte",
+        "xpath=//*[@id=\"txtNumeroPassaporte\"]",
+        "xpath=//input[@id='txtNumeroPassaporte']",
+        "xpath=//div[8]/input[3]",
+        "css=#txtNumeroPassaporte"
+      ],
+      "Description": "Aqui, é informado o seu número de passaporte, caso haja."
+    },
+    {
+      "Command": "select",
+      "Target": "id=selPaisPassaporte",
+      "Value": "label=${contatoUsuario[${i}][22]}",
+      "Targets": [
+        "id=selPaisPassaporte",
+        "name=selPaisPassaporte",
+        "xpath=//*[@id=\"selPaisPassaporte\"]",
+        "xpath=//select[@id='selPaisPassaporte']",
+        "xpath=//div[8]/select",
+        "css=#selPaisPassaporte"
+      ],
+      "Description": "E aqui, o país de emissão do passaporte."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtTelefoneComercialPF",
+      "Value": "${contatoUsuario[${i}][23]}",
+      "Targets": [
+        "id=txtTelefoneComercialPF",
+        "name=txtTelefoneComercialPF",
+        "xpath=//*[@id=\"txtTelefoneComercialPF\"]",
+        "xpath=//input[@id='txtTelefoneComercialPF']",
+        "xpath=//div[9]/input",
+        "css=#txtTelefoneComercialPF"
+      ],
+      "Description": "Neste campo, é inserido o telefone comercial do usuário."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtTelefoneCelularPF",
+      "Value": "${contatoUsuario[${i}][24]}",
+      "Targets": [
+        "id=txtTelefoneCelularPF",
+        "name=txtTelefoneCelularPF",
+        "xpath=//*[@id=\"txtTelefoneCelularPF\"]",
+        "xpath=//input[@id='txtTelefoneCelularPF']",
+        "xpath=//div[9]/div/input",
+        "css=#txtTelefoneCelularPF"
+      ],
+      "Description": "Neste, seu telefone celular."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtTelefoneResidencialPF",
+      "Value": "${contatoUsuario[${i}][25]}",
+      "Targets": [
+        "id=txtTelefoneResidencialPF",
+        "name=txtTelefoneResidencialPF",
+        "xpath=//*[@id=\"txtTelefoneResidencialPF\"]",
+        "xpath=//input[@id='txtTelefoneResidencialPF']",
+        "xpath=//div[9]/div/input[2]",
+        "css=#txtTelefoneResidencialPF"
+      ],
+      "Description": "E neste, seu telefone residencial."
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtConjuge",
+      "Value": "${contatoUsuario[${i}][26]}",
+      "Targets": [
+        "id=txtConjuge",
+        "name=txtConjuge",
+        "xpath=//*[@id=\"txtConjuge\"]",
+        "xpath=//input[@id='txtConjuge']",
+        "xpath=//div[11]/input",
+        "css=#txtConjuge"
+      ],
+      "Description": "Aqui é informado o nome do cônjuge do usuário, caso informado."
+    },
+    {
+      "Command": "storeValue",
+      "Target": "id=txtEmail",
+      "Value": "emailAtual",
+      "Description": "Este comando armazena o e-mail do usuário, caso haja algum já informado no campo específico."
+    },
+    {
+      "Command": "executeScript",
+      "Target": "var el=document.getElementById('txtEmail'); return el ? el.value.trim().length : 0;",
+      "Value": "tamEmail",
+      "Description": "E este confere se o valor armazenado tem tamanho maior que zero."
+    },
+    {
+      "Command": "if",
+      "Target": "${tamEmail} > 0",
+      "Value": "",
+      "Description": "se o tamanho do valor no campo \"E-mail\" for maior que zero, o campo não é alterado."
+    },
+    {
+      "Command": "echo",
+      "Target": "⏭️ O campo \"E-mail\" do(a) usuário(a) ${contatoUsuario[${i}][1]} já possui valor informado (${emailAtual}), que não será alterado. Prosseguindo para o próximo item.",
+      "Value": "blue",
+      "Description": "e essa informação é refletida na tela."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "Caso contrário (caso o campo esteja vazio),"
+    },
+    {
+      "Command": "type",
+      "Target": "id=txtEmail",
+      "Value": "${contatoUsuario[${i}][27]}",
+      "Targets": [
+        "id=txtEmail",
+        "name=txtEmail",
+        "xpath=//*[@id=\"txtEmail\"]",
+        "xpath=//input[@id='txtEmail']",
+        "xpath=//div[12]/input",
+        "css=#txtEmail"
+      ],
+      "Description": "o e-mail do usuário é cadastrado no campo correspondente."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma bifurcação. Este é o \"end\" do \"if\" da linha 75 da macro.)"
+    },
+    {
+      "Command": "type",
+      "Target": "id=txaObservacao",
+      "Value": "${contatoUsuario[${i}][28]}",
+      "Targets": [
+        "id=txaObservacao",
+        "name=txaObservacao",
+        "xpath=//*[@id=\"txaObservacao\"]",
+        "xpath=//textarea[@id='txaObservacao']",
+        "xpath=//textarea",
+        "css=#txaObservacao"
+      ],
+      "Description": "Aqui é informada qualquer observação sobre o usuário em questão."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "name=sbmAlterarContato",
+      "Value": "",
+      "Targets": [
+        "name=sbmAlterarContato",
+        "xpath=//*[@id=\"divInfraBarraComandosSuperior\"]/button",
+        "xpath=//button[@name='sbmAlterarContato']",
+        "xpath=//div/button",
+        "css=#divInfraBarraComandosSuperior > button:nth-child(2)"
+      ],
+      "Description": "Este clique no botão \"Salvar\" armazena as informações de contato."
+    },
+    {
+      "Command": "pause",
+      "Target": "300",
+      "Value": "",
+      "Description": "Esta pausa de 0,3 segundos permite ao sistema processar o retorno à tela anterior."
+    },
+    {
+      "Command": "selectWindow",
+      "Target": "tab=0",
+      "Value": "",
+      "Description": "e volta à tela principal."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "name=sbmAlterarUsuario",
+      "Value": "",
+      "Description": "E, por fim, este comando simula o clique no botão \"salvar\"."
+    },
+    {
+      "Command": "store",
+      "Target": "true",
+      "Value": "!statusOK",
+      "Description": "Este comando é necessário para a validação do if posterior."
+    },
+    {
+      "Command": "verifyElementPresent",
+      "Target": "id=btnImprimir",
+      "Value": "",
+      "Targets": [
+        "id=btnImprimir",
+        "xpath=//*[@id=\"btnImprimir\"]",
+        "xpath=//button[@id='btnImprimir']",
+        "xpath=//button[5]",
+        "css=#btnImprimir"
+      ],
+      "Description": "Esta etapa é a conferência de que o SEI voltou à tela anterior após salvar."
+    },
+    {
+      "Command": "if",
+      "Target": "${!statusOK} == true",
+      "Value": "",
+      "Description": "Este comando valida se a verificação anterior manteve o status da execução como bem sucedida. Se sim, mensagem de sucesso. Se não, mensagem de erro."
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + 1;",
+      "Value": "ok",
+      "Description": "Primeiro, a macro acrescenta + 1 ao valor de \"ok\", ou seja, acrescenta uma execução bem-sucedida à conta."
+    },
+    {
+      "Command": "echo",
+      "Target": "✅ Dados do usuário ${contatoUsuario[${i}][1]} cadastrados com sucesso.",
+      "Value": "green",
+      "Description": "E por meio desta linha, exibe a mensagem de sucesso no log."
+    },
+    {
+      "Command": "else",
+      "Target": "",
+      "Value": "",
+      "Description": "caso contrário..."
+    },
+    {
+      "Command": "storeText",
+      "Target": "id=divInfraMensagens",
+      "Value": "mensagemErro",
+      "Description": "a macro armazena a mensagem de erro exibida pelo SEI,"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${falha}) + 1;",
+      "Value": "falha",
+      "Description": "em seguida, acrescenta + 1 ao valor de \"falha\", ou seja, acrescenta uma execução malsucedida à conta..."
+    },
+    {
+      "Command": "echo",
+      "Target": "❌ Falha ao cadastrar os dados do usuário ${contatoUsuario[${i}][1]}. Erro: \"${mensagemErro}\"",
+      "Value": "red",
+      "Description": "E, então, por meio desta linha, exibe a mensagem de falha no log."
+    },
+    {
+      "Command": "clickAndWait",
+      "Target": "id=btnCancelar",
+      "Value": "",
+      "Description": "Este clique no botão \"Cancelar\" permite à macro retornar à tela anterior para retomar o cadastro."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"if\", como a utilizada aqui. Ele indica que se encerra uma validação de uma condição. Este é o \"end\" do \"if\" da linha 87 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${i}) + 1;",
+      "Value": "i",
+      "Description": "Esta linha acrescenta + 1 ao valor de \"i\", que corresponde à linha a ser lida pela macro até chegar ao valor máximo. Ou seja, este é o comando que faz as iterações se repetirem enquanto houver dados a cadastrar."
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": "",
+      "Description": "(Não é o fim da macro. Este comando é padrão para operações \"while\", como a utilizada aqui. Ele indica que se encerra uma condição de repetição. Este é o \"end\" do \"while\" da linha 10 da macro.)"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return Number(${ok}) + Number(${falha});",
+      "Value": "total",
+      "Description": "Esta linha acrescenta + 1 ao valor de \"i\", que corresponde à linha a ser lida pela macro até chegar ao valor máximo. Ou seja, este é o comando que faz as iterações se repetirem enquanto houver dados a cadastrar."
+    },
+    {
+      "Command": "echo",
+      "Target": "🏁 Carga finalizada: ${total} registros processados, sendo ${ok} com sucesso e ${falha} com erro.",
+      "Value": "",
+      "Description": "E, por fim, esta linha relata - ao final da execução da macro - quantos registros foram processados, quantos com sucesso e quantos com erro."
+    }
+  ]
+}
