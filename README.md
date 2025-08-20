@@ -1,4 +1,4 @@
-<img width="1080" height="146" alt="header github macros pen mgi" src="https://github.com/user-attachments/assets/fa151c3a-3073-4c93-bb9d-d179413f7695" />
+<img width="100%" alt="header github macros pen mgi" src="https://github.com/user-attachments/assets/fa151c3a-3073-4c93-bb9d-d179413f7695" />
 
 # Automação de Cadastros no SEI e SIP com macros do UI.Vision RPA
 
