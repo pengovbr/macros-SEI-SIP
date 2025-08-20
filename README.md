@@ -402,7 +402,7 @@ Já o arquivo `exemploContatoUsuarios.csv`, por sua vez, é utilizado para alime
 > 4,hemengarda.quaresmeira,F,S,,,,,,,,,Servidor Público Federal,,Mestre,,112233,SSP-MG,21/06/1978,34567-E,,,,(31) 3344-5566,(31) 98765-4320,,,,Usuário de Teste  
 > 5,aparicio.caramuru,M,S,,,,,,,,Coordenador-Geral,Servidor Público Federal,CCE 1.13,,,445566,SSP-RJ,12/01/1975,23456-F,1456-DF,EF456789,Brasil,(24) 2233-1122,(24) 99876-5430,(24) 2233-1122,,,Usuário de Teste
 
-### Pontos de atenção sobre a macro `6.cargaContatoUsuarios`
+### <img width="24" height="24" alt="image" src="https://github.com/user-attachments/assets/e6557047-ca2f-4078-9f5b-b69d1d9fe4aa" /> Pontos de atenção sobre a macro `6.cargaContatoUsuarios`
 - O ponto de partida dessa macro é o sistema SEI, menu `Usuários` > `Listar`;
 - O arquivo de referência é o `exemploContatoUsuários.csv`, cuja estrutura está detalhada acima.
 > [!IMPORTANT]
@@ -410,10 +410,11 @@ Já o arquivo `exemploContatoUsuarios.csv`, por sua vez, é utilizado para alime
 - Entre os campos de contato de usuário, não há nenhum campo obrigatório. Logo, não haverá notificação de erro em tela no caso de não preenchimento, o que reforça a necessidade de se validar os dados antes de executar a macro.
 - Esta macro utiliza comandos `pause` para gerar pequenos tempos de espera - gravados em `ms` (milissegundos), necessários ao carregamento de informações em listas "dependentes" (ou seja, situações em que os itens da lista de um nível abaixo variam de acordo com a escolha no nível superior). Se necessário, edite estes valores para mais ou para menos, para otimizar seu funcionamento.
 
+<br />
 
 <a name="assuntos"></a>
 ## 🗄️CADASTRAMENTO DE ASSUNTOS
-O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro `6.cargaAssuntos`, responsável pelo cadastro dos assuntos da Tabela de Assuntos do SEI, com base no Código de Classificação de Documentos (CCD) e na Tabela de Temporalidade e Destinação (TTD).
+O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro `7.cargaAssuntos`, responsável pelo cadastro dos assuntos da Tabela de Assuntos do SEI, com base no Código de Classificação de Documentos (CCD) e na Tabela de Temporalidade e Destinação (TTD).
 
 #### Suas colunas são:
 0. **Index:** Número sequencial (auxilia na identificação linha a linha durante a execução da macro).  
@@ -444,9 +445,8 @@ O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro `6.cargaAssu
 > 4,020.02,Ensino,S,,,,Pendente validação  
 > 5,020.02.01,Planos de Ensino,,2,3,Eliminação,  
   
-### Pontos de atenção sobre a macro referentes a Assuntos:
+### 🗃️ Pontos de atenção sobre a macro Macro `7.assuntos`:
 
-### 🗃️ Macro `6.assuntos`
 - O ponto de partida dessa macro é o sistema SEI, menu `Administração` > `Tabelas de Assunto` > [Escolher a tabela desejada] >`Assuntos da Tabela`;
 - O arquivo de referência é o `exemploAssuntos.csv`, cuja estrutura está detalhada acima.
 - O log desta macro traz informações de progresso e detalha cada assunto carregado (informa se é apenas estrutural ou, se não, quais os prazos e qual a destinação associada a este assunto).
@@ -456,7 +456,7 @@ O arquivo `exemploAssuntos.csv` é utilizado para alimentar a macro `6.cargaAssu
 <a name="tiposDeProcesso"></a>
 ## 🗂️ CADASTRAMENTO DE TIPOS DE PROCESSO  
 
-O arquivo `exemploTiposDeProcesso.csv` é utilizado para alimentar a macro `7.cargaTiposDeProcesso`, responsável pelo cadastro dos Tipos de Processo no SEI. Ele inclui informações diversas, como a Classificação por Assunto sugerida, os órgãos e unidades a que se deseja restringir a criação de processos desse tipo, os níveis de acesso permitidos e sugeridos (os sugeridos se aplicam a sistemas integrados via Webservice e módulos), dentre outras funcionalidades.
+O arquivo `exemploTiposDeProcesso.csv` é utilizado para alimentar a macro `8.cargaTiposDeProcesso`, responsável pelo cadastro dos Tipos de Processo no SEI. Ele inclui informações diversas, como a Classificação por Assunto sugerida, os órgãos e unidades a que se deseja restringir a criação de processos desse tipo, os níveis de acesso permitidos e sugeridos (os sugeridos se aplicam a sistemas integrados via Webservice e módulos), dentre outras funcionalidades.
 
 #### Suas colunas são:
 0. **Seq:** Número sequencial (auxilia na identificação linha a linha na execução da macro).  
@@ -496,9 +496,7 @@ O arquivo `exemploTiposDeProcesso.csv` é utilizado para alimentar a macro `7.ca
 > 5,"Pessoal: Emissão De Certificados","Processo relacionado a emissão de certificados.",914,,,PUB;RES,RES,,"Sigilo de Empresa em Situação Falimentar (Art. 169 da Lei nº 11.101/2005)",SIM,,,  
 
   
-### Pontos de atenção sobre a macro referentes a Tipos de Processo:
-
-### <img width="24" height="24" alt="image" src="https://github.com/user-attachments/assets/9544de43-9ff6-4d5b-a530-eb5500e9bf47" /> Macro `6.assuntos`
+### <img width="24" height="24" alt="image" src="https://github.com/user-attachments/assets/bf5aea99-4d65-434b-8021-3c373fb7a095" /> Pontos de atenção sobre a macro Macro `8.cargaTiposDeProcesso`:
 - O ponto de partida dessa macro é o sistema SEI, menu `Administração` > `Tipos de Processo`;
 - O arquivo de referência é o `exemploTiposDePRocesso.csv`, cuja estrutura está detalhada acima.
 - O log desta macro traz informações de progresso e detalha cada Tipo de Processo carregado (informando se a criação de processos desse tipo está limitada a determinado órgão ou unidade).
