@@ -302,6 +302,8 @@ O arquivo `exemploUsuarios.csv` é utilizado para alimentar as macros `4.cargaUs
 
 Já o arquivo `exemploContatoUsuarios.csv`, por sua vez, é utilizado para alimentar a macro `6.cargaContatoUsuarios`, que permite a inclusão das informações de contato dos usuários, para permitir o preenchimento automático de documentos no SEI, a partir das variáveis disponíveis no sistema.
 
+### Sobre o arquivo `exemploUsuarios.csv`
+
 #### As colunas do arquivo `exemploUsuarios.csv` são:
 0. **Index**: Número sequencial (ajuda na orientação linha a linha);  
 1. **Orgao**: Sigla do órgão em que o usuário será cadastrado (deve estar idêntica à sigla do órgão no SIP) - Campo obrigatório;  
@@ -350,6 +352,8 @@ Já o arquivo `exemploContatoUsuarios.csv`, por sua vez, é utilizado para alime
 - Esta macro utiliza comandos `pause` para gerar pequenos tempos de espera - gravados em `ms` (milissegundos), necessários ao carregamento de informações em listas "dependentes" (ou seja, situações em que os itens da lista de um nível abaixo variam de acordo com a escolha no nível superior). Se necessário, edite estes valores para mais ou para menos, para otimizar seu funcionamento.
 <br/>
 
+### Sobre o arquivo `exemploContatoUsuarios.csv`
+
 #### As colunas do arquivo `exemploUsuarios.csv`, por sua vez, são:
 0. **Seq.**: Número sequencial do registro;
 1. **siglaUsuario**: Identificação do usuário no sistema (login);
@@ -397,6 +401,14 @@ Já o arquivo `exemploContatoUsuarios.csv`, por sua vez, é utilizado para alime
 > 3,virgulino.beringela,M,N,"Av. Brasil, 13",Bloco B,Aldeota,Brasil,CE,Fortaleza,60125-000,Chefe de Divisão,Servidor Público Federal,FCE 1.07,,,456789,SSP-CE,09/11/1984,56789-D,,CD987654,Brasil,(85) 2233-4455,(85) 99876-5432,,Maria de Souza,,Usuário de Teste  
 > 4,hemengarda.quaresmeira,F,S,,,,,,,,,Servidor Público Federal,,Mestre,,112233,SSP-MG,21/06/1978,34567-E,,,,(31) 3344-5566,(31) 98765-4320,,,,Usuário de Teste  
 > 5,aparicio.caramuru,M,S,,,,,,,,Coordenador-Geral,Servidor Público Federal,CCE 1.13,,,445566,SSP-RJ,12/01/1975,23456-F,1456-DF,EF456789,Brasil,(24) 2233-1122,(24) 99876-5430,(24) 2233-1122,,,Usuário de Teste
+
+### Pontos de atenção sobre a macro `6.cargaContatoUsuarios`
+- O ponto de partida dessa macro é o sistema SEI, menu `Usuários` > `Listar`;
+- O arquivo de referência é o `exemploContatoUsuários.csv`, cuja estrutura está detalhada acima.
+> [!IMPORTANT]
+> - Esta macro altera os contatos de usuários do SEI. A edição de contatos no sistema tem *regras específicas*. Por exemplo, o usuário  que for executar a macro **precisa** acessar o SEI em uma unidade que esteja indicada como **Administradora deste Tipo de Contato**. Isto deve ser verificado e alterado (se necessário) **antes de executar a macro**, por meio do menu `Administração` > `Contatos` > `Tipos` > `Listar`, selecionando o Tipo de Contato correspondente (que estará cadastrado como `Usuários [SIGLA DO ÓRGÃO]`) e clicando em  <img width="24" height="24" alt="image" src="https://github.com/user-attachments/assets/f6bf8c0e-9d0e-4803-8780-5202dfa2a4c2" /> (Alterar Tipo de Contato). No campo `Unidades Administradoras deste tipo`, verificar se a unidade desejada consta na lista e, caso não esteja, realizar a devida inclusão.
+- Entre os campos de contato de usuário, não há nenhum campo obrigatório. Logo, não haverá notificação de erro em tela no caso de não preenchimento, o que reforça a necessidade de se validar os dados antes de executar a macro.
+- Esta macro utiliza comandos `pause` para gerar pequenos tempos de espera - gravados em `ms` (milissegundos), necessários ao carregamento de informações em listas "dependentes" (ou seja, situações em que os itens da lista de um nível abaixo variam de acordo com a escolha no nível superior). Se necessário, edite estes valores para mais ou para menos, para otimizar seu funcionamento.
 
 
 <a name="assuntos"></a>
@@ -507,7 +519,6 @@ _Clique na imagem com o botão direito e abra o link em nova aba, caso precise m
 
 [![video-macros-mini](https://github.com/user-attachments/assets/591f5eec-712d-4373-a385-70e9672a1f9d)](https://youtu.be/uYujObEl0RY)
 
-<img width="24" height="24" alt="image" src="https://github.com/user-attachments/assets/f6bf8c0e-9d0e-4803-8780-5202dfa2a4c2" />
 
 
 ---
