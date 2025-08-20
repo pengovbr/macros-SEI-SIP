@@ -291,7 +291,7 @@ O arquivo exemploUnidades.csv é utilizado para alimentar as macros `1.cargaUnid
 ### 🎛️ Macro `3.dadosUnidadesSEI`
 - O ponto de partida dessa macro é o sistema SEI, menu `Administração` > `Unidades` > `Listar`;
 - O arquivo de referência é o `exemploUnidades.csv`, cuja estrutura está detalhada acima.
-- Esta macro utiliza a funcionalidade `Usar endereço associado` da Administração do SEI, que faz com que o  endereço do órgão seja adotado para suas unidades. Caso tenha necessidade de cadastrar dados individualizados por unidade, [registre uma issue](https://github.com/pengovbr/macros-SEI-SIP/issues/new/choose) sugerindo esta melhoria.
+- A coluna `6-usaEndereçoDoÓrgao?` desta macro utiliza a funcionalidade `Usar endereço associado` da Administração do SEI, que faz com que, a partir do valor informado (S/N, sim ou não), o sistema informe se a unidade utilizará ou não o endereço do órgão ao qual está vinculada. Se assinalado `S` (sim) nesse campo, não haverá necessidade de informar quaisquer valores nos campos `7-endereçoUnidade`, `8-complementoEndereco`, `9-bairroUnidade`, `10-UFUnidade`, `11-cidadeUnidade`e `12-CEPUnidade`, pois os valores referentes ao órgão serão utilizados. Caso seja assinalado `N` (não), no entanto, estes campos devem obrigatoriamente ser preenchidos, para que não fiquem incompletas as informações de endereçamento da unidade. 
 
 <br/>
 
