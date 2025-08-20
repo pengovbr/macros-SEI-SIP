@@ -117,7 +117,7 @@ São 08 (oito) macros, que executam diferentes operações nos sistemas SEI e SI
 Estão disponíveis 05 (cinco) arquivos em formato `.csv` para servir de modelo para preenchimento pelo administrador: 
 1. **exemploUnidades**: que traz a estrutura de dados referentes a unidades, para execução das macros `1.cargaUnidades.json`, `2.hierarquia.json ` e `3.dadosUnidadesSEI.json`;
 2. **exemploUsuarios**: que traz a estrutura de dados referentes a usuários,  para execução das macros `4.cargaUsuarios.json` e `5.primeirasPermissoes.json `;
-3. **exemploContatoUsuarios**: que traz a estrutura dos dados referentes às informações de contato dos usuparios, para execução da macro `6.cargaContatoUsuarios.json`
+3. **exemploContatoUsuarios**: que traz a estrutura dos dados referentes às informações de contato dos usuários, para execução da macro `6.cargaContatoUsuarios.json`
 4. **exemploAssuntos**: que traz a estrutura de dados referentes aos assuntos da tabela, para servir de modelo para preenchimento pelo administrador, para execução da macro `7.cargaAssuntos.json `; e
 5. **exemploTiposDeProcesso**: que traz a estrutura de dados referente aos Tipos de Processo, para execução da macro `8.cargaTiposDeProcesso.json`
 
