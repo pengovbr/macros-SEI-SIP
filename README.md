@@ -242,7 +242,7 @@ O arquivo exemploUnidades.csv é utilizado para alimentar as macros `1.cargaUnid
 14. **TELEFONE DA UNIDADE**: Campo para informar o Telefone da unidade; e  
 15. **SITE DA UNIDADE**: Campo para informar o sítio web da unidade.  
 
-#### Exemplo de arquivo `exemploUnidades.csv` em formato de tabela:
+#### Visualização do arquivo `exemploUnidades.csv` em formato de tabela:
 
 | 0-Seq. | 1-orgaoUnidade | 2-siglaUnidade | 3-descricaoUnidade                           | 4-superiorNaHierarquia | 5-emailUnidade                | 6-usaEndereçoDoÓrgao? | 7-endereçoUnidade                                  | 8-complementoEndereco     | 9-bairroUnidade | 10-UFUnidade | 11-cidadeUnidade | 12-CEPUnidade | 13-CNPJUnidade | 14-telefoneUnidade | 15-siteUnidade                              |
 |--------|----------------|----------------|----------------------------------------------|-------------------------|-------------------------------|------------------------|-----------------------------------------------------|----------------------------|------------------|---------------|-------------------|----------------|----------------|---------------------|---------------------------------------------|
@@ -255,7 +255,7 @@ O arquivo exemploUnidades.csv é utilizado para alimentar as macros `1.cargaUnid
 | 7      | GOV-CR         | SUINV          | Subsecretaria de Inovação                    | SETIN                   | suinv@cariris.gov.br          | N                      | Avenida 123, Área Especial 456, Palácio de Governo  | Bloco C, Sala 255         | Centro           | CR            | Esperança         | 59900-000      |                | (61)2345-6543       | https://governo.cr.gov.br/inovacao         |
 
 
-#### Formato `.csv` correspondente:
+#### Visualização do `.csv` correspondente:
 
 > 0-Seq.,1-orgaoUnidade,2-siglaUnidade,3-descricaoUnidade,4-superiorNaHierarquia,5-emailUnidade,6-usaEndereçoDoÓrgao?,7-endereçoUnidade,8-complementoEndereco,9-bairroUnidade,10-UFUnidade,11-cidadeUnidade,12-CEPUnidade,13-CNPJUnidade,14-telefoneUnidade,15-siteUnidade
 > 1,GOV-CR,GABIN,gabinete,,governador@cariris.gov.br,S,,,,,,,,(61)2345-6789,https://governo.cr.gov.br/
@@ -298,9 +298,11 @@ O arquivo exemploUnidades.csv é utilizado para alimentar as macros `1.cargaUnid
 
 <a name="usuarios"></a>
 ## 🙋🏻‍♀️ CADASTRAMENTO DE USUÁRIOS
-O arquivo `exemploUsuarios.csv` é utilizado para alimentar as macros `4.cargaUsuarios` e `5.primeirasPermissoes`, responsáveis pelo cadastro de usuários e concessão de suas permissões iniciais no SIP/SEI. Ele contempla dados de identificação, CPF, e-mail e dados das primeiras permissões para viabilizar acesso ao SEI para os usuários.
+O arquivo `exemploUsuarios.csv` é utilizado para alimentar as macros `4.cargaUsuarios` e `5.primeirasPermissoes`, responsáveis pelo cadastro de usuários e concessão de suas permissões iniciais no SIP/SEI. Ele contempla dados de identificação, CPF, e-mail e dados das primeiras permissões para viabilizar acesso ao SEI para os usuários. 
 
-#### Suas colunas são:
+Já o arquivo `exemploContatoUsuarios.csv`, por sua vez, é utilizado para alimentar a macro `6.cargaContatoUsuarios`, que permite a inclusão das informações de contato dos usuários, para permitir o preenchimento automático de documentos no SEI, a partir das variáveis disponíveis no sistema.
+
+#### As colunas do arquivo `exemploUsuarios.csv` são:
 0. **Index**: Número sequencial (ajuda na orientação linha a linha);  
 1. **Orgao**: Sigla do órgão em que o usuário será cadastrado (deve estar idêntica à sigla do órgão no SIP) - Campo obrigatório;  
 2. **Sigla**: Sigla do Usuário a ser cadastrado - Campo obrigatório;  
@@ -311,7 +313,7 @@ O arquivo `exemploUsuarios.csv` é utilizado para alimentar as macros `4.cargaUs
 7. **unidadePrimeiraPermissao**: Unidade na qual o usuário deve receber a primeira permissão, viabilizando seu acesso ao SEI; e
 8. **perfilPrimeiraPermissao**: perfil a ser dado ao usuário na unidade da primeira permissão.
 
-#### Exemplo de arquivo `exemploUsuarios.csv` em formato de tabela:
+#### Visualização do arquivo `exemploUsuarios.csv` em formato de tabela:
 
 |0.Index|1.Orgao | 2.Sigla                | 3.Nome                      | 4.Nome Social              | 5.CPF          | 6.E-mail institucional                | 7.unidadePrimeiraPermissao| 8.perfilPrimeiraPermissao               |
 |-------|--------|------------------------|-----------------------------|----------------------------|----------------|---------------------------------------|---------------------------|-----------------------------------------|
@@ -322,7 +324,7 @@ O arquivo `exemploUsuarios.csv` é utilizado para alimentar as macros `4.cargaUs
 | 5     | ORGAO1 | ursula.trigueirinho    | Úrsula Trigueirinho         |                            | 065.697.139-81 | ursula.trigueirinho@orgao1.govr       | UNI1.2.1                  | Básico                                  |
 | ...   |||||||  
 
-#### Formato `.csv` correspondente:
+#### Visualização do  `.csv` correspondente:
 > 0Index,1Orgao,2Sigla,3Nome,4Nome Social,5CPF,6E-mail institucional,7unidadePrimeiraPermissao,8perfilPrimeiraPermissao  
 > 1,ORGAO1,leocadio.macambira,Leocádio Macambira,,118.229.998-98,leocadio.macambira@orgao1.gov,UNI1,Básico  
 > 2,ORGAO1,tertuliano.gongora,"Tertuliano Gongora, Msc.",,124.039.082-31,tertuliano.gongora@orgao1.gov,UNI1.1,Básico  
@@ -332,9 +334,9 @@ O arquivo `exemploUsuarios.csv` é utilizado para alimentar as macros `4.cargaUs
 
 > [!NOTE]
 > - A coluna `Nome Social` diz respeito ao nome pelo qual a pessoa transgênero ou não-binária deseja ser reconhecida e tratada, em vez do nome registrado oficialmente, com base no Decreto nº 8.727/2016 ou legislação correlata. **Não deve** ser utilizada para cadastro de nome artístico, pseudônimo, nome político ou nome de fantasia de empresa representada.  
-> - A ideia das colunas 7 e 8 é viabilizar o acesso dos usuários ao SEI, cadastrando as **primeiras** permissões. Outras permissões devem ser cadastradas posteriormente pelo administrador (Recomenda-se, a título de agilidade, utilizar a funcionalidade `Atribuição em Bloco` no menu `Permissões` do SIP).
+> - A ideia das colunas 7 e 8 é viabilizar o acesso dos usuários ao SEI, cadastrando as **primeiras** permissões. Outras permissões devem ser cadastradas posteriormente pelo administrador (Recomenda-se, a título de **agilidade**, utilizar a funcionalidade `Atribuição em Bloco` no menu `Permissões` do SIP).
 
-### Pontos de atenção sobre as macros referentes a Usuários:
+### Pontos de atenção sobre as macros `4.cargaUsuarios` e `5.primeirasPermissoes`:
 
 ### <img width="24" height="24" alt="image" src="https://github.com/user-attachments/assets/cb5a8743-27fc-4a5a-9423-a9e3a12a6a2b" /> Macro `4.cargaUsuarios`
 - O ponto de partida dessa macro é o sistema SIP, menu `Usuários` > `Listar`;
@@ -345,9 +347,56 @@ O arquivo `exemploUsuarios.csv` é utilizado para alimentar as macros `4.cargaUs
 - O ponto de partida dessa macro é o sistema SIP, menu `Permissões` > `Atribuição em Bloco`;
 - A macro de permissões trata o uso de `*` para a Unidade Global por meio de uma conversão interna para evitar falhas, trocando o asterisco (que gera erro de comportamento na macro) pelo termo `index=1`. Foi uma solução adotada para evitar erros de permissionamento no caso de acesso à unidade global.
 - Como dito anteriormente, a proposta, neste caso, é apenas cadastrar uma **primeira permissão** para viabilizar o acesso ao SEI para o usuário cadastrado, e não esgotar todas as suas permissões. Estas podem ser cadastradas posteriormente, com o sistema já em uso pelos usuários.
-- Esta macro utiliza comandos `pause` para gerar pequenos tempos de espera - gravados em `ms` (milissegundos), necessários ao carregamento de informações em listas "dependentes" (ou seja, situações em que os itens da lista de um nível abaixo variam de acordo com a escolha no nível superior). Se necessário, edite estes valores para mais ou para menos para otimizar seu funcionamento.
-
+- Esta macro utiliza comandos `pause` para gerar pequenos tempos de espera - gravados em `ms` (milissegundos), necessários ao carregamento de informações em listas "dependentes" (ou seja, situações em que os itens da lista de um nível abaixo variam de acordo com a escolha no nível superior). Se necessário, edite estes valores para mais ou para menos, para otimizar seu funcionamento.
 <br/>
+
+#### As colunas do arquivo `exemploUsuarios.csv`, por sua vez, são:
+0. **Seq.**: Número sequencial do registro;
+1. **siglaUsuario**: Identificação do usuário no sistema (login);
+2. **generoUsuario**: Gênero do usuário (M/F);
+3. **usaEnderecoDoOrgao**: Indica se o usuário utiliza o endereço do órgão (S/N);
+4. **enderecoUsuario**: Endereço do usuário, se não utilizado o do órgão;
+5. **complemEndUsuario**: Complemento do endereço do usuário, se não utilizado o do órgão;
+6. **bairroUsuario**: Bairro do usuário, se não utilizado o endereço do órgão;
+7. **paisUsuario**: País do usuário, se não utilizado o endereço do órgão;
+8. **ufUsuario**: Unidade da Federação (UF) do usuário, se não utilizado o endereço do órgão;
+9. **cidadeUsuario**: Cidade do usuário, se não utilizado o endereço do órgão;
+10. **cepUsuario**: Código de Endereçamento Postal (CEP) do usuário, se não utilizado o endereço do órgão;
+11. **cargoUsuario**: Cargo ocupado pelo usuário;
+12. **categoriaUsuario**: Categoria funcional do usuário;
+13. **funcaoUsuario**: Função exercida pelo usuário;
+14. **tituloUsuario**: Título acadêmico ou de tratamento do usuário;
+15. **cpfUsuario**: CPF do usuário;
+16. **rgUsuario**: Número do RG do usuário;
+17. **orgaoExpRgUsuario**: Órgão expedidor do RG do usuário;
+18. **dataNascUsuario**: Data de nascimento do usuário;
+19. **matriculaUsuario**: Matrícula funcional do usuário;
+20. **matOabUsuario**: Número de matrícula da OAB do usuário (se aplicável);
+21. **passaporteUsuario**: Número do passaporte do usuário (se aplicável);
+22. **paisPassaporteUsuario**: País emissor do passaporte do usuário;
+23. **telefoneComercialUsuario**: Telefone comercial do usuário;
+24. **telefoneCelularUsuario**: Telefone celular do usuário;
+25. **telefoneResidencialUsuario**: Telefone residencial do usuário;
+26. **conjugeUsuario**: Nome do cônjuge do usuário;
+27. **emailUsuario**: E-mail do usuário; e
+28. **obsUsuario**: Qualquer observação a respeito do usuário.
+
+#### Visualização do arquivo `exemploContatoUsuarios.csv` em formato de tabela:
+| Seq. | siglaUsuario        | generoUsuario | usaEnderecoDoOrgao | enderecoUsuario       | complemEndUsuario | bairroUsuario | paisUsuario | ufUsuario | cidadeUsuario  | cepUsuario | cargoUsuario      | categoriaUsuario        | funcaoUsuario | tituloUsuario | cpfUsuario | rgUsuario | orgaoExpRgUsuario | dataNascUsuario | matriculaUsuario | matOabUsuario | passaporteUsuario | paisPassaporteUsuario | telefoneComercialUsuario | telefoneCelularUsuario | telefoneResidencialUsuario | conjugeUsuario  | emailUsuario | obsUsuario       |
+|------|---------------------|---------------|--------------------|-----------------------|-------------------|---------------|-------------|-----------|----------------|------------|-------------------|-------------------------|---------------|---------------|------------|-----------|-------------------|-----------------|------------------|----------------|-------------------|-----------------------|--------------------------|------------------------|----------------------------|----------------|--------------|------------------|
+| 1    | tertuliano.gongora  | M             | N                  | Rua 123, nº 4         | Casa 5            | Méier         | Brasil      | RJ        | Rio de Janeiro | 22345-678  | Coordenador       | Servidor Público Federal| FCE 1.10      |               | 878786     | SSP-RJ    |                   | 31/12/1978      | 49841-M          |                | AB123456          | Brasil                | (21) 2345-6789           | (21) 98765-4321         |                            |                |              | Usuário de Teste |
+| 2    | zildette.brazil     | F             | N                  | Rua das Flores, 20    | Ap 301            | Centro        | Brasil      | SP        | São Paulo      | 01001-000  |                   | Terceirizado            |               |               | 987654     | SSP-SP    |                   | 15/03/1990      | 78901-C          |                |                   |                       | (11) 3456-7890           | (11) 91234-5678         | (11) 3456-7890            |                |              | Usuário de Teste |
+| 3    | virgulino.beringela | M             | N                  | Av. Brasil, 13        | Bloco B           | Aldeota       | Brasil      | CE        | Fortaleza      | 60125-000  | Chefe de Divisão  | Servidor Público Federal| FCE 1.07      |               | 456789     | SSP-CE    |                   | 09/11/1984      | 56789-D          |                | CD987654          | Brasil                | (85) 2233-4455           | (85) 99876-5432         |                            | Maria de Souza |              | Usuário de Teste |
+| 4    | hemengarda.quaresmeira | F          | S                  |         |             |        |       |         |  |   |                   | Servidor Público Federal|               | Mestre        | 112233     | SSP-MG    |                   | 21/06/1978      | 34567-E          |                |                   |                       | (31) 3344-5566           | (31) 98765-4320         |                            |                |              | Usuário de Teste |
+| 5    | aparicio.caramuru   | M             | S                  |   |                   |     |       |        |    |   | Coordenador-Geral | Servidor Público Federal| CCE 1.13      |               | 445566     | SSP-RJ    |                   | 12/01/1975      | 23456-F          | 1456-DF        | EF456789          | Brasil                | (24) 2233-1122           | (24) 99876-5430         | (24) 2233-1122            |                |              | Usuário de Teste |
+
+#### Visualização do  `.csv` correspondente:
+> 0.Seq.,1.siglaUsuario,2.generoUsuario,3.usaEnderecoDoOrgao,4.enderecoUsuario,5.complemEndUsuario,6.bairroUsuario,7.paisUsuario,8.ufUsuario,9.cidadeUsuario,10.cepUsuario,11.cargoUsuario,12.categoriaUsuario,13.funcaoUsuario,14.tituloUsuario,15.cpfUsuario,16.rgUsuario,17.orgaoExpRgUsuario,18.dataNascUsuario,19.matriculaUsuario,20.matOabUsuario,21.passaporteUsuario,22.paisPassaporteUsuario,23.telefoneComercialUsuario,24.telefoneCelularUsuario,25.telefoneResidencialUsuario,26.conjugeUsuario,27.emailUsuario,28.obsUsuario  
+> 1,tertuliano.gongora,M,N,"Rua 123, nº 4",Casa 5,Méier,Brasil,RJ,Rio de Janeiro,22345-678,Coordenador,Servidor Público Federal,FCE 1.10,,,878786,SSP-RJ,31/12/1978,49841-M,,AB123456,Brasil,(21) 2345-6789,(21) 98765-4321,,,,Usuário de Teste  
+> 2,zildette.brazil,F,N,"Rua das Flores, 20",Ap 301,Centro,Brasil,SP,São Paulo,01001-000,,Terceirizado,,,,987654,SSP-SP,15/03/1990,78901-C,,,,(11) 3456-7890,(11) 91234-5678,(11) 3456-7890,,,Usuário de Teste  
+> 3,virgulino.beringela,M,N,"Av. Brasil, 13",Bloco B,Aldeota,Brasil,CE,Fortaleza,60125-000,Chefe de Divisão,Servidor Público Federal,FCE 1.07,,,456789,SSP-CE,09/11/1984,56789-D,,CD987654,Brasil,(85) 2233-4455,(85) 99876-5432,,Maria de Souza,,Usuário de Teste  
+> 4,hemengarda.quaresmeira,F,S,,,,,,,,,Servidor Público Federal,,Mestre,,112233,SSP-MG,21/06/1978,34567-E,,,,(31) 3344-5566,(31) 98765-4320,,,,Usuário de Teste  
+> 5,aparicio.caramuru,M,S,,,,,,,,Coordenador-Geral,Servidor Público Federal,CCE 1.13,,,445566,SSP-RJ,12/01/1975,23456-F,1456-DF,EF456789,Brasil,(24) 2233-1122,(24) 99876-5430,(24) 2233-1122,,,Usuário de Teste
 
 
 <a name="assuntos"></a>
@@ -458,6 +507,7 @@ _Clique na imagem com o botão direito e abra o link em nova aba, caso precise m
 
 [![video-macros-mini](https://github.com/user-attachments/assets/591f5eec-712d-4373-a385-70e9672a1f9d)](https://youtu.be/uYujObEl0RY)
 
+<img width="24" height="24" alt="image" src="https://github.com/user-attachments/assets/f6bf8c0e-9d0e-4803-8780-5202dfa2a4c2" />
 
 
 ---
